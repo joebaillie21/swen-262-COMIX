@@ -4,3 +4,4 @@ Collaborators (Add name when repo has been cloned onto your system):
 Joe Baillie
 Zach Brown
 Ash Roushinko
+Angela Ngo
