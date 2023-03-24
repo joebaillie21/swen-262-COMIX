@@ -1,15 +1,34 @@
-DROP TABLE IF EXISTS comics 
--- CREATE TABLE users(
---     id SERIAL PRIMARY KEY, 
---     username TEXT NOT NULL DEFAULT '',
-    
--- );
+-- + publisher
+-- + seriesTitle
+-- + volumeNumber
+-- +issueNumber
+-- + publicationDate
+-- + Author
+-- + principleCharacters
+-- + description
+-- + value
+-- + grade
 
 CREATE TABLE comics(
-    id SERIAL PRIMARY KEY, 
-    series_name TEXT NOT NULL, 
-    issue_num INTEGER NOT NULL, 
-    full_title TEXT NOT NULL, 
-
-    
+  id SERIAL PRIMARY KEY,
+  series_title TEXT NOT NULL,
+  volume_number INT NOT NULL,
+  issue_number INT NOT NULL,
+  publication_date DATE,
+  author TEXT,
+  publisher_id INT,
+  principle_character TEXT, 
+  description TEXT,
+  value FLOAT, 
+  grade INT
 );
+
+CREATE TABLE publishers(
+  id SERIAL PRIMARY KEY, 
+  name TEXT NOT NULL
+  );
+
+CREATE TABLE users(
+  id SERIAL PRIMARY KEY, 
+  collection JSON
+  );

@@ -1,0 +1,42 @@
+STEP 1: 
+
+Please make a file in the db package in the following format:
+
+package db;
+
+public class credentials {
+
+    private static String host = "jdbc:postgresql://localhost:5432/Comix";
+    private static String username = "your admin name";
+    private static String password = "your admin password";
+
+    public static String getHost() {
+        return host;
+    }
+
+    public static String getUsername() {
+        return username;
+    }
+
+    public static String getPassword() {
+        return password;
+    }
+
+}
+
+
+STEP 2:
+
+Replace host, username, and password with your own host, usrename, and password
+
+STEP 3:
+Go to the following URL and download the jdbc postgresql connection jar file:
+https://jdbc.postgresql.org/download/
+
+STEP 4:
+
+Go to the URL below if you need help with this step.
+https://code.visualstudio.com/docs/java/java-project
+
+Add the jar file you just downloaded to the path for this java project. There should be a java project tab on the bottom of the vscode explorer.
+If you need any extra help please send me a slack message.
