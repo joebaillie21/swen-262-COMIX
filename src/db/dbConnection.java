@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class dbConnection {
 
-    public static void main(String[] args) {
+    public static Connection getConnection() {
 
         Connection connection = null;
 
@@ -16,14 +16,18 @@ public class dbConnection {
                     credentials.getPassword());
 
             if (connection != null) {
-                System.out.println("Connection OK");
+                System.out.println("Connection successful.");
+                return connection;
+            } else {
+
+                System.out.println("Connection failed.");
+                return null;
+
             }
 
-            else {
-                System.out.println("Connection FAILED");
-            }
         } catch (Exception e) {
             System.out.println(e);
+            return null;
         }
     }
 }
