@@ -9,7 +9,7 @@ public class AuthenticatedAction implements Action{
         this.pc = pc; 
     }
     @Override
-    public void execute(ComicBook comic) {
+    public void execute(ComicBook comic) { // sets this equal to true in the personal collection 
         pc.authenticate((ComicBookComponent) comic);
         this.comic = comic; 
     }
