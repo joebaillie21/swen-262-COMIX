@@ -4,17 +4,9 @@ public class dbMain {
 
     public static void main(String[] args) throws Exception {
 
-        dbConnection.getConnection();
-        dbSetup.createTable();
+        dbManager.getConnection();
+        dbManager.createComixTable();
 
-    }
-
-    public static void createTable() throws Exception {
-        try {
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
     }
 
 }
