@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class ComicBookComponent implements ComicBook {
     private Publisher publisher; 
-    private Author author; 
+    private ArrayList<Author> authors; 
     private String seriesTitle, publicationDate, description; 
     private int volNum, issueNum, grade; 
     private ArrayList<String> principleCharacters, signatures; 
@@ -13,9 +13,9 @@ public class ComicBookComponent implements ComicBook {
     private double value; 
 
 
-    public ComicBookComponent(Publisher publisher, String seriesTitle, int volNum, int issueNum, String publicationDate, Author author, ArrayList<String> principleCharacters, String description){
+    public ComicBookComponent(Publisher publisher, String seriesTitle, int volNum, int issueNum, String publicationDate, ArrayList<Author> authors, ArrayList<String> principleCharacters, String description){
         this.publisher = publisher; 
-        this.author = author; 
+        this.authors = authors; 
         this.seriesTitle = seriesTitle; 
         this.volNum = volNum;
         this.issueNum = issueNum;  
@@ -28,9 +28,71 @@ public class ComicBookComponent implements ComicBook {
         isAuthenticated = false; 
     }
 
+
     @Override
-    public void gradeAlgorithm(ComicBook comic) {
-        // work on this 
+    public Publisher getPublisher() {
+        return this.publisher;
+    }
+
+
+    @Override
+    public ArrayList<Author> getAuthors() {
+        return this.authors;
+    }
+
+
+    @Override
+    public String getSeriesTitle() {
+        return this.seriesTitle;
+
+    }
+
+
+    @Override
+    public String getPublicationDate() {
+        return this.publicationDate;
+    }
+
+
+    @Override
+    public String getDescription() {
+        return this.description;
+    }
+
+
+    @Override
+    public int getVolNum() {
+        return this.volNum;
+    }
+
+
+    @Override
+    public int getIssueNum() {
+        return this.issueNum;
+    }
+
+
+    @Override
+    public int getGrade() {
+        return this.grade;
+    }
+
+
+    @Override
+    public ArrayList<String> getPrincipleCharacters() {
+        return this.principleCharacters;
+    }
+
+
+    @Override
+    public boolean getAuthenticated() {
+        return this.isAuthenticated;
+    }
+
+
+    @Override
+    public double getValue() {
+        return this.value;
     }
     
 }
