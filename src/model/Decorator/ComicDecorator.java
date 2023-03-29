@@ -1,12 +1,16 @@
-package model;
+package model.Decorator;
 
 import java.util.ArrayList;
+
+import model.Author;
+import model.ComicBook;
+import model.Publisher;
 
 public class ComicDecorator implements ComicBook{
 
     protected ComicBook comicBook;
 
-    private ComicDecorator(ComicBook comicBook){
+    protected ComicDecorator(ComicBook comicBook){
         this.comicBook = comicBook;
     }
 
@@ -74,5 +78,10 @@ public class ComicDecorator implements ComicBook{
     @Override
     public double getValue() {
         return comicBook.getValue();
+    }
+
+    @Override
+    public int getSignatures() {
+        return comicBook.getSignatures();
     }
 }

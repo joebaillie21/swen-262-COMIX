@@ -7,8 +7,8 @@ public class ComicBookComponent implements ComicBook {
     private Publisher publisher; 
     private ArrayList<Author> authors; 
     private String seriesTitle, publicationDate, description; 
-    private int volNum, issueNum, grade; 
-    private ArrayList<String> principleCharacters, signatures; 
+    private int volNum, issueNum, grade, signatures; 
+    private ArrayList<String> principleCharacters; 
     private boolean isAuthenticated; 
     private double value; 
 
@@ -22,7 +22,7 @@ public class ComicBookComponent implements ComicBook {
         this.publicationDate = publicationDate; 
         this.principleCharacters = principleCharacters; 
         this.description = description; 
-        this.signatures = new ArrayList<String>();
+        this.signatures = 0;
         this.grade = 0; 
         this.value = 0; 
         isAuthenticated = false; 
@@ -94,5 +94,11 @@ public class ComicBookComponent implements ComicBook {
     public double getValue() {
         return this.value;
     }
-    
+
+
+    @Override
+    public int getSignatures() {
+        return this.signatures;
+    }  
+
 }
