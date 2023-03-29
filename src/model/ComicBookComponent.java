@@ -15,7 +15,7 @@ public class ComicBookComponent implements ComicBook {
     private boolean isAuthenticated; 
     private double value; 
 
- 
+
     public ComicBookComponent(Publisher publisher, String seriesTitle, int volNum, int issueNum, String publicationDate, Author author, ArrayList<String> principleCharacters, String description){
         this.publisher = publisher; 
         this.author = author; 
@@ -60,4 +60,36 @@ public class ComicBookComponent implements ComicBook {
     public Author getAuthor(){return author;}
 
     public String getPubDate(){return publicationDate; }
+
+    public void setAuthentication(boolean isAuthenticated){
+        this.isAuthenticated = isAuthenticated; 
+    }
+
+    public void setGrade(int grade){
+        this.grade = grade; 
+    }
+
+    public void setValue(int value){
+        this.value = value; 
+    }
+    @Override
+    public boolean equals(Object o){ 
+        if(!(o instanceof ComicBookComponent)){
+            return false;
+        }
+        
+        ComicBookComponent other = (ComicBookComponent) o; 
+        for(int i = 0; i < other.getPrincipleCharacter().size(); i++){
+            if(!other.getPrincipleCharacter().get(i).equals(principleCharacters.get(i))){
+                return false; 
+            }
+        }
+
+        return (
+            other.getAuthor().getName().equals(author.getName()) && other.getPubDate().equals(publicationDate) && other.getValue() == value && other.getGrade() == grade
+            && other.getDescription().equals(description) && other.getIssueNum() == issueNum && other.getVolNum() == volNum && other.getPublisher().getName().equals(publisher.getName())
+            && other.isAuthenticated() == isAuthenticated && other.getSeriesTitle().equals(seriesTitle)
+        );
+        
+    }
 }
