@@ -1,4 +1,4 @@
-package main.java.com.swen.comix.model;
+package com.swen.comix.model;
 
 public class SignedAction implements Action{
 

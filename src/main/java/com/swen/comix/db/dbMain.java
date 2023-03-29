@@ -1,4 +1,4 @@
-package main.java.com.swen.comix.db;
+package com.swen.comix.db;
 
 public class dbMain {
 
