@@ -1,7 +1,8 @@
 package model;
 
-import java.util.ArrayList;
-
+/**
+ * @Author Angela Ngo 
+ */
 public interface ComixMediator {
     public boolean login(String username, String password);
 }

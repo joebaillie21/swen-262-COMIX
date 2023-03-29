@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * @Author Angela Ngo
+ */
 public class Guest extends User{
     private PersonalCollection currentSelectedPC; 
     private ComixLogin CL; 

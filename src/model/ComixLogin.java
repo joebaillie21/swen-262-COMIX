@@ -10,7 +10,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * @Author Angela Ngo
+ */
 public class ComixLogin implements ComixMediator {
     private HashMap<String, ArrayList<Object>> userLogins; 
     final int PASSWORD = 1; 

@@ -1,7 +1,9 @@
 package model;
 
 
-
+/**
+ * @Author Angela Ngo
+ */
 public class SignedInUser extends User{
     private String username, password;
     private Action selectedAction;

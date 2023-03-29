@@ -3,6 +3,9 @@ package model;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+    /**
+     * @Author Angela Ngo
+     */
 public class ComicBookComponent implements ComicBook {
     private Publisher publisher; 
     private Author author; 
@@ -12,7 +15,7 @@ public class ComicBookComponent implements ComicBook {
     private boolean isAuthenticated; 
     private double value; 
 
-
+ 
     public ComicBookComponent(Publisher publisher, String seriesTitle, int volNum, int issueNum, String publicationDate, Author author, ArrayList<String> principleCharacters, String description){
         this.publisher = publisher; 
         this.author = author; 
