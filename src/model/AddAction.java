@@ -1,11 +1,13 @@
 package model;
-
 public class AddAction implements Action {
+    private PersonalCollection pc ;
 
+    public AddAction(PersonalCollection pc){
+        this.pc = pc; 
+    }
     @Override
     public void execute(ComicBook comic) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'execute'");
+        pc.add((ComicBookComponent)comic); 
     }
 
     @Override
