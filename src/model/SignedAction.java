@@ -2,6 +2,9 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * @Author Angela Ngo
+ */
 public class SignedAction implements Action{
     private PersonalCollection pc; 
     private ComicBook comic; 
