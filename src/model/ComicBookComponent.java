@@ -12,7 +12,7 @@ public class ComicBookComponent implements ComicBook {
     private String seriesTitle, publicationDate, description; 
     private int volNum, issueNum, grade, signatures; 
     private ArrayList<String> principleCharacters; 
-    private boolean isAuthenticated; 
+    private boolean isAuthenticated, isSlabbed; 
     private double value; 
 
 
@@ -29,6 +29,7 @@ public class ComicBookComponent implements ComicBook {
         this.grade = -1; 
         this.value = -1; 
         isAuthenticated = false; 
+        isSlabbed = false; 
     }
 
     @Override
@@ -61,6 +62,7 @@ public class ComicBookComponent implements ComicBook {
 
     public String getPubDate(){return publicationDate; }
 
+    public boolean getSlabbed(){return isSlabbed;}
     public void setAuthentication(boolean isAuthenticated){
         this.isAuthenticated = isAuthenticated; 
     }
@@ -71,6 +73,10 @@ public class ComicBookComponent implements ComicBook {
 
     public void setValue(int value){
         this.value = value; 
+    }
+
+    public void setSlabbed(boolean isSlabbed){
+        this.isSlabbed = isSlabbed; 
     }
     @Override
     public boolean equals(Object o){ 
@@ -88,7 +94,7 @@ public class ComicBookComponent implements ComicBook {
         return (
             other.getAuthor().getName().equals(author.getName()) && other.getPubDate().equals(publicationDate) && other.getValue() == value && other.getGrade() == grade
             && other.getDescription().equals(description) && other.getIssueNum() == issueNum && other.getVolNum() == volNum && other.getPublisher().getName().equals(publisher.getName())
-            && other.isAuthenticated() == isAuthenticated && other.getSeriesTitle().equals(seriesTitle)
+            && other.isAuthenticated() == isAuthenticated && other.getSeriesTitle().equals(seriesTitle) && other.getSlabbed() == isSlabbed
         );
         
     }

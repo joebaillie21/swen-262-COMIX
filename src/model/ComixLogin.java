@@ -134,7 +134,9 @@ public class ComixLogin implements ComixMediator {
         comicEntry.put("publication_date", comic.getPubDate());
         comicEntry.put("description", comic.getDescription());
         comicEntry.put("signatures", comic.getSignature());
-
+        comicEntry.put("slabbed", comic.getSlabbed()); 
+        comicEntry.put("grade", comic.getGrade());
+        comicEntry.put("value", comic.getValue()); 
         // making the principle character json list 
         JSONObject principleCharacter = new JSONObject();
         ArrayList<String> principleCharacterList = comic.getPrincipleCharacter(); 
@@ -142,12 +144,6 @@ public class ComixLogin implements ComixMediator {
             principleCharacter.put("" + k , principleCharacterList.get(k)); 
         }
         comicEntry.put("principle_characters", principleCharacter); 
-
-
-        // adding in the "decorated attributes" to the personal collection 
-        if(comic.getGrade() != -1 ){comicEntry.put("grade", comic.getGrade());}
-        if(comic.getValue() != -1){comicEntry.put("value", comic.getValue());}
-
         return comicEntry; 
     }
     

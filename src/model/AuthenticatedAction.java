@@ -25,9 +25,9 @@ public class AuthenticatedAction implements Action{
         for(int i = 0; i < perCol.size(); i++){
             if(perCol.get(i).equals(this.comic)){
                 int comicLocation = i; 
-                ComicBookComponent CBC = (ComicBookComponent) comic; 
-                CBC.setAuthentication(false);
-                perCol.set(comicLocation, CBC); // updating the authentication in the personal collection by setting is back to false 
+    
+                ((ComicBookComponent)comic).setAuthentication(false);
+                perCol.set(comicLocation, (ComicBookComponent)comic); // updating the authentication in the personal collection by setting is back to false 
             }
         }
     }

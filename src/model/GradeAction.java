@@ -1,23 +1,39 @@
 package model;
 
-public class GradeAction implements Action{
+import java.util.ArrayList;
 
+public class GradeAction implements Action{
+    private PersonalCollection pc; 
+    private ComicBook comic; 
+    private int previousGrade; 
+
+    public GradeAction(PersonalCollection pc){
+        this.pc = pc; 
+    }
     @Override
     public void execute(ComicBook comic) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'execute'");
+        pc.grade((ComicBookComponent)comic);
+        this.comic = comic; 
+        previousGrade = ((ComicBookComponent) comic).getGrade();
     }
 
     @Override
     public boolean isReversible() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isReversible'");
+        return true; 
     }
 
     @Override
     public void unexecute() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'unexecute'");
+        ArrayList<ComicBookComponent> perCol = pc.getPersonalCollection(); 
+        for(int i = 0; i < perCol.size(); i++){
+            if(perCol.get(i).equals(this.comic)){
+                int comicLocation = i; 
+                ComicBookComponent CBC = (ComicBookComponent) comic; 
+                CBC.setGrade(previousGrade); // NOTE: NEED TO SET IT THE PREVIOUS GRADE! NOT SURE HOW
+                
+                perCol.set(comicLocation, CBC); // updating the authentication in the personal collection by setting is back to false 
+            }
+        }  
     }
     
 }

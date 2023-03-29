@@ -1,23 +1,36 @@
 package model;
 
-public class SlabbedAction implements Action {
+import java.util.ArrayList;
 
+public class SlabbedAction implements Action {
+    private PersonalCollection pc; 
+    private ComicBook comic; 
+
+    public SlabbedAction(PersonalCollection pc){
+        this.pc = pc; 
+    }
     @Override
     public void execute(ComicBook comic) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'execute'");
+        pc.slab((ComicBookComponent)comic);
+        this.comic = comic; 
     }
 
     @Override
     public boolean isReversible() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isReversible'");
+        return true; 
     }
 
     @Override
     public void unexecute() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'unexecute'");
+        ArrayList<ComicBookComponent> perCol = pc.getPersonalCollection(); 
+        for(int i = 0; i < perCol.size(); i++){
+            if(perCol.get(i).equals(this.comic)){
+                int comicLocation = i; 
+    
+                ((ComicBookComponent)comic).setSlabbed((false));
+                perCol.set(comicLocation, (ComicBookComponent)comic); // updating the authentication in the personal collection by setting is back to false 
+            }
+        }
     }
     
 }
