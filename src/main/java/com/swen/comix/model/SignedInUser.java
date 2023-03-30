@@ -1,4 +1,4 @@
-package model;
+package com.swen.comix.model;
 
 
 /**

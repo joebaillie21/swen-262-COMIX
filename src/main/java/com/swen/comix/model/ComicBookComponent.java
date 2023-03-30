@@ -1,4 +1,4 @@
-package model;
+package com.swen.comix.model;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -7,6 +7,8 @@ import java.util.ArrayList;
      * @Author Angela Ngo
      */
 public class ComicBookComponent implements ComicBook {
+    static final String STRING_FORMAT = "[Publisher=%s, Author=%s, Title=%s, Description=%s, VolNum=%s, IssueNum=%s, Characters=%s]";
+
     private Publisher publisher; 
     private Author author; 
     private String seriesTitle, publicationDate, description; 
@@ -97,5 +99,9 @@ public class ComicBookComponent implements ComicBook {
             && other.isAuthenticated() == isAuthenticated && other.getSeriesTitle().equals(seriesTitle) && other.getSlabbed() == isSlabbed
         );
         
+    }
+
+    public String toString(){
+        return String.format(STRING_FORMAT, publisher.getName(), author.getName(), seriesTitle, description, volNum, issueNum, principleCharacters);
     }
 }

@@ -1,6 +1,6 @@
 package com.swen.comix.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author Angela Ngo
@@ -25,7 +25,7 @@ public class SlabbedAction implements Action {
 
     @Override
     public void unexecute() {
-        ArrayList<ComicBookComponent> perCol = pc.getPersonalCollection(); 
+        List<ComicBook> perCol = pc.getPersonalCollection(); 
         for(int i = 0; i < perCol.size(); i++){
             if(perCol.get(i).equals(this.comic)){
                 int comicLocation = i; 
