@@ -96,25 +96,25 @@ public class dbManager {
     }
 
     public static void createComixTable() throws Exception {
-        // String query = """
-        //         DROP TABLE IF EXISTS comics;
-        //         DROP TABLE IF EXISTS comix;
+        String query = """
+                DROP TABLE IF EXISTS comics;
+                DROP TABLE IF EXISTS comix;
 
-        //         CREATE TABLE comics(
-        //             id SERIAL PRIMARY KEY,
-        //             series_title TEXT NOT NULL,
-        //             volume_number INT NOT NULL,
-        //             issue_number INT NOT NULL,
-        //             publication_date DATE,
-        //             author TEXT,
-        //             publisher_id INT,
-        //             principle_character TEXT,
-        //             description TEXT,
-        //             value FLOAT,
-        //             grade INT
-        //             );
-        //         """;
-        // execUpdate(query);
+                CREATE TABLE comics(
+                    id SERIAL PRIMARY KEY,
+                    series_title TEXT NOT NULL,
+                    volume_number INT NOT NULL,
+                    issue_number INT NOT NULL,
+                    publication_date DATE,
+                    author TEXT,
+                    publisher_id INT,
+                    principle_character TEXT,
+                    description TEXT,
+                    value FLOAT,
+                    grade INT
+                    );
+                """;
+        execUpdate(query);
     }
 
 }
