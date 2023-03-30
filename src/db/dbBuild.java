@@ -9,6 +9,7 @@ public class dbBuild {
 
         createComicsTable();
         createPublisherTable();
+        loadData();
 
     }
 
@@ -57,5 +58,26 @@ public class dbBuild {
             System.out.println(e);
         }
 
+    }
+
+    public static void loadData() throws Exception {
+
+        try {
+            Connection con = dbConnection.getConnection();
+            PreparedStatement loadSample = con.prepareStatement(
+                    """
+                            INSERT INTO COMICS (series_title, volume_number, issue_number, publication_date, author, publisher_id, principle_character)
+                            VALUES
+                            ('Joes Comic', 1, 24, TO_DATE('2003-28-02', 'YYYY/MM/DD'),'Joe Baillie', 1, 'Joe'),
+                            ('Ashes Comic', 3, 21, TO_DATE('2001-22-12', 'YYYY/MM/DD'),'Ashe R', 1, 'Ashe'),
+                            ('Zachs Comic', 4, 33, TO_DATE('2012-13-05', 'YYYY/MM/DD'),'Zach B', 1, 'Zach'),
+                            ('Angelas Comic', 2, 12, TO_DATE('2017-30-06', 'YYYY/MM/DD'),'Angela N', 1, 'Angela'),
+                            ('Peytons Comic', 5, 19, TO_DATE('2023-01-01', 'YYYY/MM/DD'),'Peyton W', 2, 'Peyton')
+
+                                """);
+            loadSample.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }
