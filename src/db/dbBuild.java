@@ -5,6 +5,10 @@ import java.sql.PreparedStatement;
 
 public class dbBuild {
 
+    public static void main(String[] args) throws Exception {
+        Build();
+    }
+
     public static void Build() throws Exception {
 
         createComicsTable();
@@ -25,7 +29,7 @@ public class dbBuild {
 
         try {
 
-            Connection con = dbConnection.getConnection();
+            Connection con = dbManager.getConnection();
             PreparedStatement create = con.prepareStatement(
                     "CREATE TABLE IF NOT EXISTS comics(id SERIAL PRIMARY KEY,  series_title TEXT NOT NULL, volume_number INT NOT NULL, issue_number INT NOT NULL, publication_date DATE, author TEXT, publisher_id INT, principle_character TEXT,  description TEXT, value FLOAT, grade INT)");
             create.executeUpdate();
@@ -49,7 +53,7 @@ public class dbBuild {
     public static void createPublisherTable() throws Exception {
         try {
 
-            Connection con = dbConnection.getConnection();
+            Connection con = dbManager.getConnection();
             PreparedStatement create = con.prepareStatement(
                     "CREATE TABLE IF NOT EXISTS publisher(id SERIAL PRIMARY KEY,  name VARCHAR(40) NOT NULL)");
             create.executeUpdate();
@@ -63,15 +67,15 @@ public class dbBuild {
     public static void loadData() throws Exception {
 
         try {
-            Connection con = dbConnection.getConnection();
+            Connection con = dbManager.getConnection();
             PreparedStatement loadSample = con.prepareStatement(
                     """
-                            INSERT INTO COMICS (series_title, volume_number, issue_number, publication_date, author, publisher_id, principle_character)
+                            INSERT INTO comics (series_title, volume_number, issue_number, publication_date, author, publisher_id, principle_character)
                             VALUES
-                            ('Joes Comic', 1, 24, TO_DATE('2003-28-02', 'YYYY/MM/DD'),'Joe Baillie', 1, 'Joe'),
-                            ('Ashes Comic', 3, 21, TO_DATE('2001-22-12', 'YYYY/MM/DD'),'Ashe R', 1, 'Ashe'),
-                            ('Zachs Comic', 4, 33, TO_DATE('2012-13-05', 'YYYY/MM/DD'),'Zach B', 1, 'Zach'),
-                            ('Angelas Comic', 2, 12, TO_DATE('2017-30-06', 'YYYY/MM/DD'),'Angela N', 1, 'Angela'),
+                            ('Joes Comic', 1, 24, TO_DATE('2003-01-02', 'YYYY/MM/DD'),'Joe Baillie', 1, 'Joe'),
+                            ('Ashes Comic', 3, 21, TO_DATE('2001-01-12', 'YYYY/MM/DD'),'Ashe R', 1, 'Ashe'),
+                            ('Zachs Comic', 4, 33, TO_DATE('2012-01-05', 'YYYY/MM/DD'),'Zach B', 1, 'Zach'),
+                            ('Angelas Comic', 2, 12, TO_DATE('2017-01-06', 'YYYY/MM/DD'),'Angela N', 1, 'Angela'),
                             ('Peytons Comic', 5, 19, TO_DATE('2023-01-01', 'YYYY/MM/DD'),'Peyton W', 2, 'Peyton')
 
                                 """);

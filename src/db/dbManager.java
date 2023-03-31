@@ -3,7 +3,7 @@ package db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class dbConnection {
+public class dbManager {
 
     public static Connection getConnection() {
 
@@ -16,11 +16,8 @@ public class dbConnection {
                     credentials.getPassword());
 
             if (connection != null) {
-                System.out.println("Connection successful.");
                 return connection;
             } else {
-
-                System.out.println("Connection failed.");
                 return null;
 
             }
@@ -30,4 +27,5 @@ public class dbConnection {
             return null;
         }
     }
+
 }
