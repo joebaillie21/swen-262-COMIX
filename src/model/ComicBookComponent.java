@@ -3,6 +3,9 @@ package model;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * @Author Angela 
+ */
 public class ComicBookComponent implements ComicBook {
     static final String STRING_FORMAT = "[Publisher=%s, Author=%s, Title=%s, Description=%s, VolNum=%s, IssueNum=%s, Characters=%s]";
 

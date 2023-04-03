@@ -3,6 +3,9 @@ package model;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * @Author Angela and Joe
+ */
 public class SearchByPrincipleCharacter implements SearchStrategy {
     private String toBeSearched;
     private PersonalCollection personalCollection; 
@@ -50,7 +53,9 @@ public class SearchByPrincipleCharacter implements SearchStrategy {
                 currCount++;
                 isMatch = false; // reset 
                 comics.add(comic); 
-            }else if(currCount == NUM_RESULTS){ // when the max results reached 
+            }
+            
+            if(currCount == NUM_RESULTS){ // when the max results reached 
                 return comics; 
             }
 

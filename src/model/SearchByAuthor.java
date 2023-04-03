@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import db.*;
 
+/**
+ * @Author Angela and Joe
+ */
 public class SearchByAuthor implements SearchStrategy {
     private PersonalCollection personalCollection; 
     final int NUM_RESULTS = 10;
@@ -57,7 +60,9 @@ public class SearchByAuthor implements SearchStrategy {
             if(comic.getAuthor().equals(toBeSearched) && currCount != NUM_RESULTS){
                 comics.add(pc.get(i)); 
                 currCount++;
-            }else if(currCount == NUM_RESULTS){
+            }
+            
+            if(currCount == NUM_RESULTS){
                 return comics; 
             }
         

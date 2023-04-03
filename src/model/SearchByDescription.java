@@ -2,6 +2,9 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * @Author Angela and Joe 
+ */
 public class SearchByDescription implements SearchStrategy {
     private String toBeSearched;
     private PersonalCollection personalCollection; 
@@ -37,7 +40,8 @@ public class SearchByDescription implements SearchStrategy {
             if(comic.getDescription().equals(toBeSearched) && currCount != NUM_RESULTS){
                 comics.add(pc.get(i)); 
                 currCount++;
-            }else if(currCount == NUM_RESULTS){
+            }
+            if(currCount == NUM_RESULTS){
                 return comics; 
             }
         
