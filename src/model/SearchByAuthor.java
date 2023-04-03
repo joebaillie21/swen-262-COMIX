@@ -20,7 +20,7 @@ public class SearchByAuthor implements SearchStrategy {
         if(isSearchDb == true){
             comics = searchOnDb(toBeSearched);
         }else if(isSearchDb == false){
-            // implement the private methods
+            comics = searchOnPC(toBeSearched); 
         } 
         return comics;
     }
@@ -51,11 +51,18 @@ public class SearchByAuthor implements SearchStrategy {
         ArrayList<ComicBook> comics = new ArrayList<>(); 
         ArrayList<ComicBook> pc = personalCollection.getPersonalCollection(); 
         int currCount = 0; 
-        while(currCount != NUM_RESULTS){
-            for(int i = 0; i < pc.size(); i++){
-                ComicBookComponent comic = (ComicBookComponent) pc.get(i);
-                if()
+        
+        for(int i = 0; i < pc.size(); i++){
+            ComicBookComponent comic = (ComicBookComponent) pc.get(i);
+            if(comic.getAuthor().equals(toBeSearched) && currCount != NUM_RESULTS){
+                comics.add(pc.get(i)); 
+                currCount++;
+            }else if(currCount == NUM_RESULTS){
+                return comics; 
             }
+        
         }
+        // return the ones even if it doesn reach the max NUM_COUNT
+        return comics; 
     }
 }
