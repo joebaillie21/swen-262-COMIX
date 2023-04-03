@@ -27,5 +27,10 @@ public class PersonalCollection {
     public void authenticate(ComicBook comic){
 
     }
+
+    public ArrayList<ComicBook> getPersonalCollection(){
+        return personCollection;
+    }
+
     
 }

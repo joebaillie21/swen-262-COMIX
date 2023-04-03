@@ -8,7 +8,11 @@ import java.util.ArrayList;
 import db.*;
 
 public class SearchByAuthor implements SearchStrategy {
-
+    private PersonalCollection personalCollection; 
+    final int NUM_RESULTS = 10;
+    public SearchByAuthor(PersonalCollection pc){
+        this.personalCollection = pc; 
+    }
     @Override
     public ArrayList<ComicBook> algorithm(String toBeSearched, boolean isSearchDb) throws Exception {
         ArrayList<ComicBook> comics = new ArrayList<>();
@@ -16,8 +20,8 @@ public class SearchByAuthor implements SearchStrategy {
         if(isSearchDb == true){
             comics = searchOnDb(toBeSearched);
         }else if(isSearchDb == false){
-            // implement the private methods 
-        }
+            // implement the private methods
+        } 
         return comics;
     }
 
@@ -44,6 +48,14 @@ public class SearchByAuthor implements SearchStrategy {
     }
 
     private ArrayList<ComicBook> searchOnPC(String toBeSearched){
-
+        ArrayList<ComicBook> comics = new ArrayList<>(); 
+        ArrayList<ComicBook> pc = personalCollection.getPersonalCollection(); 
+        int currCount = 0; 
+        while(currCount != NUM_RESULTS){
+            for(int i = 0; i < pc.size(); i++){
+                ComicBookComponent comic = (ComicBookComponent) pc.get(i);
+                if()
+            }
+        }
     }
 }
