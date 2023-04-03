@@ -10,12 +10,12 @@ import db.*;
 public class SearchByAuthor implements SearchStrategy {
 
     @Override
-    public ArrayList<ComicBook> algorithm(String toBeSearched, String searchOn) throws Exception {
+    public ArrayList<ComicBook> algorithm(String toBeSearched, boolean isSearchDb) throws Exception {
         ArrayList<ComicBook> comics = new ArrayList<>();
         
-        if(searchOn.equals("database")){
+        if(isSearchDb == true){
             comics = searchOnDb(toBeSearched);
-        }else if(searchOn.equals("personalcollection")){
+        }else if(isSearchDb == false){
             // implement the private methods 
         }
         return comics;
@@ -44,6 +44,6 @@ public class SearchByAuthor implements SearchStrategy {
     }
 
     private ArrayList<ComicBook> searchOnPC(String toBeSearched){
-        
+
     }
 }
