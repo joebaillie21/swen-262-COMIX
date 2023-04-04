@@ -10,7 +10,7 @@ public class ComicBookComponent implements ComicBook {
     static final String STRING_FORMAT = "[Publisher=%s, Author=%s, Title=%s, Description=%s, VolNum=%s, IssueNum=%s, Characters=%s]";
 
     private Publisher publisher; 
-    private Author author; 
+    private ArrayList<Author>  author; 
     private String seriesTitle, publicationDate, description; 
     private int volNum, issueNum, grade, signatures; 
     private ArrayList<String> principleCharacters; 
@@ -18,7 +18,7 @@ public class ComicBookComponent implements ComicBook {
     private double value; 
 
 
-    public ComicBookComponent(Publisher publisher, String seriesTitle, int volNum, int issueNum, String publicationDate, Author author, ArrayList<String> principleCharacters, String description){
+    public ComicBookComponent(Publisher publisher, String seriesTitle, int volNum, int issueNum, String publicationDate, ArrayList<Author> author, ArrayList<String> principleCharacters, String description){
         this.publisher = publisher; 
         this.author = author; 
         this.seriesTitle = seriesTitle; 
@@ -28,15 +28,10 @@ public class ComicBookComponent implements ComicBook {
         this.principleCharacters = principleCharacters; 
         this.description = description; 
         this.signatures = 0;
-        this.grade = -1; 
+        this.grade = 0; // smallest grade is 1 not 0 
         this.value = -1; 
         isAuthenticated = false; 
         isSlabbed = false; 
-    }
-
-    @Override
-    public void gradeAlgorithm(ComicBook comic) {
-        // work on this 
     }
 
     // need to do something about the grading stuff since it has to directly impact the comicbook components
@@ -60,7 +55,7 @@ public class ComicBookComponent implements ComicBook {
 
     public double getValue(){return value;}
 
-    public Author getAuthor(){return author;}
+    public ArrayList<Author> getAuthor(){return author;}
 
     public String getPubDate(){return publicationDate; }
 
@@ -93,15 +88,21 @@ public class ComicBookComponent implements ComicBook {
             }
         }
 
+        for(int k = 0; k < other.getAuthor().size(); k++){
+            if(!other.getAuthor().get(k).equals(author.get(k))){
+                return false; 
+            }
+        }
+
         return (
-            other.getAuthor().getName().equals(author.getName()) && other.getPubDate().equals(publicationDate) && other.getValue() == value && other.getGrade() == grade
+            other.getPubDate().equals(publicationDate) && other.getValue() == value && other.getGrade() == grade
             && other.getDescription().equals(description) && other.getIssueNum() == issueNum && other.getVolNum() == volNum && other.getPublisher().getName().equals(publisher.getName())
             && other.isAuthenticated() == isAuthenticated && other.getSeriesTitle().equals(seriesTitle) && other.getSlabbed() == isSlabbed
         );
         
     }
 
-    public String toString(){
-        return String.format(STRING_FORMAT, publisher.getName(), author.getName(), seriesTitle, description, volNum, issueNum, principleCharacters);
-    }
+    // public String toString(){
+    //     return String.format(STRING_FORMAT, publisher.getName(), author.getName(), seriesTitle, description, volNum, issueNum, principleCharacters);
+    // }
 }
