@@ -3,6 +3,7 @@ package com.swen.comix;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swen.comix.model.Author;
@@ -39,7 +40,9 @@ public class Comix {
         User user = guest.createAccount("user", "pass");
 
         PersonalCollection collection = new PersonalCollection("user");
-        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, null, new Author("Stan Lee"), null, null);
+        ArrayList<Author> authors = new ArrayList<Author>();
+        authors.add(new Author("Stan Lee"));
+        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, null, authors, null, null);
         user.setCollection(collection);
         userFileDao.addComic(comic, user.getName());
 

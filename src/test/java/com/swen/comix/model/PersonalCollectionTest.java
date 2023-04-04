@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -39,9 +40,10 @@ public class PersonalCollectionTest {
         ComixMediator mediator = new ComixLogin(userFileDao);
         Guest guest = new Guest(mediator);
         User user = guest.createAccount("user", "pass");
-
+        ArrayList<Author> Authors = new ArrayList<Author>();
+        Authors.add(new Author("Stan Lee"));
         PersonalCollection collection = new PersonalCollection("user");
-        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, null, new Author("Stan Lee"), null, null);
+        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, null, Authors, null, null);
         user.setCollection(collection);
         userFileDao.addComic(comic, user.getName());
 
