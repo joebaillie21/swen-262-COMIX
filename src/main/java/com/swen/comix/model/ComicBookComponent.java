@@ -34,11 +34,6 @@ public class ComicBookComponent implements ComicBook {
         isSlabbed = false; 
     }
 
-    @Override
-    public void gradeAlgorithm(ComicBook comic) {
-        // work on this 
-    }
-
     // need to do something about the grading stuff since it has to directly impact the comicbook components
     public boolean isAuthenticated(){return isAuthenticated;}
 
@@ -60,7 +55,7 @@ public class ComicBookComponent implements ComicBook {
 
     public double getValue(){return value;}
 
-    public Author getAuthor(){return author;}
+    public ArrayList<Author> getAuthor(){return author;}
 
     public String getPubDate(){return publicationDate; }
 
@@ -93,15 +88,21 @@ public class ComicBookComponent implements ComicBook {
             }
         }
 
+        for(int k = 0; k < other.getAuthor().size(); k++){
+            if(!other.getAuthor().get(k).equals(author.get(k))){
+                return false; 
+            }
+        }
+
         return (
-            other.getAuthor().getName().equals(author.getName()) && other.getPubDate().equals(publicationDate) && other.getValue() == value && other.getGrade() == grade
+            other.getPubDate().equals(publicationDate) && other.getValue() == value && other.getGrade() == grade
             && other.getDescription().equals(description) && other.getIssueNum() == issueNum && other.getVolNum() == volNum && other.getPublisher().getName().equals(publisher.getName())
             && other.isAuthenticated() == isAuthenticated && other.getSeriesTitle().equals(seriesTitle) && other.getSlabbed() == isSlabbed
         );
         
     }
 
-    public String toString(){
-        return String.format(STRING_FORMAT, publisher.getName(), author.getName(), seriesTitle, description, volNum, issueNum, principleCharacters);
-    }
+    // public String toString(){
+    //     return String.format(STRING_FORMAT, publisher.getName(), author.getName(), seriesTitle, description, volNum, issueNum, principleCharacters);
+    // }
 }
