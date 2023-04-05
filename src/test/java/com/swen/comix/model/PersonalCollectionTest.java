@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -41,11 +42,13 @@ public class PersonalCollectionTest {
         User user = guest.createAccount("user", "pass");
 
         PersonalCollection collection = new PersonalCollection("user");
-        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, null, new Author("Stan Lee"), null, null);
+        ArrayList<Author> authors = new ArrayList<Author>();
+        authors.add(new Author("Stan Lee"));
+        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, null, authors, null, null);
         user.setCollection(collection);
         userFileDao.addComic(comic, user.getName());
 
-        assertEquals(user.getPersonalCollection().toString(), "Collection [userName=user, collection=[[Publisher=Marvel, Author=Stan Lee, Title=Spiderman, Description=null, VolNum=0, IssueNum=0, Characters=null]]]");
+        assertEquals(user.getPersonalCollection().toString(), "Collection [userName=user, collection=[[Publisher=Marvel, Author=[Stan Lee], Title=Spiderman, Description=null, VolNum=0, IssueNum=0, Characters=null]]]");
 
         datafile.delete();
     }

@@ -18,7 +18,7 @@ public class SignedAction implements Action{
     public void execute(ComicBook comic) {
         pc.sign((ComicBookComponent)comic);
         this.comic = comic; 
-        previousNum = ((ComicBookComponent)comic).getSignature();
+        previousNum = ((ComicBookComponent)comic).getSignatures();
     }
 
     @Override
