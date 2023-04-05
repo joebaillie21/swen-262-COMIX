@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.swen.comix.controller.App;
 import com.swen.comix.model.Author;
 import com.swen.comix.model.ComicBook;
 import com.swen.comix.model.ComicBookComponent;
@@ -47,7 +48,8 @@ public class Comix {
         userFileDao.addComic(comic, user.getName());
 
         System.out.println(user.getPersonalCollection());
-
-        datafile.delete();
+        App comixApp = new App();
+        comixApp.init();
+        //datafile.delete();
     }
 }
