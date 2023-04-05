@@ -27,8 +27,9 @@ public class PersonalCollection {
         this.personalCollection.remove(comic);
     }
 
-    public void grade(ComicBook comic){
-        // TO DO
+    public void grade(ComicBookComponent comic){
+        ComicBook gradedComic = new Grade(comic);
+        comic.setValue(gradedComic.getValue());
     }
 
     public void slab(ComicBook comic){

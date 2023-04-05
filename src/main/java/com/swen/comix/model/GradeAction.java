@@ -9,15 +9,18 @@ public class GradeAction implements Action{
     private PersonalCollection pc; 
     private ComicBook comic; 
     private int previousGrade; 
+    private int newGrade;
 
-    public GradeAction(PersonalCollection pc){
+    public GradeAction(PersonalCollection pc, int newGrade){
         this.pc = pc; 
+        this.newGrade = newGrade;
     }
     @Override
-    public void execute(ComicBook comic) {
-        pc.grade((ComicBookComponent)comic);
-        this.comic = comic; 
-        previousGrade = ((ComicBookComponent) comic).getGrade();
+    public void execute(ComicBook toBeGradedcomic) {
+        previousGrade = (toBeGradedcomic).getGrade();
+        toBeGradedcomic.setGrade(this.newGrade);
+        pc.grade((ComicBookComponent)toBeGradedcomic);
+        this.comic = toBeGradedcomic;
     }
 
     @Override
@@ -27,16 +30,6 @@ public class GradeAction implements Action{
 
     @Override
     public void unexecute() {
-        List<ComicBook> perCol = pc.getPersonalCollection(); 
-        for(int i = 0; i < perCol.size(); i++){
-            if(perCol.get(i).equals(this.comic)){
-                int comicLocation = i; 
-                ComicBookComponent CBC = (ComicBookComponent) comic; 
-                CBC.setGrade(previousGrade); // NOTE: NEED TO SET IT THE PREVIOUS GRADE! NOT SURE HOW
-                
-                perCol.set(comicLocation, CBC); // updating the authentication in the personal collection by setting is back to false 
-            }
-        }  
+        comic.setGrade(previousGrade);
     }
-    
 }

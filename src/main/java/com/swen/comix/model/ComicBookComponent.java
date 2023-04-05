@@ -28,15 +28,10 @@ public class ComicBookComponent implements ComicBook {
         this.principleCharacters = principleCharacters; 
         this.description = description; 
         this.signatures = 0;
-        this.grade = 0; // smallest grade is 1 not 0 
+        this.grade = 1;
         this.value = -1;
         isAuthenticated = false; 
         isSlabbed = false; 
-    }
-
-    @Override
-    public void gradeAlgorithm() {
-        // work on this 
     }
 
     // need to do something about the grading stuff since it has to directly impact the comicbook components
@@ -69,11 +64,12 @@ public class ComicBookComponent implements ComicBook {
         this.isAuthenticated = isAuthenticated; 
     }
 
-    public void setGrade(int grade){
-        this.grade = grade; 
+    @Override
+    public void setGrade(int newGrade){
+        this.grade = newGrade; 
     }
 
-    public void setValue(int value){
+    public void setValue(Double value){
         this.value = value; 
     }
 

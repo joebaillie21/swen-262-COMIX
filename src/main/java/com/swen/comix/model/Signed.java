@@ -1,6 +1,4 @@
-package com.swen.comix.model.Decorator;
-
-import com.swen.comix.model.ComicBook;
+package com.swen.comix.model;
 
 public class Signed extends ComicDecorator {
 

@@ -1,11 +1,7 @@
-package com.swen.comix.model.Decorator;
-
-import com.swen.comix.model.ComicBook;
+package com.swen.comix.model;
 
 public class Grade extends ComicDecorator{
-    protected ComicBook comicBook;
-
-    private Grade(ComicBook comicBook){
+    public Grade(ComicBook comicBook){
         super(comicBook);
     }
 

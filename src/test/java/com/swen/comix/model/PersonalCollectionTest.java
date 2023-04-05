@@ -45,11 +45,6 @@ public class PersonalCollectionTest {
         dataFile.delete();
     }
 
-    /**
-     * TODO
-     * Does not test anything yet, just checks for errors
-     * @throws IOException
-     */
     @Test
     public void testAddComic() throws IOException{
         SignedInUser user = guest.createAccount("user", "pass");
@@ -139,5 +134,64 @@ public class PersonalCollectionTest {
         user.unexecuteCommand();
 
         assertEquals(user.getPersonalCollection().toString(), "Collection [userName=user, collection=[[Publisher=Marvel, Author=[Stan Lee], Title=Spiderman, Description=null, VolNum=0, IssueNum=0, Characters=null]]]");
+    }
+
+
+    @Test
+    public void testGradeComic() throws IOException{
+        ObjectMapper mockMapper = new ObjectMapper();
+        UserDAO userFileDao = new UserFileDAO("src/data/temp.json", mockMapper);
+        ComixMediator mediator = new ComixLogin(userFileDao);
+        Guest guest = new Guest(mediator);
+        SignedInUser user = guest.createAccount("user", "pass");
+        ArrayList<Author> Authors = new ArrayList<Author>();
+        Authors.add(new Author("Stan Lee"));
+        PersonalCollection collection = new PersonalCollection("user");
+        ArrayList<Author> authors = new ArrayList<Author>();
+        authors.add(new Author("Stan Lee"));
+        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, "15", authors, null, null);
+        user.setCollection(collection);
+        user.setCommand(new AddAction(user.getPersonalCollection()));
+        user.executeCommand(comic);
+
+        assertEquals(user.getPersonalCollection().toString(), "Collection [userName=user, collection=[[Publisher=Marvel, Author=[Stan Lee], Title=Spiderman, Description=null, VolNum=0, IssueNum=0, Characters=null]]]");
+        
+        user.setCommand(new GradeAction(user.getPersonalCollection(), 10));
+        user.executeCommand(comic);
+
+        assertEquals(user.getPersonalCollection().toString(), "Collection [userName=user, collection=[[Publisher=Marvel, Author=[Stan Lee], Title=Spiderman, Description=null, VolNum=0, IssueNum=0, Characters=null]]]");
+        
+        assertEquals(10, comic.getGrade());
+    }
+
+    @Test
+    public void testGradeComicUndo() throws IOException{
+        ObjectMapper mockMapper = new ObjectMapper();
+        UserDAO userFileDao = new UserFileDAO("src/data/temp.json", mockMapper);
+        ComixMediator mediator = new ComixLogin(userFileDao);
+        Guest guest = new Guest(mediator);
+        SignedInUser user = guest.createAccount("user", "pass");
+        ArrayList<Author> Authors = new ArrayList<Author>();
+        Authors.add(new Author("Stan Lee"));
+        PersonalCollection collection = new PersonalCollection("user");
+        ArrayList<Author> authors = new ArrayList<Author>();
+        authors.add(new Author("Stan Lee"));
+        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, "15", authors, null, null);
+        user.setCollection(collection);
+        user.setCommand(new AddAction(user.getPersonalCollection()));
+        user.executeCommand(comic);
+
+        assertEquals(user.getPersonalCollection().toString(), "Collection [userName=user, collection=[[Publisher=Marvel, Author=[Stan Lee], Title=Spiderman, Description=null, VolNum=0, IssueNum=0, Characters=null]]]");
+        
+        user.setCommand(new GradeAction(user.getPersonalCollection(), 10));
+        user.executeCommand(comic);
+
+        assertEquals(user.getPersonalCollection().toString(), "Collection [userName=user, collection=[[Publisher=Marvel, Author=[Stan Lee], Title=Spiderman, Description=null, VolNum=0, IssueNum=0, Characters=null]]]");
+        
+        assertEquals(10, comic.getGrade());
+
+        user.unexecuteCommand();
+
+        assertEquals(1, comic.getGrade());
     }
 }
