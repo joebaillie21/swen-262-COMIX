@@ -8,6 +8,7 @@ import javax.xml.crypto.KeySelector.Purpose;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.impl.ObjectIdValueProperty;
+import com.swen.comix.db.Database;
 import com.swen.comix.model.ComixLogin;
 import com.swen.comix.model.ComixMediator;
 import com.swen.comix.model.Guest;
@@ -34,6 +35,7 @@ public class App {
     private Boolean running;
     private String username, password, searchResult;
     private PersonalCollection collection;
+    private Database database;
 
     public App() throws IOException{
         init();
@@ -193,19 +195,19 @@ public class App {
                     }
             
                     if(searchNum.equals("1")){
-                        this.user.setSearchStrategy(new SearchBySeriesTitle());
+                        this.user.setSearchStrategy(new SearchBySeriesTitle(this.collection, this.database));
                         view.setCommand(newCommand);
                     }
                     else if(searchNum.equals("2")){
-                        this.user.setSearchStrategy(new SearchByPrincipleCharacter());
+                        this.user.setSearchStrategy(new SearchByPrincipleCharacter(this.collection, this.database));
                         view.setCommand(newCommand);
                     }
                     else if(searchNum.equals("3")){
-                        this.user.setSearchStrategy(new SearchByAuthor());
+                        this.user.setSearchStrategy(new SearchByAuthor(this.collection, this.database));
                         view.setCommand(newCommand);
                     }
                     else if(searchNum.equals("4")){
-                        this.user.setSearchStrategy(new SearchByDescription());
+                        this.user.setSearchStrategy(new SearchByDescription(this.collection, this.database));
                         view.setCommand(newCommand);
                     }
                     else if(searchNum.equals("5")){
@@ -236,6 +238,7 @@ public class App {
         ObjectMapper mockMapper = new ObjectMapper();
         mockMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         this.userDAO = new UserFileDAO("src/data/users.json", mockMapper);
+        this.database = new Database();
         this.mediator = new ComixLogin(this.userDAO);
         this.guest = new Guest(mediator);
         this.view = new PTUI();
