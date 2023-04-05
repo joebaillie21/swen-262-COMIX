@@ -59,7 +59,8 @@ public class SearchByAuthor implements SearchStrategy {
             ArrayList<Author> authors = comic.getAuthors();
 
             for (int k = 0; k < toBeSearched.length; k++) {
-                if (!authors.get(k).equals(toBeSearched[k])) {
+                String name = authors.get(k).getName(); 
+                if (!name.equals(toBeSearched[k])) {
                     isMatch = false;
                     break;
                 }
