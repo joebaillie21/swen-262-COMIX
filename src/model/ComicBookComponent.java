@@ -10,7 +10,7 @@ public class ComicBookComponent implements ComicBook {
     static final String STRING_FORMAT = "[Publisher=%s, Author=%s, Title=%s, Description=%s, VolNum=%s, IssueNum=%s, Characters=%s]";
 
     private Publisher publisher; 
-    private Author author; 
+    private ArrayList<Author> authors; 
     private String seriesTitle, publicationDate, description; 
     private int volNum, issueNum, grade, signatures; 
     private ArrayList<String> principleCharacters; 
@@ -38,7 +38,8 @@ public class ComicBookComponent implements ComicBook {
         // work on this 
     }
 
-
+    public ArrayList<Author> getAuthors(){return authors;}
+    
     public boolean isAuthenticated(){return isAuthenticated;}
 
     public String getDescription(){ return description;}

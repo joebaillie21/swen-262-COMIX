@@ -21,9 +21,9 @@ public class SearchByAuthor implements SearchStrategy {
     @Override
     public ArrayList<ComicBook> algorithm(String toBeSearched, boolean isSearchDb) throws Exception {
         ArrayList<ComicBook> comics = new ArrayList<>();
-
+        String [] toBeSearchedSplit = toBeSearched.split(",");
         if (isSearchDb == true) {
-            comics = searchOnDb(toBeSearched);
+            comics = searchOnDb(toBeSearchedSplit);
         } else if (isSearchDb == false) {
             comics = searchOnPC(toBeSearched);
         }
@@ -48,19 +48,30 @@ public class SearchByAuthor implements SearchStrategy {
         return db.resToArrayList(res);
     }
 
-    private ArrayList<ComicBook> searchOnPC(String toBeSearched) {
+    private ArrayList<ComicBook> searchOnPC(String [] toBeSearched) {
         ArrayList<ComicBook> comics = new ArrayList<>();
         ArrayList<ComicBook> pc = personalCollection.getPersonalCollection();
         int currCount = 0;
 
+        boolean isMatch = false; // reset everytime new comic iterate
         for (int i = 0; i < pc.size(); i++) {
             ComicBookComponent comic = (ComicBookComponent) pc.get(i);
-            if (comic.getAuthor().equals(toBeSearched) && currCount != NUM_RESULTS) {
-                comics.add(pc.get(i));
-                currCount++;
+            ArrayList<Author> authors = comic.getAuthors();
+
+            for (int k = 0; k < toBeSearched.length; k++) {
+                if (!authors.get(k).equals(toBeSearched[k])) {
+                    isMatch = false;
+                    break;
+                }
             }
 
-            if (currCount == NUM_RESULTS) {
+            if (isMatch == true && currCount != NUM_RESULTS) {
+                currCount++;
+                isMatch = false; // reset
+                comics.add(comic);
+            }
+
+            if (currCount == NUM_RESULTS) { // when the max results reached
                 return comics;
             }
 
