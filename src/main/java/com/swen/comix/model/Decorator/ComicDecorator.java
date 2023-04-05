@@ -64,8 +64,8 @@ public class ComicDecorator implements com.swen.comix.model.ComicBook{
 
 
     @Override
-    public ArrayList<String> getPrincipleCharacter() {
-        return comicBook.getPrincipleCharacter();
+    public ArrayList<String> getPrincipleCharacters() {
+        return comicBook.getPrincipleCharacters();
     }
 
 
@@ -81,12 +81,8 @@ public class ComicDecorator implements com.swen.comix.model.ComicBook{
     }
 
     @Override
-    public int getSignature() {
-        return comicBook.getSignature();
+    public int getSignatures() {
+        return comicBook.getSignatures();
     }
 
-    @Override
-    public void gradeAlgorithm() {
-        comicBook.gradeAlgorithm();
-    }
 }

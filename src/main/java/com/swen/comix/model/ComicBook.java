@@ -3,7 +3,6 @@ package com.swen.comix.model;
 import java.util.ArrayList;
 
 public interface ComicBook {
-    public void gradeAlgorithm();
     public Publisher getPublisher(); 
     public ArrayList<Author> getAuthor();
     public String getSeriesTitle();

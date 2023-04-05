@@ -34,11 +34,6 @@ public class ComicBookComponent implements ComicBook {
         isSlabbed = false; 
     }
 
-    @Override
-    public void gradeAlgorithm() {
-        // work on this 
-    }
-
     // need to do something about the grading stuff since it has to directly impact the comicbook components
     public boolean isAuthenticated(){return isAuthenticated;}
 
@@ -60,9 +55,9 @@ public class ComicBookComponent implements ComicBook {
 
     public double getValue(){return value;}
 
-    public ArrayList<Author> getAuthors(){return authors;}
+    public ArrayList<Author> getAuthor(){return authors;}
 
-    public String getPublicationDate(){return publicationDate; }
+    public String getPubDate(){return publicationDate; }
 
     public boolean getSlabbed(){return isSlabbed;}
     public void setAuthentication(boolean isAuthenticated){
@@ -94,13 +89,13 @@ public class ComicBookComponent implements ComicBook {
         }
 
         for(int k = 0; k < other.getAuthor().size(); k++){
-            if(!other.getAuthor().get(k).equals(author.get(k))){
+            if(!other.getAuthor().get(k).equals(authors.get(k))){
                 return false; 
             }
         }
 
         return (
-            other.getAuthors().equals(authors) && other.getPublicationDate().equals(publicationDate) && other.getValue() == value && other.getGrade() == grade
+            other.getAuthor().equals(authors) && other.getPubDate().equals(publicationDate) && other.getValue() == value && other.getGrade() == grade
             && other.getDescription().equals(description) && other.getIssueNum() == issueNum && other.getVolNum() == volNum && other.getPublisher().getName().equals(publisher.getName())
             && other.isAuthenticated() == isAuthenticated && other.getSeriesTitle().equals(seriesTitle) && other.getSlabbed() == isSlabbed
         );
