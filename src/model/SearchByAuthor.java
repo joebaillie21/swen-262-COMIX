@@ -30,32 +30,22 @@ public class SearchByAuthor implements SearchStrategy {
         return comics;
     }
 
+    /**
+     * @param toBeSearched
+     * @return ArrayList of comics with the given author name
+     * @throws Exception
+     * @author Joe
+     */
+
     private ArrayList<ComicBook> searchOnDb(String toBeSearched) throws Exception {
+
+        iDatabase db = new Database();
+
         ArrayList<ComicBook> comics = new ArrayList<>();
-        Connection con = dbManager.getConnection();
-        PreparedStatement getComics = con.prepareStatement("SELECT * FROM comics WHERE author = " + toBeSearched);
-        ResultSet res = getComics.executeQuery();
-        while (res.next()) {
-            Publisher publisher = new Publisher(Integer.toString(res.getInt("publisher_id"))); // This will be changed
-                                                                                               // to be a join method
-            // once data has been loaded and
-            // expectations clarified
-            Author author = new Author(res.getString("author"));
-            String seriesTitle = res.getString("series_title");
-            int volNum = res.getInt("volume_number");
-            int issueNum = res.getInt("issue_number");
-            String publicationDate = res.getString("publication_date");
-            ArrayList<String> principleCharacters = new ArrayList<>();
-            principleCharacters.add(res.getString("principle_character"));
-            String description = res.getString("description");
-            // public ComicBookComponent(Publisher publisher, String seriesTitle, int
-            // volNum, int issueNum, String publicationDate, Author author,
-            // ArrayList<String> principleCharacters, String description)
-            ComicBookComponent comic = new ComicBookComponent(publisher, seriesTitle, volNum, issueNum, publicationDate,
-                    author, principleCharacters, description);
-            comics.add(comic);
-        }
-        return comics;
+
+        ResultSet res = db.getTable("SELECT * FROM comics WHERE author = '" + toBeSearched + "'");
+
+        return db.resToArrayList(res);
     }
 
     private ArrayList<ComicBook> searchOnPC(String toBeSearched) {
