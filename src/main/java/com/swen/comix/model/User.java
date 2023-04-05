@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * This is basically a signed in user. Not sure if we need both classes
  */
 public class User {
-    private String name, password; 
+    private String name;
     private PersonalCollection collection; 
     private SearchStrategy selectedSearch;
     private SortStrategy selectedSort; 
