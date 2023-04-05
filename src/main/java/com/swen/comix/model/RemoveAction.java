@@ -1,23 +1,26 @@
 package com.swen.comix.model;
 
 public class RemoveAction implements Action {
+    private PersonalCollection pc ;
+    private ComicBook comic; 
+
+    public RemoveAction(PersonalCollection pc){
+        this.pc = pc; 
+    }
 
     @Override
     public void execute(ComicBook comic) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'execute'");
+        pc.remove(comic);
+        this.comic = comic;
     }
 
     @Override
     public boolean isReversible() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isReversible'");
+        return true;
     }
 
     @Override
     public void unexecute() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'unexecute'");
+        pc.add(comic); 
     }
-    
 }
