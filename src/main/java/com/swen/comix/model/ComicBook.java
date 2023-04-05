@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public interface ComicBook {
     public void gradeAlgorithm();
     public Publisher getPublisher(); 
-    public ArrayList<Author> getAuthors();
+    public ArrayList<Author> getAuthor();
     public String getSeriesTitle();
-    public String getPublicationDate();
+    public String getPubDate();
     public String getDescription();
     public int getVolNum();
     public int getIssueNum();

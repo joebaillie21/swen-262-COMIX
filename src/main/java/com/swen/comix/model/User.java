@@ -1,6 +1,6 @@
 package com.swen.comix.model;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 
 /**
  * TODO

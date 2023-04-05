@@ -93,6 +93,12 @@ public class ComicBookComponent implements ComicBook {
             }
         }
 
+        for(int k = 0; k < other.getAuthor().size(); k++){
+            if(!other.getAuthor().get(k).equals(author.get(k))){
+                return false; 
+            }
+        }
+
         return (
             other.getAuthors().equals(authors) && other.getPublicationDate().equals(publicationDate) && other.getValue() == value && other.getGrade() == grade
             && other.getDescription().equals(description) && other.getIssueNum() == issueNum && other.getVolNum() == volNum && other.getPublisher().getName().equals(publisher.getName())

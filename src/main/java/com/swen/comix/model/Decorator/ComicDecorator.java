@@ -6,7 +6,7 @@ import com.swen.comix.model.Author;
 import com.swen.comix.model.ComicBook;
 import com.swen.comix.model.Publisher;
 
-public class ComicDecorator implements ComicBook{
+public class ComicDecorator implements com.swen.comix.model.ComicBook{
 
     protected ComicBook comicBook;
 
@@ -21,8 +21,8 @@ public class ComicDecorator implements ComicBook{
 
 
     @Override
-    public ArrayList<Author> getAuthors() {
-        return comicBook.getAuthors();
+    public ArrayList<Author> getAuthor() {
+        return comicBook.getAuthor();
     }
 
 
@@ -34,8 +34,8 @@ public class ComicDecorator implements ComicBook{
 
 
     @Override
-    public String getPublicationDate() {
-        return comicBook.getPublicationDate();
+    public String getPubDate() {
+        return comicBook.getPubDate();
     }
 
 
@@ -64,8 +64,8 @@ public class ComicDecorator implements ComicBook{
 
 
     @Override
-    public ArrayList<String> getPrincipleCharacters() {
-        return comicBook.getPrincipleCharacters();
+    public ArrayList<String> getPrincipleCharacter() {
+        return comicBook.getPrincipleCharacter();
     }
 
 
@@ -81,8 +81,8 @@ public class ComicDecorator implements ComicBook{
     }
 
     @Override
-    public int getSignatures() {
-        return comicBook.getSignatures();
+    public int getSignature() {
+        return comicBook.getSignature();
     }
 
     @Override

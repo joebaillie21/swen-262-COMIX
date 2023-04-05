@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -40,7 +41,8 @@ public class PersonalCollectionTest {
         ComixMediator mediator = new ComixLogin(userFileDao);
         Guest guest = new Guest(mediator);
         User user = guest.createAccount("user", "pass");
-
+        ArrayList<Author> Authors = new ArrayList<Author>();
+        Authors.add(new Author("Stan Lee"));
         PersonalCollection collection = new PersonalCollection("user");
         ArrayList<Author> authors = new ArrayList<Author>();
         authors.add(new Author("Stan Lee"));
