@@ -12,6 +12,6 @@ public class Signed extends ComicDecorator {
     
     @Override
     public double getValue() {
-        return super.getValue()*super.getSignature()*signatureValueIncrease;
+        return super.getValue()*super.getSignatures()*signatureValueIncrease;
     }
 }
