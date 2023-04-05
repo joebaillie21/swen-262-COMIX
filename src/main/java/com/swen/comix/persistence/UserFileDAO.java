@@ -6,13 +6,12 @@ import java.util.TreeMap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swen.comix.model.ComicBook;
-import com.swen.comix.model.PersonalCollection;
-import com.swen.comix.model.User;
+import com.swen.comix.model.SignedInUser;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserFileDAO implements UserDAO{
-    TreeMap<String,User> users;   // Provides a local cache of the user objects
+    TreeMap<String,SignedInUser> users;   // Provides a local cache of the user objects
                                 // so that we don't need to read from the file
                                 // each time
                                 
@@ -37,9 +36,9 @@ public class UserFileDAO implements UserDAO{
         // Deserializes the JSON objects from the file into an array of users
         // readValue will throw an IOException if there's an issue with the file
         // or reading from the file
-       User[] userArray = objectMapper.readValue(new File(filename),User[].class);
+       SignedInUser[] userArray = objectMapper.readValue(new File(filename),SignedInUser[].class);
 
-        for (User user : userArray) {
+        for (SignedInUser user : userArray) {
             users.put(user.getName(),user);
         }
         return true;
@@ -50,12 +49,12 @@ public class UserFileDAO implements UserDAO{
      * @return List of users
      * @throws IOException
      */
-    public List<User> getUsers() throws IOException{
+    public List<SignedInUser> getUsers() throws IOException{
         return new ArrayList<>(users.values());
     }
 
     private boolean save() throws IOException {
-        List<User> userList = getUsers();
+        List<SignedInUser> userList = getUsers();
 
         // Serializes the Java Objects to JSON objects into the file
         // writeValue will thrown an IOException if there is an issue
@@ -65,10 +64,10 @@ public class UserFileDAO implements UserDAO{
     }
 
     @Override
-    public User createUser(User user) throws IOException{
-        User newUser = new User(user.getName());
-        List<User> userArr = getUsers();
-        for(User userInFile: userArr){
+    public SignedInUser createUser(SignedInUser user) throws IOException{
+        SignedInUser newUser = new SignedInUser(user.getName(), user.getPassword());
+        List<SignedInUser> userArr = getUsers();
+        for(SignedInUser userInFile: userArr){
             if(userInFile.getName().equals(user.getName())){
                 throw new IllegalArgumentException("User already exists");
             }
@@ -79,9 +78,9 @@ public class UserFileDAO implements UserDAO{
     }
 
     @Override
-    public User getUser(String userName) throws IOException{
-        List<User> userArr = getUsers();
-        for(User userInFile: userArr){
+    public SignedInUser getUser(String userName) throws IOException{
+        List<SignedInUser> userArr = getUsers();
+        for(SignedInUser userInFile: userArr){
             if(userInFile.getName().equals(userName)){
                 return userInFile;
             }
@@ -95,7 +94,7 @@ public class UserFileDAO implements UserDAO{
      * @return the updated user object
      * @throws IOException
      */
-    public User updateUser(User user) throws IOException {
+    public SignedInUser updateUser(SignedInUser user) throws IOException {
         if (users.containsKey(user.getName()) == false)
             return null;  // user does not exist
 
@@ -105,9 +104,9 @@ public class UserFileDAO implements UserDAO{
     }
     
     @Override
-    public User userAuthentication(String userName, String password) throws IOException{
-        List<User> userList = getUsers();
-        for(User userInFile: userList){
+    public SignedInUser userAuthentication(String userName, String password) throws IOException{
+        List<SignedInUser> userList = getUsers();
+        for(SignedInUser userInFile: userList){
             if(userInFile.getName().equals(userName)){
                 return userInFile;
             }
@@ -119,8 +118,8 @@ public class UserFileDAO implements UserDAO{
     @Override
     public void addComic(ComicBook comic, String username) throws IOException {
         // find the user under the username given
-        List<User> userList = getUsers();
-        for (User userInFile: userList){
+        List<SignedInUser> userList = getUsers();
+        for (SignedInUser userInFile: userList){
             if (username == userInFile.getName()){
                 //add comic book
                 userInFile.getPersonalCollection().add(comic);
@@ -132,8 +131,8 @@ public class UserFileDAO implements UserDAO{
     @Override
     public void removeComic(ComicBook comic, String username) throws IOException{
         // find the user under the username given
-        List<User> userList = getUsers();
-        for (User userInFile: userList){
+        List<SignedInUser> userList = getUsers();
+        for (SignedInUser userInFile: userList){
             if (username == userInFile.getName()){
                 //remove comic book
                 userInFile.getPersonalCollection().remove(comic);

@@ -65,7 +65,7 @@ public class ComixLogin implements ComixMediator {
      * @throws IOException - due to the use of file writer 
      */
     @Override
-    public User addUser(User user) throws IOException{
+    public SignedInUser addUser(SignedInUser user) throws IOException{
         //Calls file DAO to create a new user with the given info and returns it
         return userDAO.createUser(user);
     }

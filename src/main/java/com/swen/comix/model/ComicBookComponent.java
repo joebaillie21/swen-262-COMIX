@@ -87,21 +87,10 @@ public class ComicBookComponent implements ComicBook {
         }
 
         ComicBookComponent other = (ComicBookComponent) o; 
-        for(int i = 0; i < other.getPrincipleCharacters().size(); i++){
-            if(!other.getPrincipleCharacters().get(i).equals(principleCharacters.get(i))){
-                return false; 
-            }
-        }
-
-        for(int k = 0; k < other.getAuthors().size(); k++){
-            if(!other.getAuthors().get(k).equals(authors.get(k))){
-                return false; 
-            }
-        }
 
         return (
-            other.getAuthors().equals(authors) && other.getPublicationDate().equals(publicationDate) && other.getValue() == value && other.getGrade() == grade
-            && other.getDescription().equals(description) && other.getIssueNum() == issueNum && other.getVolNum() == volNum && other.getPublisher().getName().equals(publisher.getName())
+            other.getPublicationDate().equals(publicationDate) && other.getGrade() == grade
+            && other.getIssueNum() == issueNum && other.getVolNum() == volNum && other.getPublisher().getName().equals(publisher.getName())
             && other.isAuthenticated() == isAuthenticated && other.getSeriesTitle().equals(seriesTitle) && other.getSlabbed() == isSlabbed
         );
 

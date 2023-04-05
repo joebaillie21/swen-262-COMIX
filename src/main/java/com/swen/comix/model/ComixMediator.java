@@ -9,5 +9,5 @@ public interface ComixMediator {
     public User login(String username, String password) throws IOException;
     public PersonalCollection getSpecificPersonalCollection(String username) throws IOException;
     public boolean isLoggedIn();
-    public User addUser(User user) throws IOException;
+    public SignedInUser addUser(SignedInUser user) throws IOException;
 }

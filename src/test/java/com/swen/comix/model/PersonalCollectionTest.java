@@ -11,10 +11,6 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.swen.comix.model.PersonalCollection;
-import com.swen.comix.persistence.PersonalCollectionDAO;
-import com.swen.comix.persistence.PersonalCollectionFileDAO;
 import com.swen.comix.persistence.UserDAO;
 import com.swen.comix.persistence.UserFileDAO;
 
@@ -40,7 +36,7 @@ public class PersonalCollectionTest {
         UserDAO userFileDao = new UserFileDAO("src/data/temp.json", mockMapper);
         ComixMediator mediator = new ComixLogin(userFileDao);
         Guest guest = new Guest(mediator);
-        User user = guest.createAccount("user", "pass");
+        SignedInUser user = guest.createAccount("user", "pass");
         ArrayList<Author> Authors = new ArrayList<Author>();
         Authors.add(new Author("Stan Lee"));
         PersonalCollection collection = new PersonalCollection("user");
