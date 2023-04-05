@@ -15,14 +15,10 @@ import java.util.HashMap;
  * @Author Angela Ngo
  */
 public class ComixLogin implements ComixMediator {
-    private HashMap<String, ArrayList<Object>> userLogins; 
-    static final int PASSWORD = 1; 
-    static final int PERSONAL_COLLECTION = 2; 
     private boolean isLoggedIn;
     private UserDAO userDAO;
 
     public ComixLogin(UserDAO userDAO){
-        userLogins = new HashMap<String, ArrayList<Object>>();
         isLoggedIn = false;
         this.userDAO = userDAO;
     }
