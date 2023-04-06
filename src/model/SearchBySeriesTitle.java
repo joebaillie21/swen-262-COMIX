@@ -46,7 +46,7 @@ public class SearchBySeriesTitle implements SearchStrategy {
 
         for (int i = 0; i < pc.size(); i++) {
             ComicBookComponent comic = (ComicBookComponent) pc.get(i);
-            if (comic.getSeriesTitle().equals(toBeSearched) && currCount != NUM_RESULTS) {
+            if (comic.getSeriesTitle().equals(toBeSearched)) {
                 comics.add(pc.get(i));
                 
             }
