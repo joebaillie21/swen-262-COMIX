@@ -12,6 +12,7 @@ public interface ComicBook {
     public int getIssueNum();
     public int getGrade();
     public void setGrade(int newGrade);
+    public void setValue(double value);
     public int getSignatures();
     public ArrayList<String> getPrincipleCharacters();
     public boolean isAuthenticated();

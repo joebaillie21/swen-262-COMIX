@@ -32,8 +32,11 @@ public class PersonalCollection {
         comic.setValue(gradedComic.getValue());
     }
 
-    public void slab(ComicBook comic){
-        // TO DO
+    public void slab(ComicBookComponent comic){
+        if (comic.getGrade() != 1){
+            ComicBook slabbedComic = new Slab(comic);
+            comic.setValue(slabbedComic.getValue());
+        }
     }
 
     public void sign(ComicBook comic){

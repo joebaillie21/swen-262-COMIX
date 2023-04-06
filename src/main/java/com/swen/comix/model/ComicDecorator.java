@@ -85,4 +85,9 @@ public class ComicDecorator implements ComicBook{
     public void setGrade(int newGrade) {
         comicBook.setGrade(newGrade);
     }
+
+    @Override
+    public void setValue(double value){
+        comicBook.setValue(value);
+    }
 }

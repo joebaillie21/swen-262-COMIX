@@ -69,8 +69,9 @@ public class ComicBookComponent implements ComicBook {
         this.grade = newGrade; 
     }
 
-    public void setValue(Double value){
-        this.value = value; 
+    @Override
+    public void setValue(double value){
+        this.value = value;
     }
 
     public void setSlabbed(boolean isSlabbed){

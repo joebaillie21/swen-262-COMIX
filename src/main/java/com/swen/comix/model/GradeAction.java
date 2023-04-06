@@ -9,6 +9,7 @@ public class GradeAction implements Action{
     private PersonalCollection pc; 
     private ComicBook comic; 
     private int previousGrade; 
+    private double previousValue;
     private int newGrade;
 
     public GradeAction(PersonalCollection pc, int newGrade){
@@ -17,7 +18,8 @@ public class GradeAction implements Action{
     }
     @Override
     public void execute(ComicBook toBeGradedcomic) {
-        previousGrade = (toBeGradedcomic).getGrade();
+        previousGrade = toBeGradedcomic.getGrade();
+        previousValue = toBeGradedcomic.getValue();
         toBeGradedcomic.setGrade(this.newGrade);
         pc.grade((ComicBookComponent)toBeGradedcomic);
         this.comic = toBeGradedcomic;
@@ -30,6 +32,7 @@ public class GradeAction implements Action{
 
     @Override
     public void unexecute() {
-        comic.setGrade(previousGrade);
+        this.comic.setGrade(previousGrade);
+        this.comic.setValue(previousValue);
     }
 }
