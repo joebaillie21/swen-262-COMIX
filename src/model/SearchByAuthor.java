@@ -12,7 +12,6 @@ import db.*;
  */
 public class SearchByAuthor implements SearchStrategy {
     private PersonalCollection personalCollection;
-    final int NUM_RESULTS = 10;
 
     public SearchByAuthor(PersonalCollection pc) {
         this.personalCollection = pc;
@@ -48,6 +47,12 @@ public class SearchByAuthor implements SearchStrategy {
         return db.resToArrayList(res);
     }
 
+    /**
+     * This searches for comic books that has the same list of authors 
+     * @param toBeSearched
+     * @return Arraylist of comic books 
+     * @Author Angela 
+     */
     private ArrayList<ComicBook> searchOnPC(String [] toBeSearched) {
         ArrayList<ComicBook> comics = new ArrayList<>();
         ArrayList<ComicBook> pc = personalCollection.getPersonalCollection();
@@ -66,15 +71,11 @@ public class SearchByAuthor implements SearchStrategy {
                 }
             }
 
-            if (isMatch == true && currCount != NUM_RESULTS) {
-                currCount++;
+            if (isMatch == true) {
                 isMatch = false; // reset
                 comics.add(comic);
             }
 
-            if (currCount == NUM_RESULTS) { // when the max results reached
-                return comics;
-            }
 
         }
         // return the ones even if it doesn reach the max NUM_COUNT

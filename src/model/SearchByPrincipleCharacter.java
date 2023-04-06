@@ -10,9 +10,8 @@ import db.*;
  * @Author Angela and Joe
  */
 public class SearchByPrincipleCharacter implements SearchStrategy {
-    private String toBeSearched;
     private PersonalCollection personalCollection;
-    final int NUM_RESULTS = 10;
+    
 
     public SearchByPrincipleCharacter(PersonalCollection personalCollection) {
         this.personalCollection = personalCollection;
@@ -41,7 +40,7 @@ public class SearchByPrincipleCharacter implements SearchStrategy {
 
         ArrayList<ComicBook> comics = new ArrayList<>();
         ArrayList<ComicBook> pc = personalCollection.getPersonalCollection();
-        int currCount = 0;
+
 
         boolean isMatch = false; // reset everytime new comic iterate
         for (int i = 0; i < pc.size(); i++) {
@@ -55,15 +54,11 @@ public class SearchByPrincipleCharacter implements SearchStrategy {
                 }
             }
 
-            if (isMatch == true && currCount != NUM_RESULTS) {
-                currCount++;
+            if (isMatch == true ) {
                 isMatch = false; // reset
                 comics.add(comic);
             }
 
-            if (currCount == NUM_RESULTS) { // when the max results reached
-                return comics;
-            }
 
         }
         // return the ones even if it doesn reach the max NUM_COUNT
