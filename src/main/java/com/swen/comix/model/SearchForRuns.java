@@ -15,13 +15,16 @@ public class SearchForRuns implements SearchStrategy {
         ArrayList<ComicBook> comics = new ArrayList<>(); 
 
         if(isSearchDb == false){
-            comics = searchByPC();
+            comics = searchOnPC();
         }
         return comics; 
     }
     
-    private ArrayList<ComicBook> searchByPC(){
+    private ArrayList<ComicBook> searchOnPC(){
         ArrayList<ComicBook> pc = (ArrayList<ComicBook>) personalCollection.getPersonalCollection();
+
+        // maybe sort first before we count 
+        
 
     }
 }

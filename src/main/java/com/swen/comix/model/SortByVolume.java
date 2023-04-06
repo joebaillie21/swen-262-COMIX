@@ -1,6 +1,6 @@
 package com.swen.comix.model;
 
-public class SortByValue implements SortStrategy{
+public class SortByVolume implements SortStrategy{
 
     @Override
     public PersonalCollection algorithm() {

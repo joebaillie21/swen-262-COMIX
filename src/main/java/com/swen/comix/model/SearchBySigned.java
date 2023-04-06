@@ -13,12 +13,12 @@ public class SearchBySigned implements SearchStrategy {
     public ArrayList<ComicBook> algorithm(String toBeSearched, boolean isSearchDb) {
         ArrayList<ComicBook> comics = new ArrayList<>(); 
         if(isSearchDb == false){
-            comics = searchByPC();
+            comics = searchOnPC();
         }
         return comics;
     }
 
-    private ArrayList<ComicBook> searchByPC(){
+    private ArrayList<ComicBook> searchOnPC(){
         ArrayList<ComicBook> comics = new ArrayList<>(); 
         ArrayList<ComicBook> pc = (ArrayList<ComicBook>) personalCollection.getPersonalCollection();
         for(int i = 0; i < pc.size(); i++ ){
