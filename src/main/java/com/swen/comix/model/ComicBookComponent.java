@@ -17,6 +17,9 @@ public class ComicBookComponent implements ComicBook {
     private boolean isAuthenticated, isSlabbed; 
     private double value; 
 
+    final int DEFAULT_GRADE = 0; 
+    final int DEFAULT_VALUE = -1;
+
 
     public ComicBookComponent(Publisher publisher, String seriesTitle, int volNum, int issueNum, String publicationDate, ArrayList<Author> authors, ArrayList<String> principleCharacters, String description){
         this.publisher = publisher; 
@@ -28,8 +31,8 @@ public class ComicBookComponent implements ComicBook {
         this.principleCharacters = principleCharacters; 
         this.description = description; 
         this.signatures = 0;
-        this.grade = 0; // smallest grade is 1 not 0 
-        this.value = -1;
+        this.grade = DEFAULT_GRADE; // smallest grade is 1 not 0 
+        this.value = DEFAULT_VALUE;
         isAuthenticated = false; 
         isSlabbed = false; 
     }

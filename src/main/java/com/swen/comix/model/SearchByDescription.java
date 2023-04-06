@@ -5,9 +5,11 @@ import java.util.ArrayList;
 public class SearchByDescription implements SearchStrategy {
     private String toBeSearched;
 
+
     @Override
-    public ArrayList<ComicBook> algorithm(String toBeSearched) {
+    public ArrayList<ComicBook> algorithm(String toBeSearched, boolean isSearchDb) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'algorithm'");
     }
+
 }
