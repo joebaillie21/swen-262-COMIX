@@ -9,4 +9,13 @@ public class Author {
     public String getName(){
         return name;
     }
+
+    @Override
+    public boolean equals(Object o){
+        if(!(o instanceof Author)){
+            return false;
+        }
+        Author other = (Author) o; 
+        return (other.getName().equals(this.name)); 
+    }
 }

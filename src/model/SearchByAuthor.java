@@ -12,7 +12,6 @@ import db.*;
  */
 public class SearchByAuthor implements SearchStrategy {
     private PersonalCollection personalCollection;
-    final int NUM_RESULTS = 10;
 
     public SearchByAuthor(PersonalCollection pc) {
         this.personalCollection = pc;
@@ -21,9 +20,9 @@ public class SearchByAuthor implements SearchStrategy {
     @Override
     public ArrayList<ComicBook> algorithm(String toBeSearched, boolean isSearchDb) throws Exception {
         ArrayList<ComicBook> comics = new ArrayList<>();
-
+        String [] toBeSearchedSplit = toBeSearched.split(",");
         if (isSearchDb == true) {
-            comics = searchOnDb(toBeSearched);
+            comics = searchOnDb(toBeSearchedSplit);
         } else if (isSearchDb == false) {
             comics = searchOnPC(toBeSearched);
         }
@@ -48,21 +47,35 @@ public class SearchByAuthor implements SearchStrategy {
         return db.resToArrayList(res);
     }
 
-    private ArrayList<ComicBook> searchOnPC(String toBeSearched) {
+    /**
+     * This searches for comic books that has the same list of authors 
+     * @param toBeSearched
+     * @return Arraylist of comic books 
+     * @Author Angela 
+     */
+    private ArrayList<ComicBook> searchOnPC(String [] toBeSearched) {
         ArrayList<ComicBook> comics = new ArrayList<>();
-        ArrayList<ComicBook> pc = personalCollection.getPersonalCollection();
-        int currCount = 0;
+        ArrayList<ComicBook> pc = (ArrayList<ComicBook>) personalCollection.getPersonalCollection();
+    
 
+        boolean isMatch = false; // reset everytime new comic iterate
         for (int i = 0; i < pc.size(); i++) {
             ComicBookComponent comic = (ComicBookComponent) pc.get(i);
-            if (comic.getAuthor().equals(toBeSearched) && currCount != NUM_RESULTS) {
-                comics.add(pc.get(i));
-                currCount++;
+            ArrayList<Author> authors = comic.getAuthors();
+
+            for (int k = 0; k < toBeSearched.length; k++) {
+                String name = authors.get(k).getName(); 
+                if (!name.equals(toBeSearched[k])) {
+                    isMatch = false;
+                    break;
+                }
             }
 
-            if (currCount == NUM_RESULTS) {
-                return comics;
+            if (isMatch == true) {
+                isMatch = false; // reset
+                comics.add(comic);
             }
+
 
         }
         // return the ones even if it doesn reach the max NUM_COUNT
