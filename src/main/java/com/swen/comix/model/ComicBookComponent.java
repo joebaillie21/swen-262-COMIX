@@ -77,6 +77,10 @@ public class ComicBookComponent implements ComicBook {
     public void setSlabbed(boolean isSlabbed){
         this.isSlabbed = isSlabbed; 
     }
+
+    public void setSignatures(int signatures) {
+        this.signatures = signatures;
+    }
     
     public boolean equals(Object o){ 
         if(!(o instanceof ComicBookComponent)){

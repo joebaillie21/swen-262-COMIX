@@ -90,4 +90,9 @@ public class ComicDecorator implements ComicBook{
     public void setValue(double value){
         comicBook.setValue(value);
     }
+
+    @Override
+    public void setSignatures(int signatures) {
+        comicBook.setSignatures(signatures);
+    }
 }
