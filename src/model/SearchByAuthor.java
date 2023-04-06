@@ -22,9 +22,9 @@ public class SearchByAuthor implements SearchStrategy {
         ArrayList<ComicBook> comics = new ArrayList<>();
         String[] toBeSearchedSplit = toBeSearched.split(",");
         if (isSearchDb == true) {
-            comics = searchOnDb(toBeSearchedSplit);
+            comics = searchOnDb(toBeSearched);
         } else if (isSearchDb == false) {
-            comics = searchOnPC(toBeSearched);
+            comics = searchOnPC(toBeSearchedSplit);
         }
         return comics;
     }
