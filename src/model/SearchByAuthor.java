@@ -20,11 +20,11 @@ public class SearchByAuthor implements SearchStrategy {
     @Override
     public ArrayList<ComicBook> algorithm(String toBeSearched, boolean isSearchDb) throws Exception {
         ArrayList<ComicBook> comics = new ArrayList<>();
-        String [] toBeSearchedSplit = toBeSearched.split(",");
+        String[] toBeSearchedSplit = toBeSearched.split(",");
         if (isSearchDb == true) {
-            comics = searchOnDb(toBeSearchedSplit);
+            comics = searchOnDb(toBeSearched);
         } else if (isSearchDb == false) {
-            comics = searchOnPC(toBeSearched);
+            comics = searchOnPC(toBeSearchedSplit);
         }
         return comics;
     }
@@ -42,21 +42,21 @@ public class SearchByAuthor implements SearchStrategy {
 
         ArrayList<ComicBook> comics = new ArrayList<>();
 
-        ResultSet res = db.getTable("SELECT * FROM comics WHERE author = '" + toBeSearched + "'");
+        ResultSet res = db.getTable("SELECT * FROM comics WHERE author LIKE = '%" + toBeSearched + "%'");
 
         return db.resToArrayList(res);
     }
 
     /**
-     * This searches for comic books that has the same list of authors 
+     * This searches for comic books that has the same list of authors
+     * 
      * @param toBeSearched
-     * @return Arraylist of comic books 
-     * @Author Angela 
+     * @return Arraylist of comic books
+     * @Author Angela
      */
-    private ArrayList<ComicBook> searchOnPC(String [] toBeSearched) {
+    private ArrayList<ComicBook> searchOnPC(String[] toBeSearched) {
         ArrayList<ComicBook> comics = new ArrayList<>();
         ArrayList<ComicBook> pc = (ArrayList<ComicBook>) personalCollection.getPersonalCollection();
-    
 
         boolean isMatch = false; // reset everytime new comic iterate
         for (int i = 0; i < pc.size(); i++) {
@@ -64,7 +64,7 @@ public class SearchByAuthor implements SearchStrategy {
             ArrayList<Author> authors = comic.getAuthors();
 
             for (int k = 0; k < toBeSearched.length; k++) {
-                String name = authors.get(k).getName(); 
+                String name = authors.get(k).getName();
                 if (!name.equals(toBeSearched[k])) {
                     isMatch = false;
                     break;
@@ -75,7 +75,6 @@ public class SearchByAuthor implements SearchStrategy {
                 isMatch = false; // reset
                 comics.add(comic);
             }
-
 
         }
         // return the ones even if it doesn reach the max NUM_COUNT

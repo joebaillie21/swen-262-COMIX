@@ -102,6 +102,14 @@ public class Database implements iDatabase {
 
             Publisher publisher = new Publisher(res.getString("publisher"));
 
+            String authors = res.getString("author");
+            String[] authorsArray = authors.split(",");
+            ArrayList<Author> authorsObjectArrayList = new ArrayList<>();
+            for (String a : authorsArray) {
+                Author author = new Author(a);
+                authorsObjectArrayList.add(author);
+            }
+
             Author author = new Author(res.getString("author"));
 
             String seriesTitle = res.getString("series_title");
@@ -119,7 +127,7 @@ public class Database implements iDatabase {
             String description = res.getString("description");
 
             ComicBookComponent comic = new ComicBookComponent(publisher, seriesTitle, volNum, issueNum, publicationDate,
-                    author, principleCharacters, description);
+                    authorsObjectArrayList, principleCharacters, description);
 
             comics.add(comic);
         }
