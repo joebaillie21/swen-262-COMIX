@@ -1,9 +1,16 @@
 package model;
+import java.util.*;
 
 public class SortByPublicationDate implements SortStrategy{
 
+    private PersonalCollection personalCollection;
+
+    public SortByPublicationDate(PersonalCollection pc){
+        this.personalCollection = pc;
+    }
+
     @Override
-    public PersonalCollection algorithm() {
+    public ArrayList<ComicBook> algorithm(String toBeSorted, boolean isSortDb) throws Exception {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'algorithm'");
     }

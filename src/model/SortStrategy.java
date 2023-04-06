@@ -1,6 +1,10 @@
 package model;
+import java.util.ArrayList;
+
+/**
+ * @Author Peyton
+ */
 
 public interface SortStrategy {
-    public PersonalCollection algorithm(); 
-    // debating if the sort returns a personal collection or just the setting of it...?
+    public ArrayList<ComicBook> algorithm(String toBeSorted, boolean isSortDb) throws Exception;
 }
