@@ -7,9 +7,9 @@ import java.util.ArrayList;
  * This is only applicable for the personal collection therefore
  */
 public class SearchByIssueNumber implements SearchStrategy {
-    private String toBeSearched;
+
     private PersonalCollection personalCollection; 
-    final int NUM_RESULTS = 10; 
+
 
     public SearchByIssueNumber(PersonalCollection personalCollection){
         this.personalCollection = personalCollection; 
@@ -31,16 +31,13 @@ public class SearchByIssueNumber implements SearchStrategy {
     private ArrayList<ComicBook> searchOnPC(int toBeSearched){
         ArrayList<ComicBook> comics = new ArrayList<>();
         ArrayList<ComicBook> pc = (ArrayList<ComicBook>)personalCollection.getPersonalCollection();
-        int currCount = 0;
+        
 
         for (int i = 0; i < pc.size(); i++) {
             ComicBookComponent comic = (ComicBookComponent) pc.get(i);
-            if (comic.getDescription().equals(toBeSearched) && currCount != NUM_RESULTS) {
+            if (comic.getDescription().equals(toBeSearched)) {
                 comics.add(pc.get(i));
-                currCount++;
-            }
-            if (currCount == NUM_RESULTS) {
-                return comics;
+                
             }
 
         }

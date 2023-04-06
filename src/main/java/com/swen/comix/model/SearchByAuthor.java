@@ -12,4 +12,9 @@ public class SearchByAuthor implements SearchStrategy{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'algorithm'");
     }
+
+    private ArrayList<ComicBook> searchCollection(String toBeSearched){
+
+
+    }
 }
