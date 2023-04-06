@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,9 +18,13 @@ import com.swen.comix.persistence.UserFileDAO;
 public class PersonalCollectionTest {
     private File dataFile;
     private ObjectMapper mockMapper;
-    private UserFileDAO userFileDao;
+    private UserDAO userFileDao;
     private ComixMediator mediator;
     private Guest guest;
+    private SignedInUser user;
+    private ArrayList<Author> authors;
+    private PersonalCollection collection;
+    private ComicBook comic;
 
     @Before
     public void setup() throws IOException{
@@ -38,6 +41,12 @@ public class PersonalCollectionTest {
         userFileDao = new UserFileDAO("src/data/temp.json", mockMapper);
         mediator = new ComixLogin(userFileDao);
         guest = new Guest(mediator);
+        user = guest.createAccount("user", "pass");
+        collection = new PersonalCollection("user");
+        authors = new ArrayList<Author>();
+        authors.add(new Author("Stan Lee"));
+        comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, "15", authors, null, null);
+        user.setCollection(collection);
     }
 
     @After
@@ -46,15 +55,7 @@ public class PersonalCollectionTest {
     }
 
     @Test
-    public void testAddComic() throws IOException{
-        SignedInUser user = guest.createAccount("user", "pass");
-        ArrayList<Author> Authors = new ArrayList<Author>();
-        Authors.add(new Author("Stan Lee"));
-        PersonalCollection collection = new PersonalCollection("user");
-        ArrayList<Author> authors = new ArrayList<Author>();
-        authors.add(new Author("Stan Lee"));
-        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, "15", authors, null, null);
-        user.setCollection(collection);
+    public void testAddComic() throws IOException{user.setCollection(collection);
         user.setCommand(new AddAction(user.getPersonalCollection()));
         user.executeCommand(comic);
 
@@ -63,17 +64,10 @@ public class PersonalCollectionTest {
 
     @Test
     public void testAddComicUndo() throws IOException{
-        SignedInUser user = guest.createAccount("user", "pass");
-        ArrayList<Author> Authors = new ArrayList<Author>();
-        Authors.add(new Author("Stan Lee"));
-        PersonalCollection collection = new PersonalCollection("user");
-        ArrayList<Author> authors = new ArrayList<Author>();
-        authors.add(new Author("Stan Lee"));
         ArrayList<Author> authors2 = new ArrayList<Author>();
         authors2.add(new Author("Man Bat"));
         ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, "15", authors, null, null);
         ComicBook comic2 = new ComicBookComponent(new Publisher("DC"), "BatMan", 0, 0, "12", authors2, null, null);
-        user.setCollection(collection);
         user.setCommand(new AddAction(user.getPersonalCollection()));
         user.executeCommand(comic);
         user.setCommand(new AddAction(user.getPersonalCollection()));
@@ -93,14 +87,8 @@ public class PersonalCollectionTest {
 
     @Test
     public void testRemoveComic() throws IOException{
-        SignedInUser user = guest.createAccount("user", "pass");
-        ArrayList<Author> Authors = new ArrayList<Author>();
-        Authors.add(new Author("Stan Lee"));
-        PersonalCollection collection = new PersonalCollection("user");
-        ArrayList<Author> authors = new ArrayList<Author>();
         authors.add(new Author("Stan Lee"));
         ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, "15", authors, null, null);
-        user.setCollection(collection);
         user.setCommand(new AddAction(user.getPersonalCollection()));
         user.executeCommand(comic);
         user.setCommand(new RemoveAction(user.getPersonalCollection()));
@@ -111,14 +99,6 @@ public class PersonalCollectionTest {
 
     @Test
     public void testRemoveComicUndo() throws IOException{
-        SignedInUser user = guest.createAccount("user", "pass");
-        ArrayList<Author> Authors = new ArrayList<Author>();
-        Authors.add(new Author("Stan Lee"));
-        PersonalCollection collection = new PersonalCollection("user");
-        ArrayList<Author> authors = new ArrayList<Author>();
-        authors.add(new Author("Stan Lee"));
-        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, "15", authors, null, null);
-        user.setCollection(collection);
         user.setCommand(new AddAction(user.getPersonalCollection()));
         user.executeCommand(comic);
         user.setCommand(new RemoveAction(user.getPersonalCollection()));
@@ -131,14 +111,6 @@ public class PersonalCollectionTest {
 
     @Test
     public void testGradeComic() throws IOException{
-        SignedInUser user = guest.createAccount("user", "pass");
-        ArrayList<Author> Authors = new ArrayList<Author>();
-        Authors.add(new Author("Stan Lee"));
-        PersonalCollection collection = new PersonalCollection("user");
-        ArrayList<Author> authors = new ArrayList<Author>();
-        authors.add(new Author("Stan Lee"));
-        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, "15", authors, null, null);
-        user.setCollection(collection);
         user.setCommand(new AddAction(user.getPersonalCollection()));
         user.executeCommand(comic);
 
@@ -156,14 +128,6 @@ public class PersonalCollectionTest {
 
     @Test
     public void testGradeComicUndo() throws IOException{
-        SignedInUser user = guest.createAccount("user", "pass");
-        ArrayList<Author> Authors = new ArrayList<Author>();
-        Authors.add(new Author("Stan Lee"));
-        PersonalCollection collection = new PersonalCollection("user");
-        ArrayList<Author> authors = new ArrayList<Author>();
-        authors.add(new Author("Stan Lee"));
-        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, "15", authors, null, null);
-        user.setCollection(collection);
         user.setCommand(new AddAction(user.getPersonalCollection()));
         user.executeCommand(comic);
 
@@ -185,14 +149,6 @@ public class PersonalCollectionTest {
 
     @Test
     public void testSlabComic() throws IOException{
-        SignedInUser user = guest.createAccount("user", "pass");
-        ArrayList<Author> Authors = new ArrayList<Author>();
-        Authors.add(new Author("Stan Lee"));
-        PersonalCollection collection = new PersonalCollection("user");
-        ArrayList<Author> authors = new ArrayList<Author>();
-        authors.add(new Author("Stan Lee"));
-        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, "15", authors, null, null);
-        user.setCollection(collection);
         user.setCommand(new AddAction(user.getPersonalCollection()));
         user.executeCommand(comic);
 
@@ -210,5 +166,29 @@ public class PersonalCollectionTest {
         user.executeCommand(comic);
 
         assertEquals(20, comic.getValue(), 0);
+    }
+
+    @Test
+    public void testSlabComicUndo() throws IOException{
+        user.setCommand(new AddAction(user.getPersonalCollection()));
+        user.executeCommand(comic);
+
+        assertEquals(user.getPersonalCollection().toString(), "Collection [userName=user, collection=[[Publisher=Marvel, Author=[Stan Lee], Title=Spiderman, Description=null, VolNum=0, IssueNum=0, Characters=null]]]");
+        
+        comic.setValue(10);
+        user.setCommand(new GradeAction(user.getPersonalCollection(), 10));
+        user.executeCommand(comic);
+
+        assertEquals(user.getPersonalCollection().toString(), "Collection [userName=user, collection=[[Publisher=Marvel, Author=[Stan Lee], Title=Spiderman, Description=null, VolNum=0, IssueNum=0, Characters=null]]]");
+        
+        assertEquals(10, comic.getGrade());
+
+        user.setCommand(new SlabbedAction(collection));
+        user.executeCommand(comic);
+
+        assertEquals(20, comic.getValue(), 0);
+
+        user.unexecuteCommand();
+        assertEquals(10, comic.getValue(), 0);
     }
 }

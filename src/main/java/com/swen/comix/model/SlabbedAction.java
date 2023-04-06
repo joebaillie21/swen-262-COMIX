@@ -8,12 +8,14 @@ import java.util.List;
 public class SlabbedAction implements Action {
     private PersonalCollection pc; 
     private ComicBook comic; 
+    private double previousValue;
 
     public SlabbedAction(PersonalCollection pc){
         this.pc = pc; 
     }
     @Override
     public void execute(ComicBook comic) {
+        this.previousValue = comic.getValue();
         pc.slab((ComicBookComponent)comic);
         this.comic = comic; 
     }
@@ -25,15 +27,6 @@ public class SlabbedAction implements Action {
 
     @Override
     public void unexecute() {
-        List<ComicBook> perCol = pc.getPersonalCollection(); 
-        for(int i = 0; i < perCol.size(); i++){
-            if(perCol.get(i).equals(this.comic)){
-                int comicLocation = i; 
-    
-                ((ComicBookComponent)comic).setSlabbed((false));
-                perCol.set(comicLocation, (ComicBookComponent)comic); // updating the authentication in the personal collection by setting is back to false 
-            }
-        }
+        this.comic.setValue(previousValue);
     }
-    
 }
