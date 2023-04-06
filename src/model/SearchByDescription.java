@@ -42,7 +42,7 @@ public class SearchByDescription implements SearchStrategy {
 
     private ArrayList<ComicBook> searchOnPC(String toBeSearched) {
         ArrayList<ComicBook> comics = new ArrayList<>();
-        ArrayList<ComicBook> pc = personalCollection.getPersonalCollection();
+        ArrayList<ComicBook> pc = (ArrayList<ComicBook>)personalCollection.getPersonalCollection();
 
         for (int i = 0; i < pc.size(); i++) {
             ComicBookComponent comic = (ComicBookComponent) pc.get(i);

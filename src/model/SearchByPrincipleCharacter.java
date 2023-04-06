@@ -39,7 +39,7 @@ public class SearchByPrincipleCharacter implements SearchStrategy {
     private ArrayList<ComicBook> searchOnPC(String[] toBeSearched) {
 
         ArrayList<ComicBook> comics = new ArrayList<>();
-        ArrayList<ComicBook> pc = personalCollection.getPersonalCollection();
+        ArrayList<ComicBook> pc = (ArrayList<ComicBook>)personalCollection.getPersonalCollection();
 
 
         boolean isMatch = false; // reset everytime new comic iterate
