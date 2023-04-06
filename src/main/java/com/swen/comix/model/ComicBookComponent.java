@@ -19,6 +19,7 @@ public class ComicBookComponent implements ComicBook {
 
     final int DEFAULT_GRADE = 0; 
     final int DEFAULT_VALUE = -1;
+    final int DEFAULT_SIG_AMT = 0;
 
 
     public ComicBookComponent(Publisher publisher, String seriesTitle, int volNum, int issueNum, String publicationDate, ArrayList<Author> authors, ArrayList<String> principleCharacters, String description){
@@ -30,7 +31,7 @@ public class ComicBookComponent implements ComicBook {
         this.publicationDate = publicationDate; 
         this.principleCharacters = principleCharacters; 
         this.description = description; 
-        this.signatures = 0;
+        this.signatures = DEFAULT_SIG_AMT;
         this.grade = DEFAULT_GRADE; // smallest grade is 1 not 0 
         this.value = DEFAULT_VALUE;
         isAuthenticated = false; 

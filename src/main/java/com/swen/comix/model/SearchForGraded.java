@@ -26,7 +26,7 @@ public class SearchForGraded implements SearchStrategy{
     
         for(int i = 0; i < pc.size(); i++){
             ComicBookComponent comic = (ComicBookComponent) pc.get(i);
-            if(comic.getGrade() != 0){ // 
+            if(comic.getGrade() != comic.DEFAULT_GRADE){ // 
                 comics.add(comic); 
             }
     

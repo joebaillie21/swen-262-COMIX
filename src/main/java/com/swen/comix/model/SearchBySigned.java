@@ -23,7 +23,7 @@ public class SearchBySigned implements SearchStrategy {
         ArrayList<ComicBook> pc = (ArrayList<ComicBook>) personalCollection.getPersonalCollection();
         for(int i = 0; i < pc.size(); i++ ){
             ComicBookComponent comic = (ComicBookComponent) pc.get(i);
-            if(comic.getSignatures() != 0){
+            if(comic.getSignatures() != comic.DEFAULT_SIG_AMT){
                 comics.add(comic); 
             }
         }
