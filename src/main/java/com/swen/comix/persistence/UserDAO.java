@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import com.swen.comix.model.ComicBook;
 import com.swen.comix.model.User;
-
 public interface UserDAO {
     /**
      * searches the json file for an existing user with the given name. Will throw an illegal argument exception if user is not in the file
