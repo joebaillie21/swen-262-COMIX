@@ -36,6 +36,7 @@ public class App {
         running = true;
         while(running){
             input = new Scanner(System.in);
+            //GUEST COMMANDS
             if(view.getCommand().equals(Command.GUEST)){
                 String newInput = input.nextLine();
                 if(newInput.equals("1")){
@@ -43,7 +44,7 @@ public class App {
                     view.handleCommand();
                 }
                 else if(newInput.equals("2")){
-                    view.setCommand(Command.BROWSECOLLECTIONS);
+                    view.setCommand(Command.SIGNUP);
                     view.handleCommand();
                 }
                 else if(newInput.equals("3")){
@@ -51,6 +52,10 @@ public class App {
                     view.handleCommand();
                 }
                 else if(newInput.equals("4")){
+                    view.setCommand(Command.BROWSECOLLECTIONS);
+                    view.handleCommand();
+                }
+                else if(newInput.equals("5")){
                     view.setCommand(Command.CLOSING);
                     view.handleCommand();
                     running = false;
@@ -62,7 +67,7 @@ public class App {
                    view.handleCommand();
                 }
             }
-
+            // - SIGNIN
             else if(view.getCommand().equals(Command.SIGNIN)){
                 this.username = input.nextLine();
                 view.setCommand(Command.SIGNINPASSWORD);
@@ -84,14 +89,36 @@ public class App {
                 }
                 
             }
+
+            // - SIGNUP
+            else if(view.getCommand().equals(Command.SIGNUP)){
+                this.username = input.nextLine();
+                view.setCommand(Command.SIGNUPPASSWORD);
+                view.handleCommand();
+            }
+
+            else if(view.getCommand().equals(Command.SIGNUPPASSWORD)){
+                this.password = input.nextLine();
+                try {
+                    this.user = guest.createAccount(this.username, this.password);
+                    view.setCommand(Command.SIGNEDINUSER);
+                    view.handleCommand();
+                } catch (Exception e) {
+                    view.setCommand(Command.NEWACCERROR);
+                    view.handleCommand();
+                    view.setCommand(Command.GUEST);
+                    view.handleCommand();
+                }
+            }
+            //USER COMMANDS
+
         }
     }
 
     public void init() throws IOException{
-         
         ObjectMapper mockMapper = new ObjectMapper();
         mockMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        this.userDAO = new UserFileDAO("src/data/users.json", mockMapper);
+        this.userDAO = new UserFileDAO("src/data/temp.json", mockMapper);
         this.mediator = new ComixLogin(this.userDAO);
         this.guest = new Guest(mediator);
         this.view = new PTUI();

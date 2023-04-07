@@ -26,9 +26,7 @@ public class Comix {
         //System.out.println("Hello World!");
 
         File datafile = new File("src/data/temp.json");
-        if (datafile.exists()) {
-            datafile.delete();
-        }
+        
         
         FileWriter writer = new FileWriter(datafile);
         writer.write("[]");
