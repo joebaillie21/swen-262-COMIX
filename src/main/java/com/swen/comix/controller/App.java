@@ -3,11 +3,7 @@ package com.swen.comix.controller;
 import java.io.IOException;
 import java.util.Scanner;
 
-import javax.xml.crypto.KeySelector.Purpose;
-
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.deser.impl.ObjectIdValueProperty;
 import com.swen.comix.db.Database;
 import com.swen.comix.model.ComixLogin;
 import com.swen.comix.model.ComixMediator;
@@ -17,7 +13,6 @@ import com.swen.comix.model.SearchByAuthor;
 import com.swen.comix.model.SearchByDescription;
 import com.swen.comix.model.SearchByPrincipleCharacter;
 import com.swen.comix.model.SearchBySeriesTitle;
-import com.swen.comix.model.SignedInUser;
 import com.swen.comix.model.User;
 import com.swen.comix.persistence.UserDAO;
 import com.swen.comix.persistence.UserFileDAO;
@@ -236,7 +231,7 @@ public class App {
 
     public void init() throws IOException{
         ObjectMapper mockMapper = new ObjectMapper();
-        mockMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        //mockMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         this.userDAO = new UserFileDAO("src/data/users.json", mockMapper);
         this.database = new Database();
         this.mediator = new ComixLogin(this.userDAO);

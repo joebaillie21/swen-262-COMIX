@@ -13,8 +13,6 @@ public class User {
     private SearchStrategy selectedSearch;
     private SortStrategy selectedSort; 
     
-    public User(){}
-    
     public User(String name){
         this.name = name;
         this.collection = new PersonalCollection(name);

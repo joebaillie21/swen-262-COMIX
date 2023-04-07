@@ -1,12 +1,7 @@
 package com.swen.comix.view;
 
-import javax.lang.model.util.ElementScanner14;
-import javax.swing.text.View;
-
 import com.swen.comix.controller.Command;
-/*
- * @Author Ash Roushinko
- */
+
 public class PTUI {
     private Command viewCommand;
 
