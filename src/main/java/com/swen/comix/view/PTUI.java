@@ -12,14 +12,14 @@ public class PTUI {
 
     public void handleCommand(){
         if(viewCommand.equals(Command.GUEST)){
-            System.out.println("Enter the number of the command u want:\n 1.) sign-in\n 2.) Browse/Search Database\n 3.) Browse Collections\n 4.) Close Program");
+            System.out.println("Enter the number next to the command you want to select it:\n1.) Sign-in\n2.) Sign-up\n3.) Browse/Search Database\n4.) Browse Collections\n5.) Close Program");
         }
 
-        else if(viewCommand.equals(Command.SIGNIN)){
+        else if(viewCommand.equals(Command.SIGNIN) || viewCommand.equals(Command.SIGNUP)){
             System.out.println("Input Username:");
         }
 
-        else if(viewCommand.equals(Command.SIGNINPASSWORD)){
+        else if(viewCommand.equals(Command.SIGNINPASSWORD) || viewCommand.equals(Command.SIGNUPPASSWORD)){
             System.out.println("Input Password:");
         }
 
@@ -32,7 +32,11 @@ public class PTUI {
         }
 
         else if(viewCommand.equals(Command.SIGNEDINUSER)){
-            System.out.println("Enter the number of the command u want:\n1.) Browse/Search Database\n2.) Search Personal Collection\n3.) Add to Personal Collection\n4.) Remove from Collection\n5.) Edit Comic In Collection\n6.) Mark Comic In Collection\n7.) Undo Command\n8.) Redo Command\n9.) Close");
+            System.out.println("Enter the number next to the command you want to select it:\n1.) Browse/Search Database\n2.) Search Personal Collection\n3.) Add to Personal Collection\n4.) Remove from Collection\n5.) Edit Comic In Collection\n6.) Mark Comic In Collection\n7.) Undo Command\n8.) Redo Command\n9.) Close");
+        }
+
+        else if(viewCommand.equals(Command.NEWACCERROR)){
+            System.out.println("A User with this username and password already exists");
         }
 
         else if(viewCommand.equals(Command.CLOSING)){
@@ -40,7 +44,7 @@ public class PTUI {
         }
 
         else{
-            System.out.println("Invalid Input\nTry Again:");
+            System.out.println("Invalid Input\nPlease Try Again:\n");
         }
     }
 
