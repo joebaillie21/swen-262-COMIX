@@ -1,20 +1,22 @@
 package com.swen.comix.model;
 
-import java.util.List;
-
 /**
  * @Author Angela Ngo
  */
 public class AuthenticatedAction implements Action{
     private PersonalCollection pc; 
     private ComicBook comic; 
+    private double previousValue;
+
     public AuthenticatedAction(PersonalCollection pc){
         this.pc = pc; 
     }
+
     @Override
-    public void execute(ComicBook comic) { // sets this equal to true in the personal collection 
-        pc.authenticate((ComicBookComponent) comic);
+    public void execute(ComicBook comic) {
         this.comic = comic; 
+        this.previousValue = comic.getValue();
+        pc.authenticate((ComicBookComponent) comic);
     }
 
     @Override
@@ -24,15 +26,6 @@ public class AuthenticatedAction implements Action{
 
     @Override
     public void unexecute() {
-        List<ComicBook> perCol = pc.getPersonalCollection(); 
-        for(int i = 0; i < perCol.size(); i++){
-            if(perCol.get(i).equals(this.comic)){
-                int comicLocation = i; 
-    
-                ((ComicBookComponent)comic).setAuthentication(false);
-                perCol.set(comicLocation, (ComicBookComponent)comic); // updating the authentication in the personal collection by setting is back to false 
-            }
-        }
+        this.comic.setValue(previousValue);
     }
-    
 }

@@ -40,11 +40,17 @@ public class PersonalCollection {
     }
 
     public void sign(ComicBook comic){
-        // TO DO
+        ComicBook signedComic = new Signed(comic);
+        comic.setValue(signedComic.getValue());
     }
 
     public void authenticate(ComicBook comic){
-
+        if (comic.getSignatures() != 0){
+            if (!comic.isAuthenticated()){
+                ComicBook authenticatedComic = new Authenticate(comic);
+                comic.setValue(authenticatedComic.getValue());
+            }
+        }
     }
     
     public List<ComicBook> getPersonalCollection() {

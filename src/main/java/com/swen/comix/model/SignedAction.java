@@ -9,6 +9,7 @@ public class SignedAction implements Action{
     private PersonalCollection pc; 
     private ComicBook comic; 
     private int previousNum;
+    private double previousValue;
 
     public SignedAction(PersonalCollection pc){
         this.pc = pc; 
@@ -16,9 +17,10 @@ public class SignedAction implements Action{
 
     @Override
     public void execute(ComicBook comic) {
-        previousNum = ((ComicBookComponent)comic).getSignatures();
-        pc.sign((ComicBookComponent)comic);
         this.comic = comic; 
+        previousNum = ((ComicBookComponent)comic).getSignatures();
+        previousValue = comic.getValue();
+        pc.sign((ComicBookComponent)comic);
     }
 
     @Override
@@ -29,5 +31,6 @@ public class SignedAction implements Action{
     @Override
     public void unexecute() {
         this.comic.setSignatures(previousNum);
+        this.comic.setValue(previousValue);
     }   
 }
