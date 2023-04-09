@@ -82,6 +82,7 @@ public class UserFileDAO implements UserDAO{
     public User getUser(String userName) throws IOException{
         List<User> userArr = getUsers();
         for(User userInFile: userArr){
+            System.out.println(userInFile.getName());
             if(userInFile.getName().equals(userName)){
                 return userInFile;
             }

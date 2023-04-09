@@ -23,20 +23,28 @@ public class PTUI {
             System.out.println("Input Password:");
         }
 
+        else if(viewCommand.equals(Command.SIGNINCOMPLETE)){
+            System.out.println("Signin Complete\n");
+        }
+
         else if(viewCommand.equals(Command.BROWSEDATABASE)){
             System.out.println("");
         }
         
-        else if(viewCommand.equals(Command.BROWSECOLLECTIONS)){
+        else if(viewCommand.equals(Command.BROWSEOTHERPC)){
             System.out.println("Who's collection would you like to view?");
         }
 
+        else if(viewCommand.equals(Command.PCRESULT)){
+            System.out.println("Their pc:\n");
+        }
+
         else if(viewCommand.equals(Command.SIGNEDINUSER)){
-            System.out.println("Enter the number next to the command you want to select it:\n1.) Browse/Search Database\n2.) Search Personal Collection\n3.) Add to Personal Collection\n4.) Remove from Collection\n5.) Edit Comic In Collection\n6.) Mark Comic In Collection\n7.) Undo Command\n8.) Redo Command\n9.) Close");
+            System.out.println("Enter the number next to the command you want to select it:\n1.) Browse/Search Database\n2.) Search Personal Collection\n3.) Add to Personal Collection\n4.) Remove from Personal Collection\n5.) Edit/Mark Comic In Personal Collection\n6.) Undo Command\n7.) Redo Command\n8.) Close");
         }
 
         else if(viewCommand.equals(Command.NEWACCERROR)){
-            System.out.println("A User with this username and password already exists");
+            System.out.println("A User with this username and password already exists\nPlease Try Again:\n");
         }
 
         else if(viewCommand.equals(Command.CLOSING)){
@@ -50,9 +58,7 @@ public class PTUI {
 
     public Command getCommand(){return viewCommand;}
 
-    public void setCommand(Command input){
-        viewCommand = input;
-    }
+    public void setCommand(Command input){viewCommand = input;}
 
     public void init(){
         this.viewCommand = Command.GUEST;
