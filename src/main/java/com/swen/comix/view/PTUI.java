@@ -27,20 +27,20 @@ public class PTUI {
             System.out.println("Signin Complete\n");
         }
 
-        else if(viewCommand.equals(Command.BROWSEDATABASE)){
-            System.out.println("");
+        else if(viewCommand.equals(Command.SEARCHDATABASE)){
+            System.out.println("How Would You Like To Search:\n1.)Series Title\n2.)PrincipleCharacter\n3.)Author\n4.)Description");
         }
         
-        else if(viewCommand.equals(Command.BROWSEOTHERPC)){
+        else if(viewCommand.equals(Command.BROWSEOTHERCOLLECTION)){
             System.out.println("Who's collection would you like to view?");
         }
 
-        else if(viewCommand.equals(Command.PCRESULT)){
+        else if(viewCommand.equals(Command.OTHERCOLLECTIONRESULT)){
             System.out.println("Their pc:\n");
         }
 
         else if(viewCommand.equals(Command.SIGNEDINUSER)){
-            System.out.println("Enter the number next to the command you want to select it:\n1.) Browse/Search Database\n2.) Search Personal Collection\n3.) Add to Personal Collection\n4.) Remove from Personal Collection\n5.) Edit/Mark Comic In Personal Collection\n6.) Undo Command\n7.) Redo Command\n8.) Close");
+            System.out.println("Enter the number next to the command you want to select it:\n1.) Browse/Search Database\n2.) Search Personal Collection\n3.) Add to Personal Collection\n4.) Remove from Personal Collection\n5.) Edit/Mark Comic In Personal Collection\n6.) Undo Command\n7.) Redo Command\n8.) Import/Export Database\n9.) Close");
         }
 
         else if(viewCommand.equals(Command.NEWACCERROR)){
