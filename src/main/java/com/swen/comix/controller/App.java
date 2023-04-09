@@ -50,11 +50,11 @@ public class App {
                     view.handleCommand();
                 }
                 else if(newInput.equals("3")){
-                    view.setCommand(Command.BROWSEDATABASE);
+                    view.setCommand(Command.SEARCHDATABASE);
                     view.handleCommand();
                 }
                 else if(newInput.equals("4")){
-                    view.setCommand(Command.BROWSEOTHERPC);
+                    view.setCommand(Command.BROWSEOTHERCOLLECTION);
                     view.handleCommand();
                 }
                 else if(newInput.equals("5")){
@@ -117,24 +117,26 @@ public class App {
             }
 
             // - BROWSE COLLECTION GUEST
-            else if(view.getCommand().equals(Command.BROWSEOTHERPC)){
+            else if(view.getCommand().equals(Command.BROWSEOTHERCOLLECTION)){
                 String name = input.nextLine();
                 try {
                     //System.out.println(userDAO.getUsers());
                     this.guest.searchForPersonalCollection(name);
                     this.searchResult = this.guest.getCurrentlySelectedPC().toString();
-                    view.setCommand(Command.PCRESULT);
+                    //view.setCommand(Command.PCRESULT);
                 } catch (IOException e) {
                     view.setCommand(Command.ERROR);
                     view.handleCommand();
                     view.setCommand(Command.GUEST);
                     view.handleCommand();
                 } catch (IllegalArgumentException e){
+                    System.out.println("thing");
                     view.setCommand(Command.ERROR);
                     view.handleCommand();
                     view.setCommand(Command.GUEST);
                     view.handleCommand();
                 } catch (NullPointerException e){
+                    System.out.println("prob2");
                     view.setCommand(Command.ERROR);
                     view.handleCommand();
                     view.setCommand(Command.GUEST);
@@ -146,15 +148,15 @@ public class App {
             else if(view.getCommand().equals(Command.SIGNEDINUSER)){
                 String commandNum = input.nextLine();
                 if(commandNum.equals("1")){
-                    view.setCommand(Command.BROWSEDATABASE);
+                    view.setCommand(Command.SEARCHDATABASE);
                     view.handleCommand();
                 }
                 else if(commandNum.equals("2")){
-                    view.setCommand(Command.SEARCHPC);
+                    view.setCommand(Command.SEARCHCOLLECTION);
                     view.handleCommand();
                 }
                 else if(commandNum.equals("3")){
-                    view.setCommand(Command.ADDTOPC);
+                    view.setCommand(Command.ADDTOCOLLECTION);
                     view.handleCommand();
                 }
                 else if(commandNum.equals("4")){
@@ -174,12 +176,58 @@ public class App {
                     view.handleCommand();
                 }
                 else if(commandNum.equals("8")){
+                    view.setCommand(Command.IMPORTEXPORT);
+                    view.handleCommand();
+                }
+                else if(commandNum.equals("9")){
                     view.setCommand(Command.CLOSING);
                     view.handleCommand();
                 }
+            }
+
+            // - BROWSE DATABASE
+            else if(view.getCommand().equals(Command.SEARCHDATABASE)) {
 
             }
 
+            // - SEARCH PERSONAL COLLECTION
+            else if(view.getCommand().equals(Command.SEARCHCOLLECTION)){
+
+            }
+
+            // - ADD TO PERSONAL COLLECTION
+            else if(view.getCommand().equals(Command.ADDTOCOLLECTION)){
+
+            }
+
+            // - REMOVE FROM PERSONAL COLLECTION
+            else if(view.getCommand().equals(Command.REMOVEFROMPC)){
+
+            }
+
+            // - EDIT/MARK COMIC
+            else if(view.getCommand().equals(Command.EDITMARKSELECTION)){
+
+            }
+
+            // - UNDO COMMAND
+            else if(view.getCommand().equals(Command.EDITMARKSELECTION)){
+
+            }
+
+            // - REDO COMMAND
+            else if(view.getCommand().equals(Command.EDITMARKSELECTION)){
+
+            }
+
+            // - IMPORT EXPORT
+            else if(view.getCommand().equals(Command.IMPORTEXPORT)){
+
+            }
+
+            else{
+                running = false;
+            }
         }
     }
 
