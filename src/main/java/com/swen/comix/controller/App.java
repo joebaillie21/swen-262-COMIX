@@ -232,8 +232,7 @@ public class App {
     public void init() throws IOException{
         ObjectMapper mockMapper = new ObjectMapper();
         //mockMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        this.userDAO = new UserFileDAO("src/data/users.json", mockMapper);
-        this.database = new Database();
+        this.userDAO = new UserFileDAO("src/data/temp.json", mockMapper);
         this.mediator = new ComixLogin(this.userDAO);
         this.guest = new Guest(mediator);
         this.view = new PTUI();
