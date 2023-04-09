@@ -225,7 +225,7 @@ public class App {
                     break;
 
             }
-            view.handleCommand();
+
         }
     }
 
