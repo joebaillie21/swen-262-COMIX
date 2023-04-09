@@ -109,7 +109,7 @@ public class App {
                     view.setCommand(Command.SIGNEDINUSER);
                     view.handleCommand();
                 } catch (Exception e) {
-                    view.setCommand(Command.NEWACCERROR);
+                    view.setCommand(Command.NEWACCOUNTERROR);
                     view.handleCommand();
                     view.setCommand(Command.GUEST);
                     view.handleCommand();
@@ -160,7 +160,7 @@ public class App {
                     view.handleCommand();
                 }
                 else if(commandNum.equals("4")){
-                    view.setCommand(Command.REMOVEFROMPC);
+                    view.setCommand(Command.REMOVEFROMCOLLECTION);
                     view.handleCommand();
                 }
                 else if(commandNum.equals("5")){
@@ -201,7 +201,7 @@ public class App {
             }
 
             // - REMOVE FROM PERSONAL COLLECTION
-            else if(view.getCommand().equals(Command.REMOVEFROMPC)){
+            else if(view.getCommand().equals(Command.REMOVEFROMCOLLECTION)){
 
             }
 
