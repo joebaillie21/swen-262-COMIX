@@ -104,6 +104,8 @@ public class App {
                 this.password = input.nextLine();
                 try {
                     this.user = guest.createAccount(this.username, this.password);
+                    PersonalCollection collection = new PersonalCollection(this.username);
+                    this.user.setCollection(collection);
                     view.setCommand(Command.SIGNINCOMPLETE);
                     view.handleCommand();
                     view.setCommand(Command.SIGNEDINUSER);
@@ -122,6 +124,7 @@ public class App {
                 try {
                     //System.out.println(userDAO.getUsers());
                     this.guest.searchForPersonalCollection(name);
+                    //System.out.println(name);
                     this.searchResult = this.guest.getCurrentlySelectedPC().toString();
                     //view.setCommand(Command.PCRESULT);
                 } catch (IOException e) {
@@ -187,7 +190,7 @@ public class App {
 
             // - BROWSE DATABASE
             else if(view.getCommand().equals(Command.SEARCHDATABASE)) {
-
+                
             }
 
             // - SEARCH PERSONAL COLLECTION
@@ -233,8 +236,8 @@ public class App {
 
     public void init() throws IOException{
         ObjectMapper mockMapper = new ObjectMapper();
-        mockMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        this.userDAO = new UserFileDAO("src/data/users.json", mockMapper);
+        //mockMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        this.userDAO = new UserFileDAO("src/data/temp.json", mockMapper);
         this.mediator = new ComixLogin(this.userDAO);
         this.guest = new Guest(mediator);
         this.view = new PTUI();
