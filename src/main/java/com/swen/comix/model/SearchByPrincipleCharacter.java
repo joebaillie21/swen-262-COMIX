@@ -66,7 +66,7 @@ public class SearchByPrincipleCharacter implements SearchStrategy {
 
         iDatabase db = new Database();
 
-        ResultSet res = db.getTable("SELECT * FROM comics WHERE principle_character = '" + toBeSearched + "'");
+        ResultSet res = db.getTable("SELECT * FROM comics WHERE principle_character LIKE '%" + toBeSearched + "%'");
 
         return db.resToArrayList(res);
     }
