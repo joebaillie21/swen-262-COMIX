@@ -33,4 +33,9 @@ public class SignedAction implements Action{
         this.comic.setSignatures(previousNum);
         this.comic.setValue(previousValue);
     }   
+
+    @Override
+    public void redo() {
+        execute(comic);
+    }
 }

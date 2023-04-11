@@ -28,4 +28,9 @@ public class AuthenticatedAction implements Action{
     public void unexecute() {
         this.comic.setValue(previousValue);
     }
+    
+    @Override
+    public void redo() {
+        execute(comic);
+    }
 }

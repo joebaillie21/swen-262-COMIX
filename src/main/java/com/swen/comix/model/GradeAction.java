@@ -35,4 +35,9 @@ public class GradeAction implements Action{
         this.comic.setGrade(previousGrade);
         this.comic.setValue(previousValue);
     }
+
+    @Override
+    public void redo() {
+        execute(comic);
+    }
 }

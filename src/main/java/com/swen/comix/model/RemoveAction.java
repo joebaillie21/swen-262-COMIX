@@ -23,4 +23,9 @@ public class RemoveAction implements Action {
     public void unexecute() {
         pc.add(comic); 
     }
+
+    @Override
+    public void redo() {
+        execute(comic);
+    }
 }
