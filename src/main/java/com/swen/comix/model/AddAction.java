@@ -29,4 +29,9 @@ public class AddAction implements Action {
     public void unexecute() {
         pc.remove((ComicBookComponent)comic); 
     }
+
+    @Override
+    public void redo() {
+        execute(comic);
+    }
 }

@@ -11,6 +11,7 @@ public class SignedInUser extends User{
     private ConversionAction selectedConversion;
     private PersonalCollection personalCollection; 
     private Stack<Action> completedActions;
+    private Stack<Action> undoneActions;
 
 
     public SignedInUser(String username, String password){
@@ -36,9 +37,15 @@ public class SignedInUser extends User{
 
     public void unexecuteCommand(){
         Action actionToUnexecute = this.completedActions.pop();
+        this.undoneActions.add(actionToUnexecute);
         if (actionToUnexecute.isReversible()){
             actionToUnexecute.unexecute();
         }
+    }
+
+    public void redoCommand(){
+        Action actionToRedo = this.undoneActions.pop();
+        actionToRedo.redo();
     }
 
     public String getUsername(){
