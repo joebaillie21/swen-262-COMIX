@@ -13,9 +13,7 @@ public class User {
     private SearchStrategy selectedSearch;
     private SortStrategy selectedSort; 
     
-    public User(){
-        super();
-    }
+    public User(){}
     
     public User(String name){
         this.name = name;
@@ -37,7 +35,7 @@ public class User {
     }
 
     public String getName(){
-        return name; 
+        return this.name; 
     }
 
     public ArrayList<ComicBookComponent> search(String toBeSearched){
@@ -55,7 +53,7 @@ public class User {
     }
 
     public PersonalCollection getPersonalCollection(){
-        return collection;
+        return this.collection;
     }
 
     /**
