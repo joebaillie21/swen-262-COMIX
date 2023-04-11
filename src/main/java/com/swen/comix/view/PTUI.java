@@ -1,8 +1,12 @@
 package com.swen.comix.view;
 
 import javax.lang.model.util.ElementScanner14;
+import javax.swing.text.View;
 
 import com.swen.comix.controller.Command;
+/*
+ * @Author Ash Roushinko
+ */
 public class PTUI {
     private Command viewCommand;
 
@@ -27,8 +31,12 @@ public class PTUI {
             System.out.println("Signin Complete\n");
         }
 
-        else if(viewCommand.equals(Command.SEARCHDATABASE)){
-            System.out.println("How Would You Like To Search:\n1.)Series Title\n2.)PrincipleCharacter\n3.)Author\n4.)Description");
+        else if(viewCommand.equals(Command.SEARCHTYPEDATABASE) || viewCommand.equals(Command.SEARCHTYPECOLLECTION)){
+            System.out.println("\nHow Would You Like To Search:\n1.)Series Title\n2.)Principle Character\n3.)Author\n4.)Description\n5.)Go Back");
+        }
+
+        else if(viewCommand.equals(Command.SEARCHDATABASE) || viewCommand.equals(Command.SEARCHCOLLECTION)){
+            System.out.println("What Would You Like to Seach For?");
         }
         
         else if(viewCommand.equals(Command.BROWSEOTHERCOLLECTION)){

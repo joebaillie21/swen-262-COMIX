@@ -1,5 +1,7 @@
 package com.swen.comix.controller;
 
+import com.swen.comix.model.SearchByDescription;
+
 public enum Command {
     GUEST,
     SIGNIN,
@@ -12,6 +14,8 @@ public enum Command {
     SIGNEDINUSER,
     SIGNINCOMPLETE,
     SEARCHCOLLECTION,
+    SEARCHTYPEDATABASE,
+    SEARCHTYPECOLLECTION,
     ADDTOCOLLECTION,
     REMOVEFROMCOLLECTION,
     EDITMARKSELECTION,
