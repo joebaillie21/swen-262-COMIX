@@ -1,7 +1,9 @@
 package com.swen.comix.view;
 
 import com.swen.comix.controller.Command;
-
+/*
+ * @Author Ash Roushinko
+ */
 public class PTUI {
     private Command viewCommand;
 

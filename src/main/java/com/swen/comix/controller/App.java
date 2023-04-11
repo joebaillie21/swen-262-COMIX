@@ -177,52 +177,38 @@ public class App {
                         database = false;
                     }
 
-                    String search = input.nextLine();
-                    this.user.search(search);
-                    //this.user.search(search, database);
-                    break;
+            // - SEARCH PERSONAL COLLECTION
+            else if(view.getCommand().equals(Command.SEARCHCOLLECTION)){
 
-                case SEARCHTYPECOLLECTION, SEARCHTYPEDATABASE:
-                    String searchNum = input.nextLine();
-                    Command newCommand = Command.SEARCHDATABASE;
-                    if(!view.getCommand().equals(Command.SEARCHTYPEDATABASE)){
-                        newCommand = Command.SEARCHCOLLECTION;
-                    }
-            
-                    if(searchNum.equals("1")){
-                        this.user.setSearchStrategy(new SearchBySeriesTitle(this.collection, this.database));
-                        view.setCommand(newCommand);
-                    }
-                    else if(searchNum.equals("2")){
-                        this.user.setSearchStrategy(new SearchByPrincipleCharacter(this.collection, this.database));
-                        view.setCommand(newCommand);
-                    }
-                    else if(searchNum.equals("3")){
-                        this.user.setSearchStrategy(new SearchByAuthor(this.collection, this.database));
-                        view.setCommand(newCommand);
-                    }
-                    else if(searchNum.equals("4")){
-                        this.user.setSearchStrategy(new SearchByDescription(this.collection, this.database));
-                        view.setCommand(newCommand);
-                    }
-                    else if(searchNum.equals("5")){
-                        view.setCommand(Command.SIGNEDINUSER);
-                    }
-                    else{
-                        view.setCommand(Command.ERROR);
-                        view.handleCommand();
-                        view.setCommand(Command.SIGNEDINUSER);
-                    }
-                    break;
+            }
 
-                case UNDO:
-                    break;
-                    
-                case CLOSING:
-                    running = false;
-                    break;
-                default:
-                    break;
+            // - ADD TO PERSONAL COLLECTION
+            else if(view.getCommand().equals(Command.ADDTOCOLLECTION)){
+
+            }
+
+            // - REMOVE FROM PERSONAL COLLECTION
+            else if(view.getCommand().equals(Command.REMOVEFROMCOLLECTION)){
+
+            }
+
+            // - EDIT/MARK COMIC
+            else if(view.getCommand().equals(Command.EDITMARKSELECTION)){
+
+            }
+
+            // - UNDO COMMAND
+            else if(view.getCommand().equals(Command.EDITMARKSELECTION)){
+
+            }
+
+            // - REDO COMMAND
+            else if(view.getCommand().equals(Command.EDITMARKSELECTION)){
+
+            }
+
+            // - IMPORT EXPORT
+            else if(view.getCommand().equals(Command.IMPORTEXPORT)){
 
             }
 
@@ -232,7 +218,7 @@ public class App {
     public void init() throws IOException{
         ObjectMapper mockMapper = new ObjectMapper();
         //mockMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        this.userDAO = new UserFileDAO("src/data/temp.json", mockMapper);
+        this.userDAO = new UserFileDAO("src/data/users.json", mockMapper);
         this.mediator = new ComixLogin(this.userDAO);
         this.guest = new Guest(mediator);
         this.view = new PTUI();
