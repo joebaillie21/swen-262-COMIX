@@ -2,7 +2,7 @@ package com.swen.comix.model;
 
 import java.util.ArrayList;
 
-import db.*;
+import com.swen.comix.db.*;
 
 import java.sql.ResultSet;
 
@@ -41,16 +41,15 @@ public class SearchBySeriesTitle implements SearchStrategy {
 
     private ArrayList<ComicBook> searchOnPC(String toBeSearched) {
         ArrayList<ComicBook> comics = new ArrayList<>();
-        ArrayList<ComicBook> pc = (ArrayList<ComicBook>)personalCollection.getPersonalCollection();
-
+        ArrayList<ComicBook> pc = (ArrayList<ComicBook>) personalCollection.getPersonalCollection();
 
         for (int i = 0; i < pc.size(); i++) {
             ComicBookComponent comic = (ComicBookComponent) pc.get(i);
             if (comic.getSeriesTitle().equals(toBeSearched)) {
                 comics.add(pc.get(i));
-                
+
             }
-        
+
         }
         // return the ones even if it doesn reach the max NUM_COUNT
         return comics;

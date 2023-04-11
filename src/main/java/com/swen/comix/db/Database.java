@@ -1,14 +1,13 @@
-package db;
+package com.swen.comix.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import model.*;
-import credentials.*;
 
-import model.Author;
+import com.swen.comix.db.credentials.*;
+import com.swen.comix.model.*;
 
 public class Database implements iDatabase {
 

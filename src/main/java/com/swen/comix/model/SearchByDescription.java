@@ -3,15 +3,13 @@ package com.swen.comix.model;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import db.Database;
-import db.iDatabase;
+import com.swen.comix.db.*;
 
 /**
  * @Author Angela and Joe
  */
 public class SearchByDescription implements SearchStrategy {
     private PersonalCollection personalCollection;
-
 
     public SearchByDescription(PersonalCollection personalCollection) {
         this.personalCollection = personalCollection;
@@ -42,15 +40,14 @@ public class SearchByDescription implements SearchStrategy {
 
     private ArrayList<ComicBook> searchOnPC(String toBeSearched) {
         ArrayList<ComicBook> comics = new ArrayList<>();
-        ArrayList<ComicBook> pc = (ArrayList<ComicBook>)personalCollection.getPersonalCollection();
+        ArrayList<ComicBook> pc = (ArrayList<ComicBook>) personalCollection.getPersonalCollection();
 
         for (int i = 0; i < pc.size(); i++) {
             ComicBookComponent comic = (ComicBookComponent) pc.get(i);
-            if (comic.getDescription().equals(toBeSearched) ) {
+            if (comic.getDescription().equals(toBeSearched)) {
                 comics.add(pc.get(i));
-        
+
             }
-            
 
         }
         // return the ones even if it doesn reach the max NUM_COUNT

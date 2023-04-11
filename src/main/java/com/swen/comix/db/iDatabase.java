@@ -1,9 +1,10 @@
-package db;
+package com.swen.comix.db;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import model.ComicBook;
+import com.swen.comix.db.credentials.*;
+import com.swen.comix.model.*;
 
 public interface iDatabase {
 
@@ -13,6 +14,6 @@ public interface iDatabase {
 
     public ResultSet getTable(String sql) throws Exception;
 
-    public ArrayList<ComicBook> resToArrayList(ResultSet res) throws Exception;
+    public ArrayList<com.swen.comix.model.ComicBook> resToArrayList(ResultSet res) throws Exception;
 
 }

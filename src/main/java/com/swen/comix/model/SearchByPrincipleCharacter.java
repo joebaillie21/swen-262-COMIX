@@ -4,14 +4,13 @@ import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import db.*;
+import com.swen.comix.db.*;
 
 /**
  * @Author Angela and Joe
  */
 public class SearchByPrincipleCharacter implements SearchStrategy {
     private PersonalCollection personalCollection;
-    
 
     public SearchByPrincipleCharacter(PersonalCollection personalCollection) {
         this.personalCollection = personalCollection;
@@ -39,13 +38,12 @@ public class SearchByPrincipleCharacter implements SearchStrategy {
     private ArrayList<ComicBook> searchOnPC(String[] toBeSearched) {
 
         ArrayList<ComicBook> comics = new ArrayList<>();
-        ArrayList<ComicBook> pc = (ArrayList<ComicBook>)personalCollection.getPersonalCollection();
-
+        ArrayList<ComicBook> pc = (ArrayList<ComicBook>) personalCollection.getPersonalCollection();
 
         boolean isMatch = false; // reset everytime new comic iterate
         for (int i = 0; i < pc.size(); i++) {
             ComicBookComponent comic = (ComicBookComponent) pc.get(i);
-            ArrayList<String> characters = comic.getPrincipleCharacter();
+            ArrayList<String> characters = comic.getPrincipleCharacters();
 
             for (int k = 0; k < toBeSearched.length; k++) {
                 if (!characters.get(k).equals(toBeSearched[k])) {
@@ -54,11 +52,10 @@ public class SearchByPrincipleCharacter implements SearchStrategy {
                 }
             }
 
-            if (isMatch == true ) {
+            if (isMatch == true) {
                 isMatch = false; // reset
                 comics.add(comic);
             }
-
 
         }
         // return the ones even if it doesn reach the max NUM_COUNT

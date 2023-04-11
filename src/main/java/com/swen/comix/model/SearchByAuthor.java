@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import db.*;
+import com.swen.comix.db.*;
 
 /**
  * @Author Angela and Joe
