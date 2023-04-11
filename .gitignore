@@ -1,5 +1,5 @@
 # credentials
-src/main/java/com/swen/comix/db/credentials.java
+src/credential_file/credentials.java
 
 # editor
 .vscode
