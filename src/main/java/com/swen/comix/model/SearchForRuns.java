@@ -45,9 +45,13 @@ public class SearchForRuns implements SearchStrategy {
 
         
         ArrayList<ComicBook> CC = new ArrayList<>(); 
-        
+        for(int i = 0; i < sortedByRuns.size(); i++){
+            for(int k = 0; k < sortedByRuns.get(i).size(); k++){
+                CC.add(sortedByRuns.get(i).get(k));
+            }
+        }
 
-        return (ArrayList<ComicBook>)runs; 
+        return CC; 
 
     }
 
