@@ -21,6 +21,7 @@ public class SignedInUser extends User{
         selectedAction = null; 
         selectedConversion = null; 
         this.completedActions = new Stack<>();
+        this.undoneActions = new Stack<>();
     }
     public void setCommand(Action command){
         this.selectedAction = command;
