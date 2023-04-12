@@ -9,6 +9,7 @@ public class SignedAction implements Action{
     private PersonalCollection pc; 
     private ComicBook comic; 
     private int previousNum;
+    private double previousValue;
 
     public SignedAction(PersonalCollection pc){
         this.pc = pc; 
@@ -16,9 +17,10 @@ public class SignedAction implements Action{
 
     @Override
     public void execute(ComicBook comic) {
-        pc.sign((ComicBookComponent)comic);
         this.comic = comic; 
         previousNum = ((ComicBookComponent)comic).getSignatures();
+        previousValue = comic.getValue();
+        pc.sign((ComicBookComponent)comic);
     }
 
     @Override
@@ -28,15 +30,12 @@ public class SignedAction implements Action{
 
     @Override
     public void unexecute() {
-        List<ComicBook> perCol = pc.getPersonalCollection(); 
-        for(int i = 0; i < perCol.size(); i++){
-            if(perCol.get(i).equals(this.comic)){
-                int comicLocation = i; 
-                ((ComicBookComponent)comic).setGrade(previousNum); // NOTE: NEED TO SET IT THE PREVIOUS GRADE! NOT SURE HOW
-                
-                perCol.set(comicLocation, (ComicBookComponent)comic); // updating the authentication in the personal collection by setting is back to false 
-            }
-        }   
+        this.comic.setSignatures(previousNum);
+        this.comic.setValue(previousValue);
+    }   
+
+    @Override
+    public void redo() {
+        execute(comic);
     }
-    
 }

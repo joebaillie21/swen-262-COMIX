@@ -1,12 +1,8 @@
-package com.swen.comix.model.Decorator;
+package com.swen.comix.model;
 
 import java.util.ArrayList;
 
-import com.swen.comix.model.Author;
-import com.swen.comix.model.ComicBook;
-import com.swen.comix.model.Publisher;
-
-public class ComicDecorator implements com.swen.comix.model.ComicBook{
+public class ComicDecorator implements ComicBook{
 
     protected ComicBook comicBook;
 
@@ -86,7 +82,17 @@ public class ComicDecorator implements com.swen.comix.model.ComicBook{
     }
 
     @Override
-    public void gradeAlgorithm() {
-        comicBook.gradeAlgorithm();
+    public void setGrade(int newGrade) {
+        comicBook.setGrade(newGrade);
+    }
+
+    @Override
+    public void setValue(double value){
+        comicBook.setValue(value);
+    }
+
+    @Override
+    public void setSignatures(int signatures) {
+        comicBook.setSignatures(signatures);
     }
 }

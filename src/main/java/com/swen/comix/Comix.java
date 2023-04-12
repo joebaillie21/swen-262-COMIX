@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.swen.comix.model.AddAction;
 import com.swen.comix.model.Author;
 import com.swen.comix.model.ComicBook;
 import com.swen.comix.model.ComicBookComponent;
@@ -14,9 +15,8 @@ import com.swen.comix.model.ComixMediator;
 import com.swen.comix.model.Guest;
 import com.swen.comix.model.PersonalCollection;
 import com.swen.comix.model.Publisher;
+import com.swen.comix.model.SignedInUser;
 import com.swen.comix.model.User;
-import com.swen.comix.persistence.PersonalCollectionDAO;
-import com.swen.comix.persistence.PersonalCollectionFileDAO;
 import com.swen.comix.persistence.UserDAO;
 import com.swen.comix.persistence.UserFileDAO;
 
@@ -37,14 +37,16 @@ public class Comix {
         UserDAO userFileDao = new UserFileDAO("src/data/temp.json", mockMapper);
         ComixMediator mediator = new ComixLogin(userFileDao);
         Guest guest = new Guest(mediator);
-        User user = guest.createAccount("user", "pass");
+        SignedInUser user = guest.createAccount("user", "pass");
 
         PersonalCollection collection = new PersonalCollection("user");
         ArrayList<Author> authors = new ArrayList<Author>();
         authors.add(new Author("Stan Lee"));
-        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, null, authors, null, null);
+        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, "15", authors, null, null);
         user.setCollection(collection);
-        userFileDao.addComic(comic, user.getName());
+        user.setCommand(new AddAction(user.getPersonalCollection()));
+        user.executeCommand(comic);
+        user.unexecuteCommand();
 
         System.out.println(user.getPersonalCollection());
 

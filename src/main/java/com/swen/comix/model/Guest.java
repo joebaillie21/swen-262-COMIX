@@ -46,11 +46,11 @@ public class Guest{
      * calls the create account function from the mediator (comixLogin). If user with given username and password exists, will throw illegal argument exception
      * @param username
      * @param password
-     * @return
+     * @return a signed in user
      * @throws IOException
      */
-    public User createAccount(String username, String password) throws IOException{
-        User user = new User(username);
+    public SignedInUser createAccount(String username, String password) throws IOException{
+        SignedInUser user = new SignedInUser(username, password);
         return this.CL.addUser(user);
     }
 }

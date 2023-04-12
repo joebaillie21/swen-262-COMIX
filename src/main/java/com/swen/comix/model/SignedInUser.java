@@ -1,5 +1,6 @@
 package com.swen.comix.model;
 
+import java.util.Stack;
 
 /**
  * @Author Angela Ngo
@@ -9,6 +10,8 @@ public class SignedInUser extends User{
     private Action selectedAction;
     private ConversionAction selectedConversion;
     private PersonalCollection personalCollection; 
+    private Stack<Action> completedActions;
+    private Stack<Action> undoneActions;
 
 
     public SignedInUser(String username, String password){
@@ -17,7 +20,7 @@ public class SignedInUser extends User{
         this.personalCollection = super.getPersonalCollection(); 
         selectedAction = null; 
         selectedConversion = null; 
-
+        this.completedActions = new Stack<>();
     }
     public void setCommand(Action command){
         this.selectedAction = command;
@@ -27,19 +30,22 @@ public class SignedInUser extends User{
         this.selectedConversion = conversionAction; 
     }
 
-    /**
-     * HAVENT DONE THIS YET
-     * @param comic
-     */
     public void executeCommand(ComicBook comic){
-        // not sure if this should be void or not
+        this.selectedAction.execute(comic);
+        this.completedActions.add(selectedAction);
     }
 
-    /**
-     * HAVENT DONE THIS YET 
-     */
     public void unexecuteCommand(){
-        
+        Action actionToUnexecute = this.completedActions.pop();
+        this.undoneActions.add(actionToUnexecute);
+        if (actionToUnexecute.isReversible()){
+            actionToUnexecute.unexecute();
+        }
+    }
+
+    public void redoCommand(){
+        Action actionToRedo = this.undoneActions.pop();
+        actionToRedo.redo();
     }
 
     public String getUsername(){
