@@ -97,7 +97,6 @@ public class UserFileDAO implements UserDAO{
     public SignedInUser updateUser(SignedInUser user) throws IOException {
         if (users.containsKey(user.getName()) == false)
             return null;  // user does not exist
-
         users.put(user.getName(),user);
         save(); // may throw an IOException
         return user;
@@ -107,7 +106,7 @@ public class UserFileDAO implements UserDAO{
     public SignedInUser userAuthentication(String userName, String password) throws IOException{
         List<SignedInUser> userList = getUsers();
         for(SignedInUser userInFile: userList){
-            if(userInFile.getName().equals(userName)){
+            if(userInFile.getName().equals(userName) && userInFile.getPassword().equals(password)){
                 return userInFile;
             }
         }

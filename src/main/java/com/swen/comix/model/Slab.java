@@ -6,7 +6,6 @@ public class Slab extends ComicDecorator{
         super(comicBook);
     }
     
-    
     @Override
     public double getValue() {
         return super.getValue()*2;
