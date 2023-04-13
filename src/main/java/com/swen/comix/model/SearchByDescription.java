@@ -7,6 +7,7 @@ import com.swen.comix.db.*;
 
 /**
  * @Author Angela and Joe
+ * Returns arraylist of comicbooks from search results looking for specific Description
  */
 public class SearchByDescription implements SearchStrategy {
     private PersonalCollection personalCollection;
@@ -15,6 +16,10 @@ public class SearchByDescription implements SearchStrategy {
         this.personalCollection = personalCollection;
     }
 
+    /**
+     * @param toBeSearched String - contains the description to be searched
+     * @param isSearchDb boolean - contains if you are searching on db or on pc 
+     */
     @Override
     public ArrayList<ComicBook> algorithm(String toBeSearched, boolean isSearchDb) throws Exception {
         ArrayList<ComicBook> comics = new ArrayList<>();
@@ -27,17 +32,26 @@ public class SearchByDescription implements SearchStrategy {
         return comics;
     }
 
+    /**
+     * 
+     * @param toBeSearched String - the description
+     * @return ArrayList<ComicBook> - arraylist of comicbooks returned after finding matching description
+     * @throws Exception
+     */  
     private ArrayList<ComicBook> searchOnDb(String toBeSearched) throws Exception {
 
         iDatabase db = new Database();
-
-        ArrayList<ComicBook> comics = new ArrayList<>();
 
         ResultSet res = db.getTable("SELECT * FROM comics WHERE description = '" + toBeSearched + "'");
 
         return db.resToArrayList(res);
     }
 
+    /**
+     * Searches on PersonalCollection to return an arraylist of comic books based on toBeSearched
+     * @param toBeSearched String - containing the description to be searched
+     * @return ArrayList <ComicBook> - contains the matching comic books with description 
+     */
     private ArrayList<ComicBook> searchOnPC(String toBeSearched) {
         ArrayList<ComicBook> comics = new ArrayList<>();
         ArrayList<ComicBook> pc = (ArrayList<ComicBook>) personalCollection.getPersonalCollection();

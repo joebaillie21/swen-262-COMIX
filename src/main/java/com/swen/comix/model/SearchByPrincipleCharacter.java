@@ -8,6 +8,7 @@ import com.swen.comix.db.*;
 
 /**
  * @Author Angela and Joe
+ * Returns arraylist of comicbooks from search results looking for specific principle characters
  */
 public class SearchByPrincipleCharacter implements SearchStrategy {
     private PersonalCollection personalCollection;
@@ -35,6 +36,11 @@ public class SearchByPrincipleCharacter implements SearchStrategy {
         return comics;
     }
 
+    /**
+     * 
+     * @param toBeSearched String [] : string of principle characters
+     * @return Arraylist<ComicBook> of 
+     */
     private ArrayList<ComicBook> searchOnPC(String[] toBeSearched) {
 
         ArrayList<ComicBook> comics = new ArrayList<>();
@@ -62,6 +68,12 @@ public class SearchByPrincipleCharacter implements SearchStrategy {
         return comics;
     }
 
+    /**
+     * This searches on the db to get all the comic books that have the given principle characters 
+     * @param toBeSearched
+     * @return
+     * @throws Exception
+     */
     private ArrayList<ComicBook> searchOnDb(String toBeSearched) throws Exception {
 
         iDatabase db = new Database();
