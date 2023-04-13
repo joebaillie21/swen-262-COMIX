@@ -1,16 +1,11 @@
 package com.swen.comix.model;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-/**
- * @Author Angela
- * This sorts the search results by volume number 
- */
 
-public class SortByVolume implements SortStrategy {
+public class SortByDefault implements SortStrategy {
 
     @Override
     public ArrayList<ComicBook> algorithm(ArrayList<ComicBook> searchResults) throws Exception {
@@ -19,13 +14,14 @@ public class SortByVolume implements SortStrategy {
             copy.add(searchResults.get(i));
         }
 
-        Collections.sort(copy, byVolumeNum); 
-        return copy; 
+        Comparator<ComicBook> chain = SortByIssueNumber.byIssueNum
+            .thenComparing(SortByVolume.byVolumeNum)
+            .thenComparing(SortByIssueNumber.byIssueNum);
+            
+        Collections.sort(copy, chain); 
+        return copy;  
     }
 
-    public static Comparator<ComicBook> byVolumeNum = (book1, book2) -> Integer.compare(book1.getVolNum(), book2.getVolNum());
     
-
     
 }
-
