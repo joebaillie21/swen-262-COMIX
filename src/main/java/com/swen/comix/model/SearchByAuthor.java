@@ -13,9 +13,14 @@ import com.swen.comix.db.*;
  */
 public class SearchByAuthor implements SearchStrategy {
     private PersonalCollection personalCollection;
+    private Database db;
 
     public SearchByAuthor(PersonalCollection pc) {
         this.personalCollection = pc;
+    }
+
+    public SearchByAuthor(Database db) {
+        this.db = db;
     }
 
     @Override
@@ -38,10 +43,6 @@ public class SearchByAuthor implements SearchStrategy {
      */
 
     private ArrayList<ComicBook> searchOnDb(String toBeSearched) throws Exception {
-
-        iDatabase db = new Database();
-
-        ArrayList<ComicBook> comics = new ArrayList<>();
 
         ResultSet res = db.getTable("SELECT * FROM comics WHERE author LIKE = '%" + toBeSearched + "%'");
 

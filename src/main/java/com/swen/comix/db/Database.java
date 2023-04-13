@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.swen.comix.db.credentials.*;
@@ -14,12 +15,13 @@ public class Database implements iDatabase {
     private Connection con;
 
     public Database() {
-        con = getConnection();
+        con = this.getConnection();
     }
 
     public Connection getConnection() {
 
         Connection connection = null;
+        String callReference = "I have been called";
 
         try {
 
@@ -30,6 +32,7 @@ public class Database implements iDatabase {
             if (connection != null) {
                 return connection;
             } else {
+                System.out.println("CRITICAL ERROR, CONNECTION FAILED");
                 return null;
 
             }
@@ -40,7 +43,7 @@ public class Database implements iDatabase {
         }
     }
 
-    public void Build() throws Exception {
+    public void BuildSample() throws Exception {
 
         String comicsSQL = "CREATE TABLE IF NOT EXISTS comics(id SERIAL PRIMARY KEY,  series_title TEXT NOT NULL, volume_number INT NOT NULL, issue_number INT NOT NULL, publication_date DATE, author TEXT, publisher TEXT, principle_character TEXT,  description TEXT, value FLOAT, grade INT)";
         createTable(comicsSQL);
@@ -54,6 +57,7 @@ public class Database implements iDatabase {
                         ('Peytons Comic', 5, 19, TO_DATE('2023-01-01', 'YYYY/MM/DD'),'Peyton W', '250 Publishing', 'Peyton')
 
                 """; // This should be swapped out with a getData method from adapter pattern
+        loadData(loadData);
 
     }
 
@@ -103,14 +107,28 @@ public class Database implements iDatabase {
             Publisher publisher = new Publisher(res.getString("publisher"));
 
             String authors = res.getString("author");
-            String[] authorsArray = authors.split(",");
+
             ArrayList<Author> authorsObjectArrayList = new ArrayList<>();
-            for (String a : authorsArray) {
-                Author author = new Author(a);
-                authorsObjectArrayList.add(author);
+
+            if (authors.contains(",")) {
+
+                String[] authorsArray = authors.split(",");
+
+                for (String a : authorsArray) {
+
+                    Author author = new Author(a);
+
+                    authorsObjectArrayList.add(author);
+
+                }
+
             }
 
-            Author author = new Author(res.getString("author"));
+            else {
+
+                authorsObjectArrayList.add(new Author(authors));
+
+            }
 
             String seriesTitle = res.getString("series_title");
 
@@ -122,7 +140,22 @@ public class Database implements iDatabase {
 
             ArrayList<String> principleCharacters = new ArrayList<>();
 
-            principleCharacters.add(res.getString("principle_character"));
+            if (res.getString("principle_character").contains(",")) {
+
+                String[] characters = res.getString("principle_character").split(",");
+
+                for (String c : characters) {
+
+                    principleCharacters.add(c);
+
+                }
+
+            }
+
+            else {
+
+                principleCharacters.add(res.getString("principle_character"));
+            }
 
             String description = res.getString("description");
 
