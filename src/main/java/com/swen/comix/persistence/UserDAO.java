@@ -3,7 +3,7 @@ package com.swen.comix.persistence;
 import java.io.IOException;
 
 import com.swen.comix.model.ComicBook;
-import com.swen.comix.model.User;
+import com.swen.comix.model.SignedInUser;
 
 public interface UserDAO {
     /**
@@ -12,7 +12,7 @@ public interface UserDAO {
      * @return the user found in the file
      * @throws IOException
      */
-    public User getUser(String userName) throws IOException;
+    public SignedInUser getUser(String userName) throws IOException;
 
     /**
      * searched the json file for an existing user with the matching username AND password (TODO PASSWORD NOT CHECKED YET). throws illegal argument exception if not found
@@ -21,7 +21,7 @@ public interface UserDAO {
      * @return the user with the given credentials
      * @throws IOException
      */
-    public User userAuthentication(String userName, String password) throws IOException;
+    public SignedInUser userAuthentication(String userName, String password) throws IOException;
 
     /**
      * creates a new user. checks to make sure user does not already exist
@@ -29,7 +29,7 @@ public interface UserDAO {
      * @return the new user object
      * @throws IOException
      */
-    public User createUser(User user) throws IOException;
+    public SignedInUser createUser(SignedInUser user) throws IOException;
 
     /**
      * adds a given comic to the user's collection with the given username 

@@ -28,15 +28,10 @@ public class ComicBookComponent implements ComicBook {
         this.principleCharacters = principleCharacters; 
         this.description = description; 
         this.signatures = 0;
-        this.grade = 0; // smallest grade is 1 not 0 
+        this.grade = 1;
         this.value = -1;
         isAuthenticated = false; 
         isSlabbed = false; 
-    }
-
-    @Override
-    public void gradeAlgorithm() {
-        // work on this 
     }
 
     // need to do something about the grading stuff since it has to directly impact the comicbook components
@@ -69,16 +64,22 @@ public class ComicBookComponent implements ComicBook {
         this.isAuthenticated = isAuthenticated; 
     }
 
-    public void setGrade(int grade){
-        this.grade = grade; 
+    @Override
+    public void setGrade(int newGrade){
+        this.grade = newGrade; 
     }
 
-    public void setValue(int value){
-        this.value = value; 
+    @Override
+    public void setValue(double value){
+        this.value = value;
     }
 
     public void setSlabbed(boolean isSlabbed){
         this.isSlabbed = isSlabbed; 
+    }
+
+    public void setSignatures(int signatures) {
+        this.signatures = signatures;
     }
     
     public boolean equals(Object o){ 
@@ -87,21 +88,10 @@ public class ComicBookComponent implements ComicBook {
         }
 
         ComicBookComponent other = (ComicBookComponent) o; 
-        for(int i = 0; i < other.getPrincipleCharacters().size(); i++){
-            if(!other.getPrincipleCharacters().get(i).equals(principleCharacters.get(i))){
-                return false; 
-            }
-        }
-
-        for(int k = 0; k < other.getAuthors().size(); k++){
-            if(!other.getAuthors().get(k).equals(authors.get(k))){
-                return false; 
-            }
-        }
 
         return (
-            other.getAuthors().equals(authors) && other.getPublicationDate().equals(publicationDate) && other.getValue() == value && other.getGrade() == grade
-            && other.getDescription().equals(description) && other.getIssueNum() == issueNum && other.getVolNum() == volNum && other.getPublisher().getName().equals(publisher.getName())
+            other.getPublicationDate().equals(publicationDate) && other.getGrade() == grade
+            && other.getIssueNum() == issueNum && other.getVolNum() == volNum && other.getPublisher().getName().equals(publisher.getName())
             && other.isAuthenticated() == isAuthenticated && other.getSeriesTitle().equals(seriesTitle) && other.getSlabbed() == isSlabbed
         );
 
