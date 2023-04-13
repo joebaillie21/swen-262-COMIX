@@ -10,7 +10,7 @@ public class SearchForRuns implements SearchStrategy {
 
     private PersonalCollection personalCollection; 
     final int MIN_CONSEC_ISSUES = 12; 
-    final int TITLE = 0, VOL_NUM = 1; 
+
     ArrayList<ComicBook> runs;
     public SearchForRuns(PersonalCollection personalCollection){
         this.personalCollection = personalCollection; 
