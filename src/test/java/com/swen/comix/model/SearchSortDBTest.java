@@ -1,5 +1,6 @@
 package com.swen.comix.model;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
@@ -29,14 +30,53 @@ public class SearchSortDBTest {
 
         SearchByAuthor search = new SearchByAuthor(database);
 
-        ArrayList<ComicBook> expected = new ArrayList<>();
+        ArrayList<Author> authors = new ArrayList<>();
+        authors.add(new Author("Joe Baillie"));
+
+        ArrayList<String> pc = new ArrayList<>();
+        pc.add("Joe");
+
+        ArrayList<ComicBook> expectedAL = new ArrayList<>();
+        expectedAL.add(new ComicBookComponent(new Publisher("262 Publishing"), "Joes Comic", "1", "24", "2003-01-02",
+                authors, pc, null));
+        Object[] expected = expectedAL.toArray();
 
         // Invoke
 
-        ArrayList<ComicBook> actual = search.algorithm("Joe", true);
+        ArrayList<ComicBook> actualAL = search.algorithm("Joe", true);
+        Object[] actual = actualAL.toArray();
 
         // Analyze
 
-        assertEquals(expected, actual);
+        assertArrayEquals(expected, actual);
+
+    }
+
+    @Test
+    public void testSearchByAuthorSingleChar() throws Exception {
+
+        // Setup
+
+        SearchByAuthor search = new SearchByAuthor(database);
+
+        ArrayList<Author> authors = new ArrayList<>();
+        authors.add(new Author("Joe Baillie"));
+
+        ArrayList<String> pc = new ArrayList<>();
+        pc.add("Joe");
+
+        ArrayList<ComicBook> expectedAL = new ArrayList<>();
+        expectedAL.add(new ComicBookComponent(new Publisher("262 Publishing"), "Joes Comic", "1", "24", "2003-01-02",
+                authors, pc, null));
+        Object[] expected = expectedAL.toArray();
+
+        // Invoke
+
+        ArrayList<ComicBook> actualAL = search.algorithm("J", true);
+        Object[] actual = actualAL.toArray();
+
+        // Analyze
+
+        assertArrayEquals(expected, actual);
     }
 }

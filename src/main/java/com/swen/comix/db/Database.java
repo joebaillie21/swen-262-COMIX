@@ -45,7 +45,10 @@ public class Database implements iDatabase {
 
     public void BuildSample() throws Exception {
 
-        String comicsSQL = "CREATE TABLE IF NOT EXISTS comics(id SERIAL PRIMARY KEY,  series_title TEXT NOT NULL, volume_number TEXT NOT NULL, issue_number TEXT NOT NULL, publication_date DATE, author TEXT, publisher TEXT, principle_character TEXT,  description TEXT, value FLOAT, grade INT)";
+        String clean = "DROP TABLE IF EXISTS comics";
+        PreparedStatement del = con.prepareStatement(clean);
+        del.executeUpdate();
+        String comicsSQL = "CREATE TABLE comics(id SERIAL PRIMARY KEY,  series_title TEXT NOT NULL, volume_number TEXT NOT NULL, issue_number TEXT NOT NULL, publication_date DATE, author TEXT, publisher TEXT, principle_character TEXT,  description TEXT, value FLOAT, grade INT)";
         createTable(comicsSQL);
         String loadData = """
                         INSERT INTO comics (series_title, volume_number, issue_number, publication_date, author, publisher, principle_character)
@@ -56,8 +59,10 @@ public class Database implements iDatabase {
                         ('Angelas Comic', '2', '12', TO_DATE('2017-01-06', 'YYYY/MM/DD'),'Angela N', '256 Publishing', 'Angela'),
                         ('Peytons Comic', '5', '19', TO_DATE('2023-01-01', 'YYYY/MM/DD'),'Peyton W', '250 Publishing', 'Peyton')
 
-                """; // This should be swapped out with a getData method from adapter pattern
-        loadData(loadData);
+                """;
+        PreparedStatement load = con.prepareStatement(loadData);
+        int status = load.executeUpdate();
+        System.out.println(status);
 
     }
 
@@ -136,7 +141,8 @@ public class Database implements iDatabase {
 
             String issueNum = res.getString("issue_number");
 
-            String publicationDate = res.getString("publication_date");
+            java.sql.Date publicationDateSQL = res.getDate("publication_date");
+            String publicationDate = publicationDateSQL.toString();
 
             ArrayList<String> principleCharacters = new ArrayList<>();
 
