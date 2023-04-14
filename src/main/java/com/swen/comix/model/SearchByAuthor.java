@@ -25,6 +25,10 @@ public class SearchByAuthor implements SearchStrategy {
 
     @Override
     public ArrayList<ComicBook> algorithm(String toBeSearched, boolean isSearchDb) throws Exception {
+        if (toBeSearched.isEmpty()) {
+            System.out.println("Invalid input.");
+            return null;
+        }
         ArrayList<ComicBook> comics = new ArrayList<>();
         String[] toBeSearchedSplit = toBeSearched.split(",");
         if (isSearchDb == true) {
