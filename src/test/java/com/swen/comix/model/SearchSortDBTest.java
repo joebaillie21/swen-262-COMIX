@@ -39,5 +39,4 @@ public class SearchSortDBTest {
 
         assertEquals(expected, actual);
     }
-
 }
