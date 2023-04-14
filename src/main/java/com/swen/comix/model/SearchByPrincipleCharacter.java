@@ -8,13 +8,19 @@ import com.swen.comix.db.*;
 
 /**
  * @Author Angela and Joe
- * Returns arraylist of comicbooks from search results looking for specific principle characters
+ *         Returns arraylist of comicbooks from search results looking for
+ *         specific principle characters
  */
 public class SearchByPrincipleCharacter implements SearchStrategy {
+    private Database db;
     private PersonalCollection personalCollection;
 
     public SearchByPrincipleCharacter(PersonalCollection personalCollection) {
         this.personalCollection = personalCollection;
+    }
+
+    public SearchByPrincipleCharacter(Database db) {
+        this.db = db;
     }
 
     /**
@@ -39,7 +45,7 @@ public class SearchByPrincipleCharacter implements SearchStrategy {
     /**
      * 
      * @param toBeSearched String [] : string of principle characters
-     * @return Arraylist<ComicBook> of 
+     * @return Arraylist<ComicBook> of
      */
     private ArrayList<ComicBook> searchOnPC(String[] toBeSearched) {
 
@@ -69,14 +75,14 @@ public class SearchByPrincipleCharacter implements SearchStrategy {
     }
 
     /**
-     * This searches on the db to get all the comic books that have the given principle characters 
+     * This searches on the db to get all the comic books that have the given
+     * principle characters
+     * 
      * @param toBeSearched
      * @return
      * @throws Exception
      */
     private ArrayList<ComicBook> searchOnDb(String toBeSearched) throws Exception {
-
-        iDatabase db = new Database();
 
         ResultSet res = db.getTable("SELECT * FROM comics WHERE principle_character LIKE '%" + toBeSearched + "%'");
 

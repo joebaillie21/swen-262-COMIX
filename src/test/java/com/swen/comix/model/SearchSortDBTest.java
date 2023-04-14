@@ -79,4 +79,63 @@ public class SearchSortDBTest {
 
         assertArrayEquals(expected, actual);
     }
+
+    @Test
+    public void testSearchByPrincipleCharacter() throws Exception {
+
+        // Setup
+
+        SearchByPrincipleCharacter search = new SearchByPrincipleCharacter(database);
+
+        ArrayList<Author> authors = new ArrayList<>();
+        authors.add(new Author("Joe Baillie"));
+
+        ArrayList<String> pc = new ArrayList<>();
+        pc.add("Joe");
+
+        ArrayList<ComicBook> expectedAL = new ArrayList<>();
+        expectedAL.add(new ComicBookComponent(new Publisher("262 Publishing"), "Joes Comic", "1", "24", "2003-01-02",
+                authors, pc, null));
+        Object[] expected = expectedAL.toArray();
+
+        // Invoke
+
+        ArrayList<ComicBook> actualAL = search.algorithm("J", true);
+        Object[] actual = actualAL.toArray();
+
+        // Analyze
+
+        assertArrayEquals(expected, actual);
+
+    }
+
+    @Test
+    public void testSearchBySeriesTitle() throws Exception {
+
+        // Setup
+
+        SearchBySeriesTitle search = new SearchBySeriesTitle(database);
+
+        ArrayList<Author> authors = new ArrayList<>();
+        authors.add(new Author("Joe Baillie"));
+
+        ArrayList<String> pc = new ArrayList<>();
+        pc.add("Joe");
+
+        ArrayList<ComicBook> expectedAL = new ArrayList<>();
+        expectedAL.add(new ComicBookComponent(new Publisher("262 Publishing"), "Joes Comic", "1", "24", "2003-01-02",
+                authors, pc, null));
+        Object[] expected = expectedAL.toArray();
+
+        // Invoke
+
+        ArrayList<ComicBook> actualAL = search.algorithm("J", true);
+        Object[] actual = actualAL.toArray();
+
+        // Analyze
+
+        assertArrayEquals(expected, actual);
+
+    }
+
 }
