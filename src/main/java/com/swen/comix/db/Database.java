@@ -132,9 +132,9 @@ public class Database implements iDatabase {
 
             String seriesTitle = res.getString("series_title");
 
-            int volNum = res.getInt("volume_number");
+            String volNum = res.getString("volume_number");
 
-            int issueNum = res.getInt("issue_number");
+            String issueNum = res.getString("issue_number");
 
             String publicationDate = res.getString("publication_date");
 
