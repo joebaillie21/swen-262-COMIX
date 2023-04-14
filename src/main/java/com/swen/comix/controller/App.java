@@ -156,7 +156,22 @@ public class App {
                     break;
                 
                 case ADDTOCOLLECTION:
+                    view.setCommand(Command.HOWTOADD);
                     break;
+                case HOWTOADD:
+                    String addInputNum = input.nextLine();
+                    switch(addInputNum){
+                        case "1":
+                            view.setCommand(Command.ADDFROMDB);
+                            break;
+                        case "2":
+                            view.setCommand(Command.ADDFROMINPUT);
+                            break;
+                        default:
+                            view.setCommand(Command.ERROR);
+                            view.handleCommand();
+                            view.setCommand(Command.SIGNEDINUSER);
+                    }
                 case EDITMARKSELECTION:
                     break;
                 case ERROR:

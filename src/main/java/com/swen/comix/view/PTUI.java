@@ -6,6 +6,7 @@ import com.swen.comix.controller.Command;
  */
 public class PTUI {
     private Command viewCommand;
+    private String results;
 
     public PTUI(){
         init();
@@ -40,6 +41,8 @@ public class PTUI {
             case SIGNEDINUSER:
                 System.out.println("Enter the number next to the command you want to select it:\n1.) Browse/Search Database\n2.) Search Personal Collection\n3.) Add to Personal Collection\n4.) Remove from Personal Collection\n5.) Edit/Mark Comic In Personal Collection\n6.) Undo Command\n7.) Redo Command\n8.) Import/Export Database\n9.) Close");
                 break;
+            case HOWTOADD:
+                System.out.println("How do you want to add?\n1.)Add from database\n2.)Add a new comic");
             case NEWACCOUNTERROR:
                 System.out.println("A User with this username and password already exists\nPlease Try Again:\n");
                 break;
@@ -54,6 +57,8 @@ public class PTUI {
     public Command getCommand(){return viewCommand;}
 
     public void setCommand(Command input){viewCommand = input;}
+
+    public void setResults(String Results){this.results = Results;}
 
     public void init(){
         this.viewCommand = Command.GUEST;

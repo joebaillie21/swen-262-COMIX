@@ -44,8 +44,8 @@ public class Comix {
         ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", "0", "0", "15", authors, null, null);
         user.setCollection(collection);
         user.setCommand(new AddAction(user.getPersonalCollection()));
-        user.executeCommand(comic);
-        user.unexecuteCommand();
+        //user.executeCommand(comic);
+        //user.unexecuteCommand();
 
         App comixApp = new App();
         //comixApp.init();

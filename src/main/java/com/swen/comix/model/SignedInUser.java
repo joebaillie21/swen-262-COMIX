@@ -2,6 +2,8 @@ package com.swen.comix.model;
 
 import java.util.Stack;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @Author Angela Ngo
  */
@@ -13,8 +15,7 @@ public class SignedInUser extends User{
     private Stack<Action> completedActions;
     private Stack<Action> undoneActions;
 
-
-    public SignedInUser(String username, String password){
+    public SignedInUser(@JsonProperty("name") String username, @JsonProperty("password")String password){
         super(username);
         this.password = password; 
         this.personalCollection = super.getPersonalCollection(); 
@@ -23,6 +24,7 @@ public class SignedInUser extends User{
         this.completedActions = new Stack<>();
         this.undoneActions = new Stack<>();
     }
+
     public void setCommand(Action command){
         this.selectedAction = command;
     }
