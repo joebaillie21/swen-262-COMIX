@@ -29,6 +29,4 @@ public class SortByPublicationDate implements SortStrategy {
     }
 
     public Comparator<ComicBook> byPublicationDate = (book1, book2) -> book1.getPublicationDate().compareTo(book2.getPublicationDate());
-    
 }
-
