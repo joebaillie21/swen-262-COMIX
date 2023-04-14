@@ -1,6 +1,9 @@
 package com.swen.comix.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,6 +12,7 @@ import com.swen.comix.model.ComixLogin;
 import com.swen.comix.model.ComixMediator;
 import com.swen.comix.model.Guest;
 import com.swen.comix.model.PersonalCollection;
+import com.swen.comix.model.Publisher;
 import com.swen.comix.model.SearchByAuthor;
 import com.swen.comix.model.SearchByDescription;
 import com.swen.comix.model.SearchByPrincipleCharacter;
@@ -22,6 +26,7 @@ import com.swen.comix.view.PTUI;
  */
 public class App {
     private User user;
+    private SignedInUser signedInUser;
     private Guest guest;
     private UserFileDAO userDAO;
     private ComixMediator mediator;
@@ -74,8 +79,8 @@ public class App {
                 case SIGNINPASSWORD:
                     this.password = input.nextLine();
                     try{
-                        this.user = mediator.login(this.username, this.password);
-                        this.collection = this.user.getPersonalCollection();
+                        this.signedInUser = (SignedInUser) mediator.login(this.username, this.password);
+                        this.collection = this.signedInUser.getPersonalCollection();
                         view.setCommand(Command.SIGNINCOMPLETE);
                         view.handleCommand();
                         view.setCommand(Command.SIGNEDINUSER);
@@ -94,11 +99,11 @@ public class App {
                 case SIGNUPPASSWORD:
                     this.password = input.nextLine();
                     try {
-                        this.user = guest.createAccount(this.username, this.password);
+                        this.signedInUser = guest.createAccount(this.username, this.password);
                         this.collection = new PersonalCollection(this.username);
-                        this.user.setCollection(collection);
+                        this.signedInUser.setCollection(collection);
                         view.setCommand(Command.SIGNEDINUSER);
-                    } catch (Exception e) {
+                    } catch (IOException e) {
                         view.setCommand(Command.NEWACCOUNTERROR);
                         view.handleCommand();
                         view.setCommand(Command.GUEST);
@@ -128,7 +133,7 @@ public class App {
                             view.setCommand(Command.SEARCHCOLLECTION);
                             break;
                         case "3":
-                            view.setCommand(Command.ADDTOCOLLECTION);
+                            view.setCommand(Command.HOWTOADD);
                             break;
                         case "4":
                             view.setCommand(Command.REMOVEFROMCOLLECTION);
@@ -155,9 +160,6 @@ public class App {
                     }
                     break;
                 
-                case ADDTOCOLLECTION:
-                    view.setCommand(Command.HOWTOADD);
-                    break;
                 case HOWTOADD:
                     String addInputNum = input.nextLine();
                     switch(addInputNum){
@@ -172,19 +174,34 @@ public class App {
                             view.handleCommand();
                             view.setCommand(Command.SIGNEDINUSER);
                     }
+                    break;
+                case ADDFROMINPUT:
+                    String comicInput = input.nextLine();
+                    String[] separatedComic = comicInput.split(";");
+                    Publisher pub = new Publisher(separatedComic[0]);
+                    int volNum = Integer.parseInt(separatedComic[2]);
+                    int issueNum = Integer.parseInt(separatedComic[3]);
+                    ArrayList<Author> authors = new ArrayList<Author>();
+                    for(String a:separatedComic[4].split(",")){
+                        authors.add(new Author(a));
+                    }
+                    ArrayList<String> characters = new ArrayList<String>(Arrays.asList(separatedComic[5].split(",")));
+                    ComicBookComponent comicBook = new ComicBookComponent(pub, separatedComic[1], volNum, issueNum, separatedComic[4], authors, characters, separatedComic[6]);
+                    this.signedInUser.setCommand(new AddAction(collection));
+                    this.signedInUser.executeCommand(comicBook);
+                    this.view.setCommand(Command.ADDED);
+                    break;
+                case ADDED:
+                    this.view.setCommand(Command.SIGNEDINUSER);
+                    break;
+            
                 case EDITMARKSELECTION:
                     break;
-                case ERROR:
-                    break;
                 case IMPORTEXPORT:
-                    break;
-                case NEWACCOUNTERROR:
                     break;
                 case OTHERCOLLECTIONRESULT:
                     break;
                 case REDO:
-                    break;
-                case REMOVEFROMCOLLECTION:
                     break;
                 case SEARCHCOLLECTION, SEARCHDATABASE:
                     boolean database = true;
@@ -195,35 +212,47 @@ public class App {
             // - SEARCH PERSONAL COLLECTION
             else if(view.getCommand().equals(Command.SEARCHCOLLECTION)){
 
-            }
+                case SEARCHTYPECOLLECTION, SEARCHTYPEDATABASE, ADDFROMDB:
+                    String searchNum = input.nextLine();
+                    Command newCommand = Command.SEARCHDATABASE;
+                    if(!view.getCommand().equals(Command.SEARCHTYPEDATABASE)){
+                        newCommand = Command.SEARCHCOLLECTION;
+                    }
+            
+                    if(searchNum.equals("1")){
+                        this.user.setSearchStrategy(new SearchBySeriesTitle());
+                        view.setCommand(newCommand);
+                    }
+                    else if(searchNum.equals("2")){
+                        this.user.setSearchStrategy(new SearchByPrincipleCharacter());
+                        view.setCommand(newCommand);
+                    }
+                    else if(searchNum.equals("3")){
+                        this.user.setSearchStrategy(new SearchByAuthor());
+                        view.setCommand(newCommand);
+                    }
+                    else if(searchNum.equals("4")){
+                        this.user.setSearchStrategy(new SearchByDescription());
+                        view.setCommand(newCommand);
+                    }
+                    else if(searchNum.equals("5")){
+                        view.setCommand(Command.SIGNEDINUSER);
+                    }
+                    else{
+                        view.setCommand(Command.ERROR);
+                        view.handleCommand();
+                        view.setCommand(Command.SIGNEDINUSER);
+                    }
+                    break;
 
-            // - ADD TO PERSONAL COLLECTION
-            else if(view.getCommand().equals(Command.ADDTOCOLLECTION)){
-
-            }
-
-            // - REMOVE FROM PERSONAL COLLECTION
-            else if(view.getCommand().equals(Command.REMOVEFROMCOLLECTION)){
-
-            }
-
-            // - EDIT/MARK COMIC
-            else if(view.getCommand().equals(Command.EDITMARKSELECTION)){
-
-            }
-
-            // - UNDO COMMAND
-            else if(view.getCommand().equals(Command.EDITMARKSELECTION)){
-
-            }
-
-            // - REDO COMMAND
-            else if(view.getCommand().equals(Command.EDITMARKSELECTION)){
-
-            }
-
-            // - IMPORT EXPORT
-            else if(view.getCommand().equals(Command.IMPORTEXPORT)){
+                case UNDO:
+                    break;
+                    
+                case CLOSING:
+                    running = false;
+                    break;
+                default:
+                    break;
 
             }
 
@@ -236,6 +265,7 @@ public class App {
         this.userDAO = new UserFileDAO("src/data/users.json", mockMapper);
         this.mediator = new ComixLogin(this.userDAO);
         this.guest = new Guest(mediator);
+        this.user = new User();
         this.view = new PTUI();
         run();
     }

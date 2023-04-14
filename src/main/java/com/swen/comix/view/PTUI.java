@@ -43,6 +43,13 @@ public class PTUI {
                 break;
             case HOWTOADD:
                 System.out.println("How do you want to add?\n1.)Add from database\n2.)Add a new comic");
+                break;
+            case ADDFROMINPUT:
+                System.out.println("Input Comic:\nFormat should be 'Publisher; Title; Volume Number; Issue Number; Authors; Characters; Description' Characters and Authors should be separated by commas");
+                break;
+            case ADDED:
+                System.out.println("Comic Added to Collection");
+                break;
             case NEWACCOUNTERROR:
                 System.out.println("A User with this username and password already exists\nPlease Try Again:\n");
                 break;
