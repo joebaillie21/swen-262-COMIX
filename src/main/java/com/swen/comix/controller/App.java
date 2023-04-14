@@ -175,6 +175,9 @@ public class App {
                         case "2":
                             view.setCommand(Command.ADDFROMINPUT);
                             break;
+                        case "3":
+                            view.setCommand(Command.SIGNEDINUSER);
+                            break;
                         default:
                             view.setCommand(Command.ERROR);
                             view.handleCommand();
@@ -184,18 +187,25 @@ public class App {
                 case ADDFROMINPUT:
                     String comicInput = input.nextLine();
                     String[] separatedComic = comicInput.split(";");
-                    Publisher pub = new Publisher(separatedComic[0]);
-                    int volNum = Integer.parseInt(separatedComic[2]);
-                    int issueNum = Integer.parseInt(separatedComic[3]);
-                    ArrayList<Author> authors = new ArrayList<Author>();
-                    for(String a:separatedComic[4].split(",")){
-                        authors.add(new Author(a));
+                    if(separatedComic.length == 7){
+                        Publisher pub = new Publisher(separatedComic[0]);
+                        int volNum = Integer.parseInt(separatedComic[2]);
+                        int issueNum = Integer.parseInt(separatedComic[3]);
+                        ArrayList<Author> authors = new ArrayList<Author>();
+                        for(String a:separatedComic[4].split(",")){
+                            authors.add(new Author(a));
+                        }
+                        ArrayList<String> characters = new ArrayList<String>(Arrays.asList(separatedComic[5].split(",")));
+                        ComicBookComponent comicBook = new ComicBookComponent(pub, separatedComic[1], volNum, issueNum, separatedComic[4], authors, characters, separatedComic[6]);
+                        this.signedInUser.setCommand(new AddAction(collection));
+                        this.signedInUser.executeCommand(comicBook);
+                        this.view.setCommand(Command.ADDED);
                     }
-                    ArrayList<String> characters = new ArrayList<String>(Arrays.asList(separatedComic[5].split(",")));
-                    ComicBookComponent comicBook = new ComicBookComponent(pub, separatedComic[1], volNum, issueNum, separatedComic[4], authors, characters, separatedComic[6]);
-                    this.signedInUser.setCommand(new AddAction(collection));
-                    this.signedInUser.executeCommand(comicBook);
-                    this.view.setCommand(Command.ADDED);
+                    else{
+                        this.view.setCommand(Command.ERROR);
+                        this.view.handleCommand();
+                        this.view.setCommand(Command.HOWTOADD);
+                    }
                     break;
                 case ADDED:
                     this.view.setCommand(Command.SIGNEDINUSER);
@@ -206,8 +216,6 @@ public class App {
                 case IMPORTEXPORT:
                     break;
                 case OTHERCOLLECTIONRESULT:
-                    break;
-                case REDO:
                     break;
                 case SEARCHCOLLECTION, SEARCHDATABASE:
                     boolean database = true;
@@ -253,7 +261,13 @@ public class App {
                     }
                     break;
 
+                case REDO:
+                    this.signedInUser.redoCommand();
+                    view.setCommand(Command.SIGNEDINUSER);
+                    break;
                 case UNDO:
+                    this.signedInUser.unexecuteCommand();
+                    view.setCommand(Command.SIGNEDINUSER);
                     break;
                     
                 case CLOSING:

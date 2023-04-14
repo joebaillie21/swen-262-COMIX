@@ -53,6 +53,12 @@ public class PTUI {
             case ADDED:
                 System.out.println("Comic Added to Collection");
                 break;
+            case UNDO:
+                System.out.println("Undid Last Command\n");
+                break;
+            case REDO:
+                System.out.println("Redid Last Command\n");
+                break;
             case NEWACCOUNTERROR:
                 System.out.println("A User with this username and password already exists\nPlease Try Again:\n");
                 break;
