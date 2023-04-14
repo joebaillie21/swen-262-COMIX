@@ -16,8 +16,9 @@ public class SlabbedAction implements Action {
     @Override
     public void execute(ComicBook comic) {
         this.previousValue = comic.getValue();
-        pc.slab((ComicBookComponent)comic);
+        pc.slab((ComicBookComponent)comic); 
         this.comic = comic; 
+        //dao.setCollection(user.getcollection)
     }
 
     @Override
