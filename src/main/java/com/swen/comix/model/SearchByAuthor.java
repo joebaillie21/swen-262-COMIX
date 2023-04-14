@@ -15,6 +15,11 @@ public class SearchByAuthor implements SearchStrategy {
     private PersonalCollection personalCollection;
     private Database db;
 
+    public SearchByAuthor(PersonalCollection pc, Database db){
+        this.db = db; 
+        this.personalCollection = pc; 
+    }
+    /* For Testing purposes */
     public SearchByAuthor(PersonalCollection pc) {
         this.personalCollection = pc;
     }
@@ -64,7 +69,7 @@ public class SearchByAuthor implements SearchStrategy {
         ArrayList<ComicBook> comics = new ArrayList<>();
         ArrayList<ComicBook> pc = (ArrayList<ComicBook>) personalCollection.getPersonalCollection();
 
-        boolean isMatch = false; // reset everytime new comic iterate
+        boolean isMatch = true; // reset everytime new comic iterate
         for (int i = 0; i < pc.size(); i++) {
             ComicBookComponent comic = (ComicBookComponent) pc.get(i);
             ArrayList<Author> authors = comic.getAuthors();
@@ -78,7 +83,6 @@ public class SearchByAuthor implements SearchStrategy {
             }
 
             if (isMatch == true) {
-                isMatch = false; // reset
                 comics.add(comic);
             }
 

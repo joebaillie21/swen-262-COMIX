@@ -15,6 +15,11 @@ public class SearchBySeriesTitle implements SearchStrategy {
     private Database db;
     private PersonalCollection personalCollection;
 
+    public SearchBySeriesTitle(PersonalCollection personalCollection, Database db){
+        this.db = db; 
+        this.personalCollection = personalCollection;
+    }
+    /* These constructors for testing purposes  */
     public SearchBySeriesTitle(PersonalCollection personalCollection) {
         this.personalCollection = personalCollection;
     }

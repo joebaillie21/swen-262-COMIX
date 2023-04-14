@@ -14,6 +14,12 @@ public class SearchByDescription implements SearchStrategy {
     private PersonalCollection personalCollection;
     private Database db;
 
+    public SearchByDescription(PersonalCollection personalCollection, Database db){
+        this.personalCollection = personalCollection; 
+        this.db = db; 
+    }
+
+    /* These are for Testing purposes only */
     public SearchByDescription(PersonalCollection personalCollection) {
         this.personalCollection = personalCollection;
     }

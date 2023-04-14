@@ -15,6 +15,11 @@ public class SearchByPrincipleCharacter implements SearchStrategy {
     private Database db;
     private PersonalCollection personalCollection;
 
+    public SearchByPrincipleCharacter(PersonalCollection personalCollection, Database db){
+        this.db = db; 
+        this.personalCollection = personalCollection; 
+    }
+    /* these constructors are for testing purposes only */
     public SearchByPrincipleCharacter(PersonalCollection personalCollection) {
         this.personalCollection = personalCollection;
     }
@@ -52,7 +57,7 @@ public class SearchByPrincipleCharacter implements SearchStrategy {
         ArrayList<ComicBook> comics = new ArrayList<>();
         ArrayList<ComicBook> pc = (ArrayList<ComicBook>) personalCollection.getPersonalCollection();
 
-        boolean isMatch = false; // reset everytime new comic iterate
+        boolean isMatch = true; // reset everytime new comic iterate
         for (int i = 0; i < pc.size(); i++) {
             ComicBookComponent comic = (ComicBookComponent) pc.get(i);
             ArrayList<String> characters = comic.getPrincipleCharacters();
@@ -65,7 +70,6 @@ public class SearchByPrincipleCharacter implements SearchStrategy {
             }
 
             if (isMatch == true) {
-                isMatch = false; // reset
                 comics.add(comic);
             }
 
