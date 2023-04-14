@@ -159,7 +159,22 @@ public class App {
                     break;
                 
                 case ADDTOCOLLECTION:
+                    view.setCommand(Command.HOWTOADD);
                     break;
+                case HOWTOADD:
+                    String addInputNum = input.nextLine();
+                    switch(addInputNum){
+                        case "1":
+                            view.setCommand(Command.ADDFROMDB);
+                            break;
+                        case "2":
+                            view.setCommand(Command.ADDFROMINPUT);
+                            break;
+                        default:
+                            view.setCommand(Command.ERROR);
+                            view.handleCommand();
+                            view.setCommand(Command.SIGNEDINUSER);
+                    }
                 case EDITMARKSELECTION:
                     break;
                 case ERROR:
@@ -185,7 +200,7 @@ public class App {
                     //this.user.search(search, database);
                     break;
 
-                case SEARCHTYPECOLLECTION, SEARCHTYPEDATABASE:
+                case SEARCHTYPECOLLECTION, SEARCHTYPEDATABASE, ADDFROMDB:
                     String searchNum = input.nextLine();
                     Command newCommand = Command.SEARCHDATABASE;
                     if(!view.getCommand().equals(Command.SEARCHTYPEDATABASE)){
@@ -228,13 +243,12 @@ public class App {
                     break;
 
             }
-            view.handleCommand();
+            if(running){view.handleCommand();}
         }
     }
 
     public void init() throws IOException{
         ObjectMapper mockMapper = new ObjectMapper();
-        mockMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         this.userDAO = new UserFileDAO("src/data/users.json", mockMapper);
         this.mediator = new ComixLogin(this.userDAO);
         this.guest = new Guest(mediator);

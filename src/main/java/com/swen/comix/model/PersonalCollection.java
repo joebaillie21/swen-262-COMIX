@@ -3,6 +3,9 @@ package com.swen.comix.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class PersonalCollection {   
     private List<ComicBook> personalCollection;
 
@@ -10,7 +13,7 @@ public class PersonalCollection {
 
     static final String STRING_FORMAT = "Collection [userName=%s, collection=%s]";
 
-    public PersonalCollection(String username){
+    public PersonalCollection(@JsonProperty("name") String username){
         this.username = username;
         this.personalCollection = new ArrayList<ComicBook>();
     }
