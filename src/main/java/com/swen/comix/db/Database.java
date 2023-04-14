@@ -45,16 +45,16 @@ public class Database implements iDatabase {
 
     public void BuildSample() throws Exception {
 
-        String comicsSQL = "CREATE TABLE IF NOT EXISTS comics(id SERIAL PRIMARY KEY,  series_title TEXT NOT NULL, volume_number INT NOT NULL, issue_number INT NOT NULL, publication_date DATE, author TEXT, publisher TEXT, principle_character TEXT,  description TEXT, value FLOAT, grade INT)";
+        String comicsSQL = "CREATE TABLE IF NOT EXISTS comics(id SERIAL PRIMARY KEY,  series_title TEXT NOT NULL, volume_number TEXT NOT NULL, issue_number TEXT NOT NULL, publication_date DATE, author TEXT, publisher TEXT, principle_character TEXT,  description TEXT, value FLOAT, grade INT)";
         createTable(comicsSQL);
         String loadData = """
                         INSERT INTO comics (series_title, volume_number, issue_number, publication_date, author, publisher, principle_character)
                         VALUES
-                        ('Joes Comic', 1, 24, TO_DATE('2003-01-02', 'YYYY/MM/DD'),'Joe Baillie', '262 Publishing', 'Joe'),
-                        ('Ashes Comic', 3, 21, TO_DATE('2001-01-12', 'YYYY/MM/DD'),'Ashe R', '262 Publishing', 'Ashe'),
-                        ('Zachs Comic', 4, 33, TO_DATE('2012-01-05', 'YYYY/MM/DD'),'Zach B', '344 Publishing', 'Zach'),
-                        ('Angelas Comic', 2, 12, TO_DATE('2017-01-06', 'YYYY/MM/DD'),'Angela N', '256 Publishing', 'Angela'),
-                        ('Peytons Comic', 5, 19, TO_DATE('2023-01-01', 'YYYY/MM/DD'),'Peyton W', '250 Publishing', 'Peyton')
+                        ('Joes Comic', '1', '24', TO_DATE('2003-01-02', 'YYYY/MM/DD'),'Joe Baillie', '262 Publishing', 'Joe'),
+                        ('Ashes Comic', '3', '21', TO_DATE('2001-01-12', 'YYYY/MM/DD'),'Ashe R', '262 Publishing', 'Ashe'),
+                        ('Zachs Comic', '4', '33', TO_DATE('2012-01-05', 'YYYY/MM/DD'),'Zach B', '344 Publishing', 'Zach'),
+                        ('Angelas Comic', '2', '12', TO_DATE('2017-01-06', 'YYYY/MM/DD'),'Angela N', '256 Publishing', 'Angela'),
+                        ('Peytons Comic', '5', '19', TO_DATE('2023-01-01', 'YYYY/MM/DD'),'Peyton W', '250 Publishing', 'Peyton')
 
                 """; // This should be swapped out with a getData method from adapter pattern
         loadData(loadData);
