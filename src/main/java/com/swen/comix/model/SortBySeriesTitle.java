@@ -18,16 +18,10 @@ public class SortBySeriesTitle implements SortStrategy {
      */
     @Override
     public ArrayList<ComicBook> algorithm(ArrayList<ComicBook> searchResults) throws Exception {
-        ArrayList<ComicBook> copy = new ArrayList<>();
-        for(int i = 0; i < searchResults.size(); i++){
-            copy.add(searchResults.get(i));
-        }
-
-        Collections.sort(copy, bySeriesTitle); 
-        return copy; 
+        Collections.sort(searchResults, bySeriesTitle); 
+        return searchResults; 
     }
 
     public static Comparator<ComicBook> bySeriesTitle = (book1, book2) -> book1.getSeriesTitle().compareTo(book2.getSeriesTitle());
-
 }
 
