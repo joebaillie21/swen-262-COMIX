@@ -44,7 +44,7 @@ public class SearchByAuthor implements SearchStrategy {
 
     private ArrayList<ComicBook> searchOnDb(String toBeSearched) throws Exception {
 
-        ResultSet res = db.getTable("SELECT * FROM comics WHERE author LIKE = '%" + toBeSearched + "%'");
+        ResultSet res = db.getTable("SELECT * FROM comics WHERE author LIKE '%" + toBeSearched + "%'");
 
         return db.resToArrayList(res);
     }
