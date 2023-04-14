@@ -14,7 +14,7 @@ public class SortByDefault implements SortStrategy {
             copy.add(searchResults.get(i));
         }
 
-        Comparator<ComicBook> chain = SortByIssueNumber.byIssueNum
+        Comparator<ComicBook> chain = SortBySeriesTitle.bySeriesTitle
             .thenComparing(SortByVolume.byVolumeNum)
             .thenComparing(SortByIssueNumber.byIssueNum);
             

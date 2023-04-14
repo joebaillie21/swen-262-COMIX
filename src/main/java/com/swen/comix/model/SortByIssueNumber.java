@@ -26,6 +26,6 @@ public class SortByIssueNumber implements SortStrategy {
         return copy; 
     }
     
-    public static Comparator<ComicBook> byIssueNum = (book1, book2) -> Integer.compare(book1.getIssueNum(), book2.getIssueNum());   
+    public static Comparator<ComicBook> byIssueNum = (book1, book2) -> book1.getIssueNumber().compareTo(book2.getIssueNumber());
 }
 

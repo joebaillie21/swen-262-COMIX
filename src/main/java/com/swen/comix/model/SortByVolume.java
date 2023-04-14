@@ -23,7 +23,8 @@ public class SortByVolume implements SortStrategy {
         return copy; 
     }
 
-    public static Comparator<ComicBook> byVolumeNum = (book1, book2) -> Integer.compare(book1.getVolNum(), book2.getVolNum());
+    public static Comparator<ComicBook> byVolumeNum = (book1, book2) -> book1.getVolNum().compareTo(book2.getVolNum());
+
     
 
     

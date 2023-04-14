@@ -42,14 +42,14 @@ public class ComicDecorator implements ComicBook{
 
 
     @Override
-    public int getVolNum() {
+    public String getVolNum() {
         return comicBook.getVolNum();
     }
 
 
     @Override
-    public int getIssueNum() {
-        return comicBook.getIssueNum();
+    public String getIssueNumber() {
+        return comicBook.getIssueNumber();
     }
 
 
