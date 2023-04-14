@@ -12,6 +12,7 @@ public class AddAction implements Action {
     public void execute(ComicBook comic) {
         pc.add((ComicBookComponent)comic); 
         this.comic = comic; 
+        // dao.add(comic, user.getusername)
     }
 
     @Override
