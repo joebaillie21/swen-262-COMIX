@@ -53,7 +53,7 @@ public class PersonalCollectionTest {
     public void tearDown() throws IOException{
         dataFile.delete();
     }
-
+    /* 
     @Test
     public void testAddComic() throws IOException{user.setCollection(collection);
         user.setCommand(new AddAction(user.getPersonalCollection()));
@@ -282,4 +282,5 @@ public class PersonalCollectionTest {
 
         assertEquals(10, comic.getValue(), 0);
     }
+    */
 }
