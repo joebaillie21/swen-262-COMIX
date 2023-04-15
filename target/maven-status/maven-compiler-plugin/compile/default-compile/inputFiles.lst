@@ -1,9 +1,12 @@
 C:\Users\zacbr\swen262\COMIX\swen-262-team-4\src\main\java\com\swen\comix\db\iDatabase.java
+C:\Users\zacbr\swen262\COMIX\swen-262-team-4\src\main\java\com\swen\comix\model\Importer.java
 C:\Users\zacbr\swen262\COMIX\swen-262-team-4\src\main\java\com\swen\comix\model\ComicDecorator.java
 C:\Users\zacbr\swen262\COMIX\swen-262-team-4\src\main\java\com\swen\comix\model\Action.java
 C:\Users\zacbr\swen262\COMIX\swen-262-team-4\src\main\java\com\swen\comix\model\SearchByDescription.java
 C:\Users\zacbr\swen262\COMIX\swen-262-team-4\src\main\java\com\swen\comix\model\SearchByAuthor.java
 C:\Users\zacbr\swen262\COMIX\swen-262-team-4\src\main\java\com\swen\comix\model\SortByPublicationDate.java
+C:\Users\zacbr\swen262\COMIX\swen-262-team-4\src\main\java\com\swen\comix\model\Converter.java
+C:\Users\zacbr\swen262\COMIX\swen-262-team-4\src\main\java\com\swen\comix\model\Exporter.java
 C:\Users\zacbr\swen262\COMIX\swen-262-team-4\src\main\java\com\swen\comix\persistence\UserDAO.java
 C:\Users\zacbr\swen262\COMIX\swen-262-team-4\src\main\java\com\swen\comix\persistence\UserFileDAO.java
 C:\Users\zacbr\swen262\COMIX\swen-262-team-4\src\main\java\com\swen\comix\model\SortStrategy.java
