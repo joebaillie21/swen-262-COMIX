@@ -9,5 +9,5 @@ import java.util.ArrayList;
  * Interface for the CSV, XML, JSON and SQL 
  */
 public interface Importer {
-    public ArrayList<ComicBook> toArrayList() throws FileNotFoundException, IOException;  
+    public ArrayList<ComicBookComponent> importToJava() throws IOException;  
 }

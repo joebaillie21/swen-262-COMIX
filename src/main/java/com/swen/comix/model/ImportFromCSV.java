@@ -25,8 +25,8 @@ public class ImportFromCSV implements Importer {
         this.CSVFileName = filename;
     }
     @Override
-    public ArrayList<ComicBook> toArrayList() throws IOException {
-        ArrayList<ComicBook> comics = new ArrayList<>();
+    public ArrayList<ComicBookComponent> importToJava() throws IOException {
+        ArrayList<ComicBookComponent> comics = new ArrayList<>();
         FileReader fr = new FileReader(CSVFileName); 
         CSVParser parser = new CSVParserBuilder().withSeparator(',').build();
         CSVReader csvReader = new CSVReaderBuilder(fr)
@@ -80,9 +80,10 @@ public class ImportFromCSV implements Importer {
 
     public static void main(String [] args) throws IOException{
         ImportFromCSV imCSV = new ImportFromCSV("src\\data\\comics(1).csv");
-        ArrayList<ComicBook> comics = imCSV.toArrayList();
+        ArrayList<ComicBookComponent> comics = imCSV.importToJava();
         System.out.println(comics.size());
         System.out.println(comics);
     }
+
 
 }

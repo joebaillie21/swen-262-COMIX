@@ -2,6 +2,8 @@ package com.swen.comix.model;
 
 import java.util.Stack;
 
+import com.swen.comix.persistence.UserDAO;
+
 /**
  * @Author Angela Ngo
  */
@@ -69,8 +71,12 @@ public class SignedInUser extends User{
      * @param toBeReplaced - the name of the source that is being 
      * replaced 
      */
-    public void importFile(String filename, String toBeReplaced ){
-        
+    public void importFile(String filename, FileType format, UserDAO dao){
+        // switch on the format (this is the incomming format of the file)
+            // instantiate converter based on this format (ie: new Converter(ToType:(always java in this function), FromType))
+            // call converter.convertFileToJava() which will return the file in java
+                // Replace the user's personal collection with this output and update the local json with the file dao
+            // if the switch lands in the to database, call the converter.convertFileToFile()
     }
 
     /**
@@ -79,7 +85,7 @@ public class SignedInUser extends User{
      * @param filepath - name of the original file 
      * @param format - the format of what you want to convert the file to 
      */
-    public void exportFile(String filename, String format){
+    public void exportFile(String filename, FileType toType, FileType fromType){
 
     }
 }

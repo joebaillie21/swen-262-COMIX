@@ -1,5 +1,6 @@
 package com.swen.comix.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ExportAsCSV implements Exporter {
@@ -8,9 +9,16 @@ public class ExportAsCSV implements Exporter {
         this.comics = comics; 
     }
     @Override
-    public String toFile() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toFile'");
+    public String toFile() throws IOException{
+        String[] header = {"Series", "Issue", "Full Title", "Description", "Publisher", "Release Date", "Format", "Added Date", "Authors"};
+        ArrayList<String[]> csvEntries = new ArrayList<>(); 
+        csvEntries.add(header);
+        for(int i = 0; i < comics.size(); i++ ){
+
+        }
+
+        return null;
+
     }
     
 }
