@@ -1,18 +1,25 @@
 package com.swen.comix.model;
 
+import java.io.IOException;
+
+import com.swen.comix.persistence.UserDAO;
+
 public class AddAction implements Action {
-    private PersonalCollection pc ;
+    private SignedInUser user ;
     private ComicBook comic; 
+    private UserDAO dao;
+    private PersonalCollection pc;
 
-    public AddAction(PersonalCollection pc){
-        this.pc = pc; 
-
+    public AddAction(SignedInUser user, UserDAO dao){
+        this.user = user; 
+        this.dao = dao;
+        this.pc = user.getPersonalCollection();
     }
     @Override
-    public void execute(ComicBook comic) {
+    public void execute(ComicBook comic) throws IOException {
         pc.add((ComicBookComponent)comic); 
         this.comic = comic; 
-        // dao.add(comic, user.getusername)
+        dao.updateUser(user);
     }
 
     @Override
@@ -27,12 +34,13 @@ public class AddAction implements Action {
     /**
      * this unexecutes the specific add command
      */
-    public void unexecute() {
+    public void unexecute() throws IOException {
         pc.remove((ComicBookComponent)comic); 
+        dao.updateUser(user);
     }
 
     @Override
-    public void redo() {
+    public void redo() throws IOException {
         execute(comic);
     }
 }
