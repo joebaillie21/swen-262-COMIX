@@ -43,7 +43,7 @@ public class Comix {
         authors.add(new Author("Stan Lee"));
         ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, "15", authors, null, null);
         user.setCollection(collection);
-        user.setCommand(new AddAction(user.getPersonalCollection()));
+        user.setCommand(new AddAction(user, userFileDao));
         //user.executeCommand(comic);
         //user.unexecuteCommand();
 

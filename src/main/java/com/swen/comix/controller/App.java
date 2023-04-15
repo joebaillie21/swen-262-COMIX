@@ -197,7 +197,7 @@ public class App {
                         }
                         ArrayList<String> characters = new ArrayList<String>(Arrays.asList(separatedComic[5].split(",")));
                         ComicBookComponent comicBook = new ComicBookComponent(pub, separatedComic[1], volNum, issueNum, separatedComic[4], authors, characters, separatedComic[6]);
-                        this.signedInUser.setCommand(new AddAction(collection));
+                        this.signedInUser.setCommand(new AddAction(signedInUser, userDAO));
                         this.signedInUser.executeCommand(comicBook);
                         this.view.setCommand(Command.ADDED);
                     }
