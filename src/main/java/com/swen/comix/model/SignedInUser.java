@@ -39,7 +39,7 @@ public class SignedInUser extends User{
         this.completedActions.add(selectedAction);
     }
 
-    public void unexecuteCommand(){
+    public void unexecuteCommand() throws IOException{
         Action actionToUnexecute = this.completedActions.pop();
         this.undoneActions.add(actionToUnexecute);
         if (actionToUnexecute.isReversible()){
@@ -47,7 +47,7 @@ public class SignedInUser extends User{
         }
     }
 
-    public void redoCommand(){
+    public void redoCommand() throws IOException{
         Action actionToRedo = this.undoneActions.pop();
         actionToRedo.redo();
     }
