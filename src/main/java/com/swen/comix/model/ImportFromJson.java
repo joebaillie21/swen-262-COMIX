@@ -10,7 +10,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ImportFromJson {
+public class ImportFromJson implements Importer{
     private String fileName;
     private ObjectMapper objectMapper;
 
@@ -18,7 +18,8 @@ public class ImportFromJson {
         this.fileName = fileName;
     }
 
-    public ArrayList<ComicBookComponent> toArrayList() throws IOException{
+    @Override
+    public ArrayList<ComicBookComponent> importToJava() throws IOException{
         ArrayList<ComicBookComponent> comics = objectMapper.readValue(new File(this.fileName), new TypeReference<ArrayList<ComicBookComponent>>(){});
         return comics;
     }

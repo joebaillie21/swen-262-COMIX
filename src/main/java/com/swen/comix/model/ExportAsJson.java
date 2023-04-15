@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ExportAsJson {
+public class ExportAsJson implements Exporter{
     private ArrayList<ComicBookComponent> comics;
     private ObjectMapper objectMapper;
     
@@ -13,7 +13,8 @@ public class ExportAsJson {
         this.comics = comics;
     }
 
-    public String toFile(String fileName) throws IOException{
+    @Override
+    public String export(String fileName) throws IOException{
         objectMapper.writeValue(new File(fileName),comics);
         return fileName;
     }
