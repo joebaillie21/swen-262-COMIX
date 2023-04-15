@@ -6,8 +6,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.xml.crypto.KeySelector.Purpose;
+
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.swen.comix.db.Database;
+import com.fasterxml.jackson.databind.deser.impl.ObjectIdValueProperty;
+import com.swen.comix.model.AddAction;
+import com.swen.comix.model.Author;
+import com.swen.comix.model.ComicBookComponent;
 import com.swen.comix.model.ComixLogin;
 import com.swen.comix.model.ComixMediator;
 import com.swen.comix.model.Guest;
@@ -17,6 +23,7 @@ import com.swen.comix.model.SearchByAuthor;
 import com.swen.comix.model.SearchByDescription;
 import com.swen.comix.model.SearchByPrincipleCharacter;
 import com.swen.comix.model.SearchBySeriesTitle;
+import com.swen.comix.model.SignedInUser;
 import com.swen.comix.model.User;
 import com.swen.comix.persistence.UserDAO;
 import com.swen.comix.persistence.UserFileDAO;
@@ -35,7 +42,6 @@ public class App {
     private Boolean running;
     private String username, password, searchResult;
     private PersonalCollection collection;
-    private Database database;
 
     public App() throws IOException{
         init();
@@ -217,10 +223,12 @@ public class App {
                         database = false;
                     }
 
-            // - SEARCH PERSONAL COLLECTION
-            else if(view.getCommand().equals(Command.SEARCHCOLLECTION)){
+                    String search = input.nextLine();
+                    this.user.search(search);
+                    //this.user.search(search, database);
+                    break;
 
-                case SEARCHTYPECOLLECTION, SEARCHTYPEDATABASE, ADDFROMDB:
+                case SEARCHTYPECOLLECTION, SEARCHTYPEDATABASE, ADDFROMDB, REMOVEFROMCOLLECTION:
                     String searchNum = input.nextLine();
                     Command newCommand = Command.SEARCHDATABASE;
                     if(!view.getCommand().equals(Command.SEARCHTYPEDATABASE)){
@@ -269,13 +277,12 @@ public class App {
                     break;
 
             }
-
+            if(running){view.handleCommand();}
         }
     }
 
     public void init() throws IOException{
         ObjectMapper mockMapper = new ObjectMapper();
-        //mockMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         this.userDAO = new UserFileDAO("src/data/users.json", mockMapper);
         this.mediator = new ComixLogin(this.userDAO);
         this.guest = new Guest(mediator);

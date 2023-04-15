@@ -2,7 +2,11 @@ package com.swen.comix.model;
 
 import java.util.ArrayList;
 
-public class ComicDecorator implements ComicBook{
+import com.swen.comix.model.Author;
+import com.swen.comix.model.ComicBook;
+import com.swen.comix.model.Publisher;
+
+public class ComicDecorator implements com.swen.comix.model.ComicBook{
 
     protected ComicBook comicBook;
 
