@@ -94,6 +94,7 @@ public class UserFileDAO implements UserDAO{
      * @return the updated user object
      * @throws IOException
      */
+    @Override
     public SignedInUser updateUser(SignedInUser user) throws IOException {
         if (users.containsKey(user.getName()) == false)
             return null;  // user does not exist

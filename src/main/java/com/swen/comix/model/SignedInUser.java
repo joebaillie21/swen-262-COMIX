@@ -1,5 +1,6 @@
 package com.swen.comix.model;
 
+import java.io.IOException;
 import java.util.Stack;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -33,7 +34,7 @@ public class SignedInUser extends User{
         this.selectedConversion = conversionAction; 
     }
 
-    public void executeCommand(ComicBook comic){
+    public void executeCommand(ComicBook comic) throws IOException{
         this.selectedAction.execute(comic);
         this.completedActions.add(selectedAction);
     }
