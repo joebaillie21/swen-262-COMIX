@@ -11,6 +11,7 @@ import javax.xml.crypto.KeySelector.Purpose;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.impl.ObjectIdValueProperty;
+import com.swen.comix.db.Database;
 import com.swen.comix.model.AddAction;
 import com.swen.comix.model.Author;
 import com.swen.comix.model.ComicBookComponent;
@@ -42,6 +43,7 @@ public class App {
     private Boolean running;
     private String username, password, searchResult;
     private PersonalCollection collection;
+    private Database database;
 
     public App() throws IOException{
         init();
@@ -189,14 +191,12 @@ public class App {
                     String[] separatedComic = comicInput.split(";");
                     if(separatedComic.length == 7){
                         Publisher pub = new Publisher(separatedComic[0]);
-                        int volNum = Integer.parseInt(separatedComic[2]);
-                        int issueNum = Integer.parseInt(separatedComic[3]);
                         ArrayList<Author> authors = new ArrayList<Author>();
                         for(String a:separatedComic[4].split(",")){
                             authors.add(new Author(a));
                         }
                         ArrayList<String> characters = new ArrayList<String>(Arrays.asList(separatedComic[5].split(",")));
-                        ComicBookComponent comicBook = new ComicBookComponent(pub, separatedComic[1], volNum, issueNum, separatedComic[4], authors, characters, separatedComic[6]);
+                        ComicBookComponent comicBook = new ComicBookComponent(pub, separatedComic[1], separatedComic[2], separatedComic[3], separatedComic[4], authors, characters, separatedComic[6]);
                         this.signedInUser.setCommand(new AddAction(signedInUser, userDAO));
                         this.signedInUser.executeCommand(comicBook);
                         this.view.setCommand(Command.ADDED);
@@ -236,19 +236,19 @@ public class App {
                     }
             
                     if(searchNum.equals("1")){
-                        this.user.setSearchStrategy(new SearchBySeriesTitle());
+                        this.user.setSearchStrategy(new SearchBySeriesTitle(collection, this.database));
                         view.setCommand(newCommand);
                     }
                     else if(searchNum.equals("2")){
-                        this.user.setSearchStrategy(new SearchByPrincipleCharacter());
+                        this.user.setSearchStrategy(new SearchByPrincipleCharacter(this.collection, this.database));
                         view.setCommand(newCommand);
                     }
                     else if(searchNum.equals("3")){
-                        this.user.setSearchStrategy(new SearchByAuthor());
+                        this.user.setSearchStrategy(new SearchByAuthor(this.collection, this.database));
                         view.setCommand(newCommand);
                     }
                     else if(searchNum.equals("4")){
-                        this.user.setSearchStrategy(new SearchByDescription());
+                        this.user.setSearchStrategy(new SearchByDescription(this.collection, this.database));
                         view.setCommand(newCommand);
                     }
                     else if(searchNum.equals("5")){
@@ -286,6 +286,7 @@ public class App {
         this.userDAO = new UserFileDAO("src/data/users.json", mockMapper);
         this.mediator = new ComixLogin(this.userDAO);
         this.guest = new Guest(mediator);
+        this.database = new Database();
         this.user = new User();
         this.view = new PTUI();
         run();
