@@ -115,6 +115,11 @@ public class UserFileDAO implements UserDAO{
     }
 
 
+    /**
+     * Adds comic to the certain users personal collection 
+     * @param comic ComicBook- the comic book to be added to the personal collection 
+     * @param username String - the users collection to add the comic to 
+     */
     @Override
     public void addComic(ComicBook comic, String username) throws IOException {
         // find the user under the username given
@@ -128,6 +133,10 @@ public class UserFileDAO implements UserDAO{
         save();
     }
 
+    /**
+     * Removes a comic from the personal collection from given username 
+     * @param comic ComicBook - the comic book to remove from the personal collection 
+     */
     @Override
     public void removeComic(ComicBook comic, String username) throws IOException{
         // find the user under the username given

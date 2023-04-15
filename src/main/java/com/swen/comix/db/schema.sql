@@ -12,8 +12,8 @@
 CREATE TABLE comics(
   id SERIAL PRIMARY KEY,
   series_title TEXT NOT NULL,
-  volume_number INT NOT NULL,
-  issue_number INT NOT NULL,
+  volume_number TEXT NOT NULL,
+  issue_number TEXT NOT NULL,
   publication_date DATE,
   author TEXT,
   publisher_id INT,
