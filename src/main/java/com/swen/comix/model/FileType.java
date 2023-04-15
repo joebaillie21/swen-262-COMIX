@@ -4,5 +4,6 @@ public enum FileType {
     XML,
     JSON,
     CSV,
-    SQL
+    SQL,
+    JAVA
 }
