@@ -3,13 +3,18 @@ package com.swen.comix.model;
 import java.util.ArrayList;
 
 /**
+ * Holds a "from" type and a "to" type as strings
+ * These are used to determine which importers and exporters are instatiated and
+ * used
+ * A converter is only made to transfer from one type to another
+ * Different converters will need to be made at runtime to convert the different
+ * file types
+ * 
  * @author Joe
- *         Joe is doing this not really sure how this works and am just writing
- *         out what was on the board yesterday
+ * 
  */
 public class Converter {
     private FileType toType, fromType;
-    private boolean db;
 
     /**
      * this calls the appropriate importer based on switch statement
