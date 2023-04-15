@@ -1,5 +1,7 @@
 package com.swen.comix.model;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -7,5 +9,5 @@ import java.util.ArrayList;
  * Interface for the CSV, XML, JSON and SQL 
  */
 public interface Importer {
-    public ArrayList<ComicBook> importToJava(String filename);  
+    public ArrayList<ComicBook> toArrayList() throws FileNotFoundException, IOException;  
 }
