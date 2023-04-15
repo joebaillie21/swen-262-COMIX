@@ -88,9 +88,4 @@ public class Converter {
 
     }
 
-    public ArrayList<ComicBookComponent> convertFileToJava(){
-        //switch based on from type (the toType will be java if this method is called)
-            //return the new java object which will replace the caller's personal colelction
-        return null;
-    }
 }
