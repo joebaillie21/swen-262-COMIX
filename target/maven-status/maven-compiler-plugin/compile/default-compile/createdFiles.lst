@@ -1,3 +1,4 @@
+com\swen\comix\model\Importer.class
 com\swen\comix\model\SortBySeriesTitle.class
 com\swen\comix\model\SortByVolume.class
 com\swen\comix\model\Verified.class
@@ -25,6 +26,8 @@ com\swen\comix\model\ComixMediator.class
 com\swen\comix\model\AuthenticatedAction.class
 com\swen\comix\model\SortByIssueNumber.class
 com\swen\comix\persistence\UserFileDAO.class
+com\swen\comix\model\Exporter.class
+com\swen\comix\model\Converter.class
 com\swen\comix\model\SearchStrategy.class
 com\swen\comix\model\ComixLogin.class
 com\swen\comix\model\ConversionAction.class
