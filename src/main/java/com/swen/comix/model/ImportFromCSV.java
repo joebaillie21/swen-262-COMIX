@@ -12,9 +12,13 @@ import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 
+/**
+ * @Author Angela Ngo 
+ * this takes in a CSV file and then it translates it to be an arraylist
+ */
 public class ImportFromCSV implements Importer {
     final int SERIES = 0, ISSUE = 1, FULL_TITLE = 2, DESCRIPTION = 3, PUBLISHER = 4, PUBLICATION_DATE = 5, AUTHORS  = 8;
-
+    final String DEFAULT_VOL = " Vol. 1"; 
     private String CSVFileName; 
 
     public ImportFromCSV(String filename){
@@ -32,20 +36,27 @@ public class ImportFromCSV implements Importer {
 
         List<String[]> allData = csvReader.readAll();
         for(String [] row: allData){
-            String seriesTitle = row[SERIES] + ": " + row[FULL_TITLE];
-            String publicationDate = row[PUBLICATION_DATE]; 
-            ArrayList<String> principleCharacters = new ArrayList<>(null);
-            String description = row[DESCRIPTION]; 
-            ArrayList<Author> authors = authorSplitter(row[AUTHORS]); 
-            Publisher publisher = new Publisher(row[PUBLISHER]);
-            ArrayList<String> IssueAndVol = splitIssueAndVolNum(row[ISSUE]); 
-            String issueNumber = IssueAndVol.get(1);
-            String volNum = IssueAndVol.get(0);
+            if(!row[SERIES].equals("")){
+                String [] seriesAndVol = row[SERIES].split(",");
+                String volNum = "";
+                if(seriesAndVol.length != 2){
+                    volNum = DEFAULT_VOL;
+                }else{
+                    volNum = seriesAndVol[1];
+                }
+                String seriesTitle = seriesAndVol[0] + ": " + row[FULL_TITLE];
+                String publicationDate = row[PUBLICATION_DATE]; 
+                ArrayList<String> principleCharacters = new ArrayList<>();
+                String description = row[DESCRIPTION]; 
+                ArrayList<Author> authors = authorSplitter(row[AUTHORS]); 
+                Publisher publisher = new Publisher(row[PUBLISHER]);
+                String issueNumber = row[ISSUE];
 
+                // now creating the comic 
+                ComicBookComponent cb = new ComicBookComponent(publisher, seriesTitle, volNum, issueNumber, publicationDate, authors, principleCharacters, description);
+                comics.add(cb); 
+            }
 
-            // now creating the comic 
-            ComicBookComponent cb = new ComicBookComponent(publisher, seriesTitle, volNum, issueNumber, publicationDate, authors, principleCharacters, description);
-            comics.add(cb); 
         }
         return comics; 
     }
@@ -65,32 +76,13 @@ public class ImportFromCSV implements Importer {
         return authorAL; 
     }
     
-    /**
-     * helper method for main method to delegate work. splits up issue number (raw data) from the issue and volume number 
-     * @param rawIssueNum - raw data from the CSV  
-     * @return ArrayList<String> containing volume number and then issue number 
-     */
-    private static ArrayList<String> splitIssueAndVolNum(String rawIssueNum){
-        String[] temp = rawIssueNum.split("");
-        String issueNum= "";
-        String volNum = "";
-        ArrayList<String> issueAndVol = new ArrayList<>();
-        for(int i = 0; i < temp.length; i++){
-            String t = temp[i];
-            try{
-                int num = Integer.parseInt(t);
-                issueNum += t; 
-            }catch(NumberFormatException e){
-                volNum += t; 
-            }
-        }
-        issueAndVol.add(volNum);
-        issueAndVol.add(issueNum);
-        return issueAndVol; 
+
+
+    public static void main(String [] args) throws IOException{
+        ImportFromCSV imCSV = new ImportFromCSV("src\\data\\comics(1).csv");
+        ArrayList<ComicBook> comics = imCSV.toArrayList();
+        System.out.println(comics.size());
+        System.out.println(comics);
     }
 
-    public static void main(String [] args){
-        String issueNum = "17B";
-        System.out.println(splitIssueAndVolNum(issueNum));
-    }
 }

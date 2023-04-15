@@ -7,5 +7,5 @@ import java.util.ArrayList;
  * XML, JSON, or CSV
  */
 public interface Exporter {
-    public String export();
+    public String toFile();
 }
