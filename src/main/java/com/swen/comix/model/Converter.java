@@ -1,5 +1,7 @@
 package com.swen.comix.model;
 
+import java.util.ArrayList;
+
 /**
  * @author Joe 
  * Joe is doing this not really sure how this works and am just writing out what was on the board yesterday 
@@ -17,5 +19,11 @@ public class Converter {
      */
     public String convert(String filename){
         return ""; 
+    }
+
+    public ArrayList<ComicBookComponent> convertFileToJava(){
+        //switch based on from type (the toType will be java if this method is called)
+            //return the new java object which will replace the caller's personal colelction
+        return null;
     }
 }
