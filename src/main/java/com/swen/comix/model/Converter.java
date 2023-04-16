@@ -16,6 +16,11 @@ import java.util.ArrayList;
 public class Converter {
     private FileType toType, fromType;
 
+    public Converter(FileType toType, FileType fromType){
+        this.toType = toType;
+        this.fromType = fromType;
+    }
+
     /**
      * this calls the appropriate importer based on switch statement
      * and it also calls the appropriate exporter based on switch statement

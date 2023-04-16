@@ -14,6 +14,7 @@ public class SignedInUser extends User{
     private PersonalCollection personalCollection; 
     private Stack<Action> completedActions;
     private Stack<Action> undoneActions;
+    private Converter converter;
 
 
     public SignedInUser(String username, String password){
@@ -77,6 +78,12 @@ public class SignedInUser extends User{
             // call converter.convertFileToJava() which will return the file in java
                 // Replace the user's personal collection with this output and update the local json with the file dao
             // if the switch lands in the to database, call the converter.convertFileToFile()
+        switch(format){
+            case JAVA:
+                this.converter = new Converter();
+            default:
+                break;
+        }
     }
 
     /**
