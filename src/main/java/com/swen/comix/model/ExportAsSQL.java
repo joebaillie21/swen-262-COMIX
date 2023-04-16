@@ -50,6 +50,7 @@ public class ExportAsSQL implements Exporter {
             holder += seriesTitle + ", " + volumeNumber + ", " + issueNumber + ", " + publicationDate + ", "
                     + authorsString
                     + authorsString + ", " + publisher + ", " + principleCharacterString + ") ,";
+            psuedoPath += holder + ",";
         }
 
         psuedoPath = psuedoPath.substring(0, psuedoPath.length() - 1);
