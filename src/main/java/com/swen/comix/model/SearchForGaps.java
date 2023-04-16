@@ -49,20 +49,15 @@ public class SearchForGaps implements SearchStrategy{
         ArrayList<ArrayList<ComicBook>> sortedByTitle = splitBySeries(); 
         ArrayList<ArrayList<ComicBook>> sortedByVolNum = splitByVolNum(sortedByTitle); 
         ArrayList<ArrayList<ComicBook>> sortedByRuns = splitByIssueNum(sortedByVolNum);
-
-        /**
-         * Not sure how to count the amount of runs other than seeing what the title was or something and then counting if it was a run that way? 
-         */
-
         
-        ArrayList<ComicBook> CC = new ArrayList<>(); 
+        ArrayList<ComicBook> searchedGaps = new ArrayList<>(); 
         for(int i = 0; i < sortedByRuns.size(); i++){
             for(int k = 0; k < sortedByRuns.get(i).size(); k++){
-                CC.add(sortedByRuns.get(i).get(k));
+                searchedGaps.add(sortedByRuns.get(i).get(k));
             }
         }
 
-        return CC; 
+        return searchedGaps; 
     }
 
     /**
@@ -144,13 +139,14 @@ public class SearchForGaps implements SearchStrategy{
         ArrayList<ComicBook> issues = new ArrayList<>(); 
         
         for(int i = 0; i < sortedByVolNum.size(); i++){
-            //System.out.println(sortedByVolNum.get(i).size());
+            
             String issueNum = sortedByVolNum.get(i).get(0).getIssueNumber();
             int count = 0; 
             int missing = 0;  
             for(int k = 0; k < sortedByVolNum.get(i).size(); k++){ //basic
                 ComicBook cb = sortedByVolNum.get(i).get(k);
                 String currIssue = cb.getIssueNumber();  
+
                 if(issueNum.equals(currIssue)){
                     count++; 
                     issues.add(cb);
@@ -159,14 +155,14 @@ public class SearchForGaps implements SearchStrategy{
                 }else if(!issueNum.equals(currIssue)){
                     if(missing != MAX_MISSING){
                         missing += Integer.parseInt(currIssue) - Integer.parseInt(issueNum); 
-                        issueNum = String.valueOf(Integer.parseInt(currIssue)); //currIssue;
-                        k--;
+                        issueNum = String.valueOf(Integer.parseInt(currIssue)); 
+                        k--; // go back one to get skipped book 
                     }
                 }
             }
 
-            if(MAX_MISSING >= missing && count >= MIN_CONSEC_ISSUES){ // if there are issues in there meaning its consec as well as the count is great 
-                consecutiveNums.add(issues); // TO DO: smush them all together into one array list  
+            if(MAX_MISSING >= missing && count >= MIN_CONSEC_ISSUES){ 
+                consecutiveNums.add(issues);   
             }
             issues = new ArrayList<>(); // reset 
         }
