@@ -1,5 +1,6 @@
 package com.swen.comix.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 /*
  * @Author Angela 
@@ -7,5 +8,5 @@ import java.util.ArrayList;
  * XML, JSON, or CSV
  */
 public interface Exporter {
-    public String export(ArrayList<ComicBook> comicBooks);
+    public String toFile() throws IOException;
 }

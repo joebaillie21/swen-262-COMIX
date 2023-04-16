@@ -1,5 +1,6 @@
 package com.swen.comix.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
@@ -11,8 +12,14 @@ public class ExportAsSQL implements Exporter {
     // add the data to the SQL database
     // The returned statement will then be called within the database class
 
+    private ArrayList<ComicBook> comicBooks;
+
+    public ExportAsSQL(ArrayList<ComicBook> comicBooks) {
+        this.comicBooks = comicBooks;
+    }
+
     @Override
-    public String export(ArrayList<ComicBook> comicBooks) {
+    public String toFile() throws IOException {
         String psuedoPath = """
                 INSERT INTO comics (series_title, volume_number, issue_number, publication_date, author, publisher, principle_character)
                         VALUES
