@@ -1,7 +1,10 @@
 package com.swen.comix.model;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Stack;
 
+import com.swen.comix.db.Database;
 import com.swen.comix.persistence.UserDAO;
 
 /**
@@ -14,6 +17,7 @@ public class SignedInUser extends User{
     private PersonalCollection personalCollection; 
     private Stack<Action> completedActions;
     private Stack<Action> undoneActions;
+    private Converter converter;
 
 
     public SignedInUser(String username, String password){
@@ -67,25 +71,49 @@ public class SignedInUser extends User{
      * this takes in the filename and then 
      * the user has to decide if this replaces the DB (the immutable)
      * or does it replace the personal collection 
-     * @param filename - name of the new file to be imported in 
-     * @param toBeReplaced - the name of the source that is being 
+     * @param filename - name of the new file to be imported from
+     * @param toType determines whether the user wants to import to the db or the pc
+     * @param fromType derived from the filename. Tells the type of the file the user wants to import from
+     * @param dao the user file dao used when replacing the collection
      * replaced 
+     * @throws Exception
      */
-    public void importFile(String filename, FileType format, UserDAO dao){
+    public void importFile(String filename, FileType toType, FileType fromType, UserDAO dao) throws Exception{
         // switch on the format (this is the incomming format of the file)
-            // instantiate converter based on this format (ie: new Converter(ToType:(always java in this function), FromType))
-            // call converter.convertFileToJava() which will return the file in java
-                // Replace the user's personal collection with this output and update the local json with the file dao
+            // instantiate converter based on this format (ie: new Converter(ToType:(either java or xml for this function), FromType:(derived from filename by ptui)))
             // if the switch lands in the to database, call the converter.convertFileToFile()
+            // if other call converter.convertFileToJava() which will return the file in java
+                // Replace the user's personal collection with this output and update the local json with the file dao
+        switch(toType){
+            case SQL:
+                this.converter = new Converter(toType, fromType);
+                converter.convertFileToFile(filename);
+                break;
+            default:
+                this.converter = new Converter(FileType.JAVA, fromType);
+                ArrayList<ComicBookComponent> newPc = converter.convertFileToJava(filename);
+                this.personalCollection.setPersonalCollection(newPc);
+                dao.updateUser(this);
+                break;
+        }
     }
 
     /**
      * This create a new file in the data folder that is in the given specified format
      * This should print to the PTUI console the location of the file
-     * @param filepath - name of the original file 
-     * @param format - the format of what you want to convert the file to 
+     * @param toType - the type of the new exported file will be
+     * @param fromType - determines whether the user wants to export the database or personal collection
+     * @throws Exception
      */
-    public void exportFile(String filename, FileType toType, FileType fromType){
-
+    public void exportFile(FileType toType, FileType fromType, Database db) throws Exception{
+        this.converter = new Converter(toType, fromType);
+        switch(fromType){
+            case SQL:
+                ResultSet res = db.getTable();
+                ArrayList<ComicBookComponent> data = db.resToArrayList(res);
+                converter.convertJavaToFile(data);
+            default:
+                converter.convertJavaToFile((ArrayList<ComicBookComponent>) personalCollection.getPersonalCollection());
+        }
     }
 }

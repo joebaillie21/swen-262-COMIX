@@ -21,7 +21,7 @@ public class RemoveAction implements Action {
 
     @Override
     public void unexecute() {
-        pc.add(comic); 
+        pc.add((ComicBookComponent) comic); 
     }
 
     @Override

@@ -103,9 +103,9 @@ public class Database implements iDatabase {
     }
 
     @Override
-    public ArrayList<ComicBook> resToArrayList(ResultSet res) throws Exception {
+    public ArrayList<ComicBookComponent> resToArrayList(ResultSet res) throws Exception {
 
-        ArrayList<ComicBook> comics = new ArrayList<>();
+        ArrayList<ComicBookComponent> comics = new ArrayList<>();
 
         while (res.next()) {
 

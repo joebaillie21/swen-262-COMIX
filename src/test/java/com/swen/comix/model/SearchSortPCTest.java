@@ -39,10 +39,10 @@ public class SearchSortPCTest {
         titles.add("empire state building"); 
 
         Publisher pub = new Publisher("mewo"); 
-        ArrayList<ComicBook> pc = new ArrayList<>(); 
+        ArrayList<ComicBookComponent> pc = new ArrayList<>(); 
         for(int i = 0; i < 5; i++){
             ComicBook cb = new ComicBookComponent(pub, titles.get(i), "0", "0", "lp", authors.get(i), titles, "0");
-            pc.add(cb);
+            pc.add((ComicBookComponent) cb);
         }
 
         testPc.setPersonalCollection(pc);
@@ -95,10 +95,10 @@ public class SearchSortPCTest {
         descriptions.add("lalalala");
 
         Publisher pub = new Publisher("mewo"); 
-        ArrayList<ComicBook> pc = new ArrayList<>(); 
+        ArrayList<ComicBookComponent> pc = new ArrayList<>(); 
         for(int i = 0; i < 5; i++){
             ComicBook cb = new ComicBookComponent(pub, titles.get(i), "0", "0", "lp", authors.get(i), titles, descriptions.get(i));
-            pc.add(cb);
+            pc.add((ComicBookComponent) cb);
         }
 
         testPc.setPersonalCollection(pc);
@@ -149,10 +149,10 @@ public class SearchSortPCTest {
         descriptions.add("lalalala");
 
         Publisher pub = new Publisher("mewo"); 
-        ArrayList<ComicBook> pc = new ArrayList<>(); 
+        ArrayList<ComicBookComponent> pc = new ArrayList<>(); 
         for(int i = 0; i < 5; i++){
             ComicBook cb = new ComicBookComponent(pub, titles.get(i), "0", "0", "lp", authors.get(i), titles, descriptions.get(i));
-            pc.add(cb);
+            pc.add((ComicBookComponent) cb);
         }
 
         testPc.setPersonalCollection(pc);
@@ -211,10 +211,10 @@ public class SearchSortPCTest {
         characters.add(character5);
 
         Publisher pub = new Publisher("mewo"); 
-        ArrayList<ComicBook> pc = new ArrayList<>(); 
+        ArrayList<ComicBookComponent> pc = new ArrayList<>(); 
         for(int i = 0; i < 5; i++){
             ComicBook cb = new ComicBookComponent(pub, titles.get(i), "0", "0", "lp", authors.get(i), characters.get(i), titles.get(i));
-            pc.add(cb);
+            pc.add((ComicBookComponent) cb);
         }
 
         testPc.setPersonalCollection(pc);
