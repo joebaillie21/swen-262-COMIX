@@ -29,23 +29,25 @@ public class Converter {
         ArrayList<ComicBook> asJava = convertFileToJava(fileName);
         String filePath = convertJavaToFile(asJava);
 
-        return "";
+        return filePath;
 
     }
 
     public ArrayList<ComicBook> convertFileToJava(String fileName) {
 
         ArrayList<ComicBook> comics = new ArrayList<>();
-        // Importer import;
+
+        // Importer import = new ImportFromCSV(fileName);
 
         switch (fromType) {
 
             case XML: {
-                // import = new ImportFromXML(fileName)
+                // Importer import = new ImportFromXML(fileName);
+                // comics = import.toArrayList();
             }
 
             case JSON: {
-                // import = new ImportFromJSON(fileName)
+
             }
 
             case CSV: {
@@ -59,7 +61,7 @@ public class Converter {
             default:
                 break;
         }
-        // filePath = import.toArrayList();
+        // comics = import.toArrayList();
         return comics;
     }
 
