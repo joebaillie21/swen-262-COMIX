@@ -42,7 +42,7 @@ public class Comix {
         PersonalCollection collection = new PersonalCollection("user");
         ArrayList<Author> authors = new ArrayList<Author>();
         authors.add(new Author("Stan Lee"));
-        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, null, authors, null, null);
+        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", "0", "0", null, authors, null, null);
         user.setCollection(collection);
         userFileDao.addComic(comic, user.getName());
 
