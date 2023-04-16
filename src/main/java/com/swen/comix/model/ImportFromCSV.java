@@ -36,7 +36,7 @@ public class ImportFromCSV implements Importer {
 
         List<String[]> allData = csvReader.readAll();
         for(String [] row: allData){
-            if(!row[SERIES].equals("")){
+            if(!row[FULL_TITLE].equals("")){
                 String [] seriesAndVol = row[SERIES].split(",");
                 String volNum = "";
                 if(seriesAndVol.length != 2){
