@@ -1,6 +1,17 @@
 package com.swen.comix.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import com.swen.comix.model.Importer;
+import com.swen.comix.model.ImportFromXML;
+import com.swen.comix.model.ImportFromCSV;
+import com.swen.comix.model.ImportFromJson;
+import com.swen.comix.model.Exporter;
+import com.swen.comix.model.ExportAsCSV;
+import com.swen.comix.model.ExportAsJson;
+import com.swen.comix.model.ExportAsSQL;
+import com.swen.comix.model.ExportAsXML;
 
 /**
  * Holds a "from" type and a "to" type as strings
@@ -23,35 +34,36 @@ public class Converter {
      * 
      * @param fileName
      * @return
+     * @throws Exception
      */
-    public String convertFileToFile(String fileName) {
+    public String convertFileToFile(String fileName) throws Exception {
 
-        ArrayList<ComicBook> asJava = convertFileToJava(fileName);
+        ArrayList<ComicBookComponent> asJava = convertFileToJava(fileName);
         String filePath = convertJavaToFile(asJava);
 
         return filePath;
 
     }
 
-    public ArrayList<ComicBook> convertFileToJava(String fileName) {
+    public ArrayList<ComicBookComponent> convertFileToJava(String fileName) throws Exception {
 
-        ArrayList<ComicBook> comics = new ArrayList<>();
-
-        // Importer import = new ImportFromCSV(fileName);
+        ArrayList<ComicBookComponent> comics = new ArrayList<>();
 
         switch (fromType) {
 
             case XML: {
-                // Importer import = new ImportFromXML(fileName);
-                // comics = import.toArrayList();
+                ImportFromXML importer = new ImportFromXML(fileName);
+                comics = importer.importToJava();
             }
 
             case JSON: {
-
+                ImportFromJson importer = new ImportFromJson(fileName);
+                comics = importer.importToJava();
             }
 
             case CSV: {
-                // import = new ImportFromCSV(fileName)
+                ImportFromCSV importer = new ImportFromCSV(fileName);
+                comics = importer.importToJava();
             }
 
             case JAVA: {
@@ -61,36 +73,39 @@ public class Converter {
             default:
                 break;
         }
-        // comics = import.toArrayList();
+
         return comics;
     }
 
-    public String convertJavaToFile(ArrayList<ComicBook> comics) {
+    public String convertJavaToFile(ArrayList<ComicBookComponent> comics) throws Exception {
 
-        // Exporter export;
         String filePath = "";
 
         switch (toType) {
 
             case XML: {
-                // export = new ExportAsXML(comics)
+                ExportAsXML exporter = new ExportAsXML(comics);
+                filePath = exporter.toFile();
             }
 
             case JSON: {
-                // export = new ExportAsJSON(comics)
+                ExportAsJson exporter = new ExportAsJson(comics);
+                filePath = exporter.toFile();
             }
 
             case CSV: {
-                // export = new ExportAsXML(comics)
+                ExportAsCSV exporter = new ExportAsCSV(comics);
+                filePath = exporter.toFile();
             }
 
-            case JAVA: {
-                return comics.toString();
+            case SQL: {
+                ExportAsSQL exporter = new ExportAsSQL(comics);
+                filePath = exporter.toFile();
             }
             default:
                 break;
         }
-        // filePath = export.toFile();
+
         return filePath;
 
     }

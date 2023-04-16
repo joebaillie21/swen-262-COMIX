@@ -12,9 +12,9 @@ public class ExportAsSQL implements Exporter {
     // add the data to the SQL database
     // The returned statement will then be called within the database class
 
-    private ArrayList<ComicBook> comicBooks;
+    private ArrayList<ComicBookComponent> comicBooks;
 
-    public ExportAsSQL(ArrayList<ComicBook> comicBooks) {
+    public ExportAsSQL(ArrayList<ComicBookComponent> comicBooks) {
         this.comicBooks = comicBooks;
     }
 
