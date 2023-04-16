@@ -31,27 +31,32 @@ public class ExportAsSQL implements Exporter {
             String issueNumber = "'" + c.getIssueNumber() + "'";
             String publicationDate = "TO_DATE('" + c.getPublicationDate() + "', 'YYYY-MM-DD)";
             ArrayList<Author> authorsArray = c.getAuthors();
-            String authorsString = "";
+            String authorsString = "'";
             for (int i = 0; i < authorsArray.size(); i++) {
                 authorsString += authorsArray.get(i).getName();
                 if (i != authorsArray.size() - 1) {
                     authorsString += ", ";
                 }
             }
-            String publisher = c.getPublisher().getName();
+            authorsString += "'";
+            String publisher = "'" + c.getPublisher().getName() + "'";
             ArrayList<String> pcArray = c.getPrincipleCharacters();
-            String principleCharacterString = "";
+            String principleCharacterString = "'";
             for (int i = 0; i < pcArray.size(); i++) {
                 principleCharacterString += pcArray.get(i);
                 if (i != pcArray.size() - 1) {
                     principleCharacterString += ", ";
                 }
             }
+            principleCharacterString += "'";
             holder += seriesTitle + ", " + volumeNumber + ", " + issueNumber + ", " + publicationDate + ", "
-                    + authorsString;
+                    + authorsString
+                    + authorsString + ", " + publisher + ", " + principleCharacterString + ") ,";
         }
 
-        return null;
+        psuedoPath = psuedoPath.substring(0, psuedoPath.length() - 1);
+
+        return psuedoPath;
 
     }
 
