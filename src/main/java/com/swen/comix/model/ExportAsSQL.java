@@ -3,8 +3,6 @@ package com.swen.comix.model;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 public class ExportAsSQL implements Exporter {
 
     // This method works slightly different than the other export
