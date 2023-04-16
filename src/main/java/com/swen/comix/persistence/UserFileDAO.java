@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.TreeMap;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swen.comix.model.ComicBook;
 import com.swen.comix.model.SignedInUser;
 import java.util.ArrayList;
 import java.util.List;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserFileDAO implements UserDAO{
     TreeMap<String,SignedInUser> users;   // Provides a local cache of the user objects
                                 // so that we don't need to read from the file
@@ -36,8 +38,9 @@ public class UserFileDAO implements UserDAO{
         // Deserializes the JSON objects from the file into an array of users
         // readValue will throw an IOException if there's an issue with the file
         // or reading from the file
-       SignedInUser[] userArray = objectMapper.readValue(new File(filename),SignedInUser[].class);
-
+        this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        SignedInUser[] userArray = objectMapper.readValue(new File(filename),SignedInUser[].class);
+       
         for (SignedInUser user : userArray) {
             users.put(user.getName(),user);
         }

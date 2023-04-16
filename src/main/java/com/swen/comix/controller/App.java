@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.deser.impl.ObjectIdValueProperty;
 import com.swen.comix.db.Database;
 import com.swen.comix.model.AddAction;
 import com.swen.comix.model.Author;
+import com.swen.comix.model.ComicBook;
 import com.swen.comix.model.ComicBookComponent;
 import com.swen.comix.model.ComixLogin;
 import com.swen.comix.model.ComixMediator;
@@ -25,6 +26,11 @@ import com.swen.comix.model.SearchByDescription;
 import com.swen.comix.model.SearchByPrincipleCharacter;
 import com.swen.comix.model.SearchBySeriesTitle;
 import com.swen.comix.model.SignedInUser;
+import com.swen.comix.model.SortByDefault;
+import com.swen.comix.model.SortByIssueNumber;
+import com.swen.comix.model.SortByPublicationDate;
+import com.swen.comix.model.SortBySeriesTitle;
+import com.swen.comix.model.SortByVolume;
 import com.swen.comix.model.User;
 import com.swen.comix.persistence.UserDAO;
 import com.swen.comix.persistence.UserFileDAO;
@@ -40,16 +46,17 @@ public class App {
     private ComixMediator mediator;
     private PTUI view;
     private Scanner input;
-    private Boolean running;
+    private Boolean running, isDatabase;
     private String username, password, searchResult;
     private PersonalCollection collection;
     private Database database;
+    private ArrayList<ComicBook> currentResult;
 
-    public App() throws IOException{
+    public App() throws Exception{
         init();
     }
 
-    public void run() throws IOException{
+    public void run() throws Exception{
         running = true;
         while(running){
             input = new Scanner(System.in);
@@ -65,7 +72,8 @@ public class App {
                             view.setCommand(Command.SIGNUP);
                             break;
                         case "3":
-                            view.setCommand(Command.SEARCHDATABASE);
+                            this.isDatabase = true;
+                            view.setCommand(Command.SETSEARCHTYPE);
                             break;
                         case "4":
                             view.setCommand(Command.BROWSEOTHERCOLLECTION);
@@ -135,10 +143,12 @@ public class App {
                     String commandNum = input.nextLine();
                     switch(commandNum){
                         case "1":
-                            view.setCommand(Command.SEARCHTYPEDATABASE);
+                            this.isDatabase = true;
+                            view.setCommand(Command.SETSEARCHTYPE);
                             break;
                         case "2":
-                            view.setCommand(Command.SEARCHCOLLECTION);
+                            this.isDatabase = false;
+                            view.setCommand(Command.SETSEARCHTYPE);
                             break;
                         case "3":
                             view.setCommand(Command.HOWTOADD);
@@ -166,6 +176,104 @@ public class App {
                             view.handleCommand();
                             view.setCommand(Command.SIGNEDINUSER);                        
                     }
+                    break;
+                
+            
+                case EDITMARKSELECTION:
+                    break;
+                case IMPORTEXPORT:
+                    break;
+                case OTHERCOLLECTIONRESULT:
+                    break;
+                /*    
+                case SEARCHCOLLECTION, SEARCHDATABASE:
+                    boolean database = true;
+                    if(!view.getCommand().equals(Command.SEARCHDATABASE)){
+                        database = false;
+                    }
+
+                    String search = input.nextLine();
+                    this.currentResult = this.user.search(search, database);
+                    break;
+                    */
+                case SETSEARCHTYPE, ADDFROMDB, REMOVEFROMCOLLECTION:
+                    String searchNum = input.nextLine();
+                    Command searchCommand = Command.SORTTYPE;
+                    if(isDatabase){searchCommand = Command.SEARCHING;}
+                    
+                    if(searchNum.equals("1")){
+                        this.user.setSearchStrategy(new SearchBySeriesTitle(collection, this.database));
+                        this.view.setCommand(searchCommand);
+                    }
+                    else if(searchNum.equals("2")){
+                        this.user.setSearchStrategy(new SearchByPrincipleCharacter(this.collection, this.database));
+                        this.view.setCommand(searchCommand);
+                    }
+                    else if(searchNum.equals("3")){
+                        this.user.setSearchStrategy(new SearchByAuthor(this.collection, this.database));
+                        this.view.setCommand(searchCommand);
+                    }
+                    else if(searchNum.equals("4")){
+                        this.user.setSearchStrategy(new SearchByDescription(this.collection, this.database));
+                        this.view.setCommand(searchCommand);
+                    }
+                    else if(searchNum.equals("5")){
+                        view.setCommand(Command.SIGNEDINUSER);
+                    }
+                    else{
+                        view.setCommand(Command.ERROR);
+                        view.handleCommand();
+                        view.setCommand(Command.SIGNEDINUSER);
+                    }
+                    break;
+                
+                case SORTTYPE:
+                    String ifSort = input.nextLine();
+                    if(ifSort.equals("1")){
+                        view.setCommand(Command.SETSORTTYPE);
+                    }
+                    else if(ifSort.equals("2")){
+                        this.user.setSortStrategy(new SortByDefault());
+                        view.setCommand(Command.SEARCHING);
+                    }
+                    else{
+                        view.setCommand(Command.ERROR);
+                        view.handleCommand();
+                        view.setCommand(Command.SORTTYPE);
+                    }
+                    break;
+
+                case SETSORTTYPE:
+                    String chooseSort = input.nextLine();
+                    if(chooseSort == "1"){
+                        this.user.setSortStrategy(new SortBySeriesTitle());
+                        view.setCommand(Command.SEARCHING);
+                    }
+                    else if(chooseSort == "2"){
+                        this.user.setSortStrategy(new SortByVolume());
+                        view.setCommand(Command.SEARCHING);
+                    }
+                    else if(chooseSort == "3"){
+                        this.user.setSortStrategy(new SortByIssueNumber());
+                        view.setCommand(Command.SEARCHING);
+                    }
+                    else if(chooseSort == "4"){
+                        this.user.setSortStrategy(new SortByPublicationDate());
+                        view.setCommand(Command.SEARCHING);
+                    }
+                    break;
+                
+                case SEARCHING:
+                    this.currentResult = this.user.search(input.nextLine(), isDatabase);
+                    if(isDatabase){this.user.setSortStrategy(new SortByDefault());}
+                    this.currentResult = this.user.sort(this.currentResult);
+                    this.view.setResults(this.currentResult);
+                    this.view.setCommand(Command.RESULTS);
+                    break;
+                
+                case RESULTS:
+                    if(this.signedInUser == null){this.view.setCommand(Command.GUEST);}
+                    else{this.view.setCommand(Command.SIGNEDINUSER);}
                     break;
                 
                 case HOWTOADD:
@@ -210,56 +318,6 @@ public class App {
                 case ADDED:
                     this.view.setCommand(Command.SIGNEDINUSER);
                     break;
-            
-                case EDITMARKSELECTION:
-                    break;
-                case IMPORTEXPORT:
-                    break;
-                case OTHERCOLLECTIONRESULT:
-                    break;
-                case SEARCHCOLLECTION, SEARCHDATABASE:
-                    boolean database = true;
-                    if(!view.getCommand().equals(Command.SEARCHDATABASE)){
-                        database = false;
-                    }
-
-                    String search = input.nextLine();
-                    this.user.search(search);
-                    //this.user.search(search, database);
-                    break;
-
-                case SEARCHTYPECOLLECTION, SEARCHTYPEDATABASE, ADDFROMDB, REMOVEFROMCOLLECTION:
-                    String searchNum = input.nextLine();
-                    Command newCommand = Command.SEARCHDATABASE;
-                    if(!view.getCommand().equals(Command.SEARCHTYPEDATABASE)){
-                        newCommand = Command.SEARCHCOLLECTION;
-                    }
-            
-                    if(searchNum.equals("1")){
-                        this.user.setSearchStrategy(new SearchBySeriesTitle(collection, this.database));
-                        view.setCommand(newCommand);
-                    }
-                    else if(searchNum.equals("2")){
-                        this.user.setSearchStrategy(new SearchByPrincipleCharacter(this.collection, this.database));
-                        view.setCommand(newCommand);
-                    }
-                    else if(searchNum.equals("3")){
-                        this.user.setSearchStrategy(new SearchByAuthor(this.collection, this.database));
-                        view.setCommand(newCommand);
-                    }
-                    else if(searchNum.equals("4")){
-                        this.user.setSearchStrategy(new SearchByDescription(this.collection, this.database));
-                        view.setCommand(newCommand);
-                    }
-                    else if(searchNum.equals("5")){
-                        view.setCommand(Command.SIGNEDINUSER);
-                    }
-                    else{
-                        view.setCommand(Command.ERROR);
-                        view.handleCommand();
-                        view.setCommand(Command.SIGNEDINUSER);
-                    }
-                    break;
 
                 case REDO:
                     this.signedInUser.redoCommand();
@@ -281,7 +339,7 @@ public class App {
         }
     }
 
-    public void init() throws IOException{
+    public void init() throws Exception{
         ObjectMapper mockMapper = new ObjectMapper();
         this.userDAO = new UserFileDAO("src/data/users.json", mockMapper);
         this.mediator = new ComixLogin(this.userDAO);

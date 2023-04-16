@@ -33,12 +33,12 @@ public class PersonalCollection {
         }
     }
 
-    public void grade(ComicBookComponent comic){
+    public void grade(ComicBook comic){
         ComicBook gradedComic = new Grade(comic);
         comic.setValue(gradedComic.getValue());
     }
 
-    public void slab(ComicBookComponent comic){
+    public void slab(ComicBook comic){
         if (comic.getGrade() != 1){
             ComicBook slabbedComic = new Slab(comic);
             comic.setValue(slabbedComic.getValue());

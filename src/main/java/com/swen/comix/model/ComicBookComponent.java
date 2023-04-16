@@ -3,6 +3,9 @@ package com.swen.comix.model;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
     /**
      * @Author Angela Ngo
      */
@@ -18,8 +21,8 @@ public class ComicBookComponent implements ComicBook {
     private boolean isAuthenticated, isSlabbed; 
     private double value; 
 
-
-    public ComicBookComponent(Publisher publisher, String seriesTitle, String volNum, String issueNumber, String publicationDate, ArrayList<Author> authors, ArrayList<String> principleCharacters, String description){
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public ComicBookComponent(@JsonProperty("publisher")Publisher publisher, @JsonProperty("seriesTitle")String seriesTitle, @JsonProperty("volNum")String volNum, @JsonProperty("issueNumber")String issueNumber, @JsonProperty("publicationDate")String publicationDate, @JsonProperty("authors")ArrayList<Author> authors, @JsonProperty("principleCharacters")ArrayList<String> principleCharacters, @JsonProperty("description")String description){
         this.publisher = publisher; 
         this.authors = authors; 
         this.seriesTitle = seriesTitle; 

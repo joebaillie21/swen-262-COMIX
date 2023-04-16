@@ -2,6 +2,8 @@ package com.swen.comix.model;
 
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+@JsonDeserialize(as=ComicBookComponent.class)
 public interface ComicBook {
     public Publisher getPublisher(); 
     public ArrayList<Author> getAuthors();

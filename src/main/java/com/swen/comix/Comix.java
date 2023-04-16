@@ -22,7 +22,7 @@ import com.swen.comix.persistence.UserDAO;
 import com.swen.comix.persistence.UserFileDAO;
 
 public class Comix {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         //System.out.println("Hello World!");
 
         File datafile = new File("src/data/temp.json");
@@ -46,7 +46,7 @@ public class Comix {
         user.setCommand(new AddAction(user, userFileDao));
         //user.executeCommand(comic);
         //user.unexecuteCommand();
-
+        
         App comixApp = new App();
         //comixApp.init();
         //datafile.delete();

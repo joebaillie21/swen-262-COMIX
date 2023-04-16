@@ -1,6 +1,9 @@
 package com.swen.comix.view;
 
+import java.util.ArrayList;
+
 import com.swen.comix.controller.Command;
+import com.swen.comix.model.ComicBook;
 /*
  * @Author Ash Roushinko
  */
@@ -26,8 +29,20 @@ public class PTUI {
             case SIGNINCOMPLETE:
                 System.out.println("Signin Complete\n");
                 break;
-            case SEARCHTYPEDATABASE, SEARCHTYPECOLLECTION:
+            case SETSEARCHTYPE:
                 System.out.println("\nHow Would You Like To Search:\n1.)Series Title\n2.)Principle Character\n3.)Author\n4.)Description\n5.)Go Back");
+                break;
+            case SORTTYPE:
+                System.out.println("Do you want to sort the data (Default is Series Title, Volume, Issue Number)\n1.)Yes\n2.)No");
+                break;
+            case SETSORTTYPE:
+                System.out.println("How do you want to sort the data?\n1.)By Series Title\n2.)By Volume\n3.)By Issue Number\n4.)By Publication Date");
+                break;
+            case RESULTS:
+                System.out.println("Results:\n"+this.results);
+                break;
+            case SEARCHING:
+                System.out.println("What would you like to search?");
                 break;
             case SEARCHDATABASE, SEARCHCOLLECTION:
                 System.out.println("What Would You Like to Seach For?");
@@ -71,7 +86,12 @@ public class PTUI {
 
     public void setCommand(Command input){viewCommand = input;}
 
-    public void setResults(String Results){this.results = Results;}
+    public void setResults(ArrayList<ComicBook> Results){
+        this.results = "";
+        for (ComicBook comic : Results) {
+            this.results += comic.toString()+"\n";
+        }
+    }
 
     public void init(){
         this.viewCommand = Command.GUEST;

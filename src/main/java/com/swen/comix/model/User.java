@@ -38,13 +38,14 @@ public class User {
         return this.name; 
     }
 
-    public ArrayList<ComicBookComponent> search(String toBeSearched){
-        //havent figured out logic yet for this 
-        return new ArrayList<>(); 
+    public ArrayList<ComicBook> search(String toBeSearched, boolean isDatabase) throws Exception{
+        ArrayList<ComicBook> result = this.selectedSearch.algorithm(toBeSearched, isDatabase);
+        return result; 
     }
 
-    public ArrayList<ComicBookComponent> sort(){
-        return new ArrayList<>(); 
+    public ArrayList<ComicBook> sort(ArrayList<ComicBook> result) throws Exception{
+        ArrayList<ComicBook> sorted = this.selectedSort.algorithm(result);
+        return sorted; 
     }
 
     /**Not sure if this is necessary */
