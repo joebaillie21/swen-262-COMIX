@@ -38,6 +38,24 @@ public class ComicBookComponent implements ComicBook {
         isSlabbed = false; 
     }
 
+    public ComicBookComponent(@JsonProperty("publisher") Publisher publisher, @JsonProperty("seriesTitle") String seriesTitle, @JsonProperty("volNum") String volNum, @JsonProperty("issueNumber") String issueNumber,
+    @JsonProperty("publicationDate") String publicationDate ,@JsonProperty("authors")ArrayList<Author> authors, @JsonProperty("principleCharacters")ArrayList<String> principleCharacters, @JsonProperty("description")String description,
+    @JsonProperty("isSlabbed")boolean isSlabbed, @JsonProperty("isAuthenticated") boolean isAuthenticated , @JsonProperty("value") double value, @JsonProperty("signatures") int signatures, @JsonProperty("grade") int grade){
+        this.publisher = publisher; 
+        this.authors = authors; 
+        this.seriesTitle = seriesTitle; 
+        this.volNum = volNum;
+        this.issueNumber = issueNumber;  
+        this.publicationDate = publicationDate; 
+        this.principleCharacters = principleCharacters; 
+        this.description = description; 
+        this.signatures = signatures;
+        this.grade = grade;
+        this.value = value;
+        this.isAuthenticated = isAuthenticated; 
+        this.isSlabbed = isSlabbed; 
+    }
+
     // need to do something about the grading stuff since it has to directly impact the comicbook components
     public boolean isAuthenticated(){return isAuthenticated;}
 
