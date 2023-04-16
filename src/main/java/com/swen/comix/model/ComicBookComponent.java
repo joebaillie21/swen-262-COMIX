@@ -20,6 +20,7 @@ public class ComicBookComponent implements ComicBook {
     private ArrayList<String> principleCharacters; 
     private boolean isAuthenticated, isSlabbed; 
     private double value; 
+    final int DEFAULT_SIG_AMT = 0, DEFAULT_GRADE = 1, DEFAULT_VALUE = -1; 
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public ComicBookComponent(@JsonProperty("publisher")Publisher publisher, @JsonProperty("seriesTitle")String seriesTitle, @JsonProperty("volNum")String volNum, @JsonProperty("issueNumber")String issueNumber, @JsonProperty("publicationDate")String publicationDate, @JsonProperty("authors")ArrayList<Author> authors, @JsonProperty("principleCharacters")ArrayList<String> principleCharacters, @JsonProperty("description")String description){
@@ -31,9 +32,9 @@ public class ComicBookComponent implements ComicBook {
         this.publicationDate = publicationDate; 
         this.principleCharacters = principleCharacters; 
         this.description = description; 
-        this.signatures = 0;
-        this.grade = 1;
-        this.value = -1;
+        this.signatures = DEFAULT_SIG_AMT;
+        this.grade = DEFAULT_GRADE;
+        this.value = DEFAULT_VALUE;
         isAuthenticated = false; 
         isSlabbed = false; 
     }
