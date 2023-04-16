@@ -1,8 +1,10 @@
 package com.swen.comix.model;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import com.swen.comix.db.Database;
 import com.swen.comix.persistence.UserDAO;
 
 /**
@@ -83,8 +85,8 @@ public class SignedInUser extends User{
             // if other call converter.convertFileToJava() which will return the file in java
                 // Replace the user's personal collection with this output and update the local json with the file dao
         switch(toType){
-            case XML:
-                this.converter = new Converter(FileType.JAVA, fromType);
+            case SQL:
+                this.converter = new Converter(toType, fromType);
                 converter.convertFileToFile(filename);
                 break;
             default:
@@ -101,8 +103,17 @@ public class SignedInUser extends User{
      * This should print to the PTUI console the location of the file
      * @param toType - the type of the new exported file will be
      * @param fromType - determines whether the user wants to export the database or personal collection
+     * @throws Exception
      */
-    public void exportFile(FileType toType, FileType fromType){
+    public void exportFile(FileType toType, FileType fromType, Database db) throws Exception{
         this.converter = new Converter(toType, fromType);
+        switch(fromType){
+            case SQL:
+                ResultSet res = db.getTable();
+                ArrayList<ComicBookComponent> data = db.resToArrayList(res);
+                converter.convertJavaToFile(data);
+            default:
+                converter.convertJavaToFile((ArrayList<ComicBookComponent>) personalCollection.getPersonalCollection());
+        }
     }
 }
