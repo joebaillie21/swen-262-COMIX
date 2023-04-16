@@ -1,6 +1,5 @@
 package com.swen.comix.model;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -24,20 +23,19 @@ public class Converter {
      * 
      * @param fileName
      * @return
-     * @throws IOException
      */
-    public String convertFileToFile(String fileName) throws IOException {
+    public String convertFileToFile(String fileName) {
 
-        ArrayList<ComicBookComponent> asJava = convertFileToJava(fileName);
+        ArrayList<ComicBook> asJava = convertFileToJava(fileName);
         String filePath = convertJavaToFile(asJava);
 
         return "";
 
     }
 
-    public ArrayList<ComicBookComponent> convertFileToJava(String fileName) throws IOException {
+    public ArrayList<ComicBook> convertFileToJava(String fileName) {
 
-        ArrayList<ComicBookComponent> comics = new ArrayList<>();
+        ArrayList<ComicBook> comics = new ArrayList<>();
         // Importer import;
 
         switch (fromType) {
@@ -47,8 +45,6 @@ public class Converter {
             }
 
             case JSON: {
-                Importer importer = new ImportFromJson(fileName);
-                comics = importer.importToJava();
                 // import = new ImportFromJSON(fileName)
             }
 
@@ -67,7 +63,7 @@ public class Converter {
         return comics;
     }
 
-    public String convertJavaToFile(ArrayList<ComicBookComponent> comics) throws IOException {
+    public String convertJavaToFile(ArrayList<ComicBook> comics) {
 
         // Exporter export;
         String filePath = "";
@@ -79,8 +75,6 @@ public class Converter {
             }
 
             case JSON: {
-                Exporter exporter = new ExportAsJson(comics);
-                //return exporter.export(filePath);
                 // export = new ExportAsJSON(comics)
             }
 
