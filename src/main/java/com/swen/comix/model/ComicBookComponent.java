@@ -11,8 +11,8 @@ public class ComicBookComponent implements ComicBook {
 
     private Publisher publisher; 
     private ArrayList<Author> authors; 
-    private String seriesTitle, publicationDate, description; 
-    private int volNum, issueNum, grade, signatures; 
+    private String seriesTitle, publicationDate, description, issueNumber, volNum; 
+    private int grade, signatures; 
     private ArrayList<String> principleCharacters; 
     private boolean isAuthenticated, isSlabbed; 
     private double value; 
@@ -22,12 +22,12 @@ public class ComicBookComponent implements ComicBook {
     final int DEFAULT_SIG_AMT = 0;
 
 
-    public ComicBookComponent(Publisher publisher, String seriesTitle, int volNum, int issueNum, String publicationDate, ArrayList<Author> authors, ArrayList<String> principleCharacters, String description){
+    public ComicBookComponent(Publisher publisher, String seriesTitle, String volNum, String issueNum, String publicationDate, ArrayList<Author> authors, ArrayList<String> principleCharacters, String description){
         this.publisher = publisher; 
         this.authors = authors; 
         this.seriesTitle = seriesTitle; 
         this.volNum = volNum;
-        this.issueNum = issueNum;  
+        this.issueNumber = issueNum;  
         this.publicationDate = publicationDate; 
         this.principleCharacters = principleCharacters; 
         this.description = description; 
@@ -56,9 +56,9 @@ public class ComicBookComponent implements ComicBook {
     
     public Publisher getPublisher(){return publisher;}
 
-    public int getVolNum(){return volNum;}
+    public String getVolNum(){return volNum;}
 
-    public int getIssueNum(){return issueNum;}
+    public String getIssueNumber(){return issueNumber;}
     
     public int getGrade(){return grade;}
 
@@ -105,7 +105,7 @@ public class ComicBookComponent implements ComicBook {
 
         return (
             other.getAuthors().equals(authors) && other.getPublicationDate().equals(publicationDate) && other.getValue() == value && other.getGrade() == grade
-            && other.getDescription().equals(description) && other.getIssueNum() == issueNum && other.getVolNum() == volNum && other.getPublisher().getName().equals(publisher.getName())
+            && other.getDescription().equals(description) && other.getIssueNumber().equals(issueNumber)  && other.getVolNum().equals(volNum)&& other.getPublisher().getName().equals(publisher.getName())
             && other.isAuthenticated() == isAuthenticated && other.getSeriesTitle().equals(seriesTitle) && other.getSlabbed() == isSlabbed
         );
 
@@ -116,6 +116,6 @@ public class ComicBookComponent implements ComicBook {
     // }
 
     public String toString(){
-        return "" + seriesTitle + " | vol num: " + volNum + " | issue num : " + issueNum;  
+        return "" + seriesTitle + " | vol num: " + volNum + " | issue num : " + issueNumber;  
     }
 }

@@ -9,8 +9,8 @@ public interface ComicBook {
     public String getSeriesTitle();
     public String getPublicationDate();
     public String getDescription();
-    public int getVolNum();
-    public int getIssueNum();
+    public String getVolNum();
+    public String getIssueNumber();
     public int getGrade();
     public int getSignatures();
     public ArrayList<String> getPrincipleCharacters();

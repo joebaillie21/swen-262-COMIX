@@ -58,8 +58,8 @@ public class SearchForRuns implements SearchStrategy {
 
     public ArrayList<ComicBook> sort(){
         Comparator<ComicBook> bySeriesTitle = (book1, book2) -> book1.getSeriesTitle().compareTo(book2.getSeriesTitle());
-        Comparator<ComicBook> byVolumeNum = (book1, book2) -> Integer.compare(book1.getVolNum(), book2.getVolNum());
-        Comparator<ComicBook> byIssueNum = (book1, book2) -> Integer.compare(book1.getIssueNum(), book2.getIssueNum());
+        Comparator<ComicBook> byVolumeNum = (book1, book2) -> Integer.compare(Integer.valueOf(book1.getVolNum()), Integer.valueOf(book2.getVolNum()));
+        Comparator<ComicBook> byIssueNum = (book1, book2) -> Integer.compare(Integer.valueOf(book1.getIssueNumber()), Integer.valueOf(book2.getIssueNumber()));
 
         Comparator<ComicBook> chain = bySeriesTitle
             .thenComparing(byVolumeNum)
@@ -100,13 +100,13 @@ public class SearchForRuns implements SearchStrategy {
         ArrayList<ComicBook> vol = new ArrayList<>(); 
 
         for(int i = 0; i < sortedByTitle.size(); i ++){
-            int volNum = sortedByTitle.get(i).get(0).getVolNum();
+            String volNum = sortedByTitle.get(i).get(0).getVolNum();
 
             for( int k = 0; k < sortedByTitle.get(i).size(); k++){
                 ComicBook cb = sortedByTitle.get(i).get(k);
-                if(volNum == cb.getVolNum()){
+                if(volNum.equals(cb.getVolNum())){
                     vol.add(cb);
-                }else if(volNum != cb.getVolNum()){
+                }else if(!volNum.equals(cb.getVolNum())){
                     volNums.add(vol);
                     vol = new ArrayList<>(); 
                     vol.add(cb);
@@ -131,15 +131,16 @@ public class SearchForRuns implements SearchStrategy {
         
         for(int i = 0; i < sortedByVolNum.size(); i++){
             //System.out.println(sortedByVolNum.get(i).size());
-            int issueNum = sortedByVolNum.get(i).get(0).getIssueNum();
+            String issueNum = sortedByVolNum.get(i).get(0).getIssueNumber();
             int count = 0;  
             for(int k = 0; k < sortedByVolNum.get(i).size(); k++){ //basic
                 ComicBook cb = sortedByVolNum.get(i).get(k); 
-                if(issueNum == cb.getIssueNum()){
+                if(issueNum.equals(cb.getIssueNumber())){
                     count++; 
                     issues.add(cb);
-                    issueNum+=1;
-                }else if(issueNum  != cb.getIssueNum()){
+                    int prevNum = Integer.parseInt(issueNum);
+                    issueNum = String.valueOf(prevNum+1); 
+                }else if(!issueNum.equals(cb.getIssueNumber())){
                     issues = new ArrayList<>();
                     break; 
                 }
@@ -173,24 +174,25 @@ public class SearchForRuns implements SearchStrategy {
         ArrayList<Author> author = new ArrayList<>(); 
         author.add(new Author("lalo"));
         author.add(new Author("papa"));  
-        ComicBook cb1 = new ComicBookComponent(p1, title1, 1, 2, pubdate, author, null,  "example"  );
-        ComicBook cb2 = new ComicBookComponent(p2, title2, 1, 1, pubdate, author, null,  "example"  );
-        ComicBook cb3 = new ComicBookComponent(p1, title1, 4, 2, pubdate, author, null,  "example"  );
-        ComicBook cb4 = new ComicBookComponent(p2, title2, 3, 1, pubdate, author, null,  "example"  );
-        ComicBook cb5 = new ComicBookComponent(p1, title1, 1, 3, pubdate, author, null,  "example"  );
-        ComicBook cb6 = new ComicBookComponent(p2, title2, 3, 3, pubdate, author, null,  "example"  );
+
+        ComicBook cb1 = new ComicBookComponent(p1, title1, "1", "2", pubdate, author, null,  "example"  );
+        ComicBook cb2 = new ComicBookComponent(p2, title2, "1", "1", pubdate, author, null,  "example"  );
+        ComicBook cb3 = new ComicBookComponent(p1, title1, "4", "2", pubdate, author, null,  "example"  );
+        ComicBook cb4 = new ComicBookComponent(p2, title2, "3", "1", pubdate, author, null,  "example"  );
+        ComicBook cb5 = new ComicBookComponent(p1, title1, "1", "3", pubdate, author, null,  "example"  );
+        ComicBook cb6 = new ComicBookComponent(p2, title2, "3", "3", pubdate, author, null,  "example"  );
         // the run 
-        ComicBook cb7 = new ComicBookComponent(p1, title1, 1, 1, pubdate, author, null,  "example"  );
-        ComicBook cb8 = new ComicBookComponent(p1, title1, 1, 4, pubdate, author, null,  "example"  );
-        ComicBook cb9 = new ComicBookComponent(p1, title1, 1, 5, pubdate, author, null,  "example"  );
-        ComicBook cb10 = new ComicBookComponent(p1, title1, 1, 6, pubdate, author, null,  "example"  );
-        ComicBook cb11 = new ComicBookComponent(p1, title1, 1, 7, pubdate, author, null,  "example"  );
-        ComicBook cb12 = new ComicBookComponent(p1, title1, 1, 8, pubdate, author, null,  "example"  );
-        ComicBook cb13 = new ComicBookComponent(p1, title1, 1, 9, pubdate, author, null,  "example"  );
-        ComicBook cb14 = new ComicBookComponent(p1, title1, 1, 10, pubdate, author, null,  "example"  );
-        ComicBook cb15 = new ComicBookComponent(p1, title1, 1, 11, pubdate, author, null,  "example"  );
-        ComicBook cb16 = new ComicBookComponent(p1, title1, 1, 12, pubdate, author, null,  "example"  );
-        ComicBook cb17 = new ComicBookComponent(p1, title1, 2, 12, pubdate, author, null,  "example"  );
+        ComicBook cb7 = new ComicBookComponent(p1, title1, "1", "1", pubdate, author, null,  "example"  );
+        ComicBook cb8 = new ComicBookComponent(p1, title1, "1", "4", pubdate, author, null,  "example"  );
+        ComicBook cb9 = new ComicBookComponent(p1, title1, "1", "5", pubdate, author, null,  "example"  );
+        ComicBook cb10 = new ComicBookComponent(p1, title1, "1", "6", pubdate, author, null,  "example"  );
+        ComicBook cb11 = new ComicBookComponent(p1, title1, "1", "7", pubdate, author, null,  "example"  );
+        ComicBook cb12 = new ComicBookComponent(p1, title1, "1", "8", pubdate, author, null,  "example"  );
+        ComicBook cb13 = new ComicBookComponent(p1, title1, "1", "9", pubdate, author, null,  "example"  );
+        ComicBook cb14 = new ComicBookComponent(p1, title1, "1", "10", pubdate, author, null,  "example"  );
+        ComicBook cb15 = new ComicBookComponent(p1, title1, "1", "11", pubdate, author, null,  "example"  );
+        ComicBook cb16 = new ComicBookComponent(p1, title1, "1", "12", pubdate, author, null,  "example"  );
+        ComicBook cb17 = new ComicBookComponent(p1, title1, "2", "12", pubdate, author, null,  "example"  );
         
         pc.add(cb16);
         pc.add(cb1);
@@ -214,11 +216,11 @@ public class SearchForRuns implements SearchStrategy {
         
         SearchForRuns sfr = new SearchForRuns(pc);
         ArrayList<ComicBook> sorted = sfr.sort();
-        // System.out.println(sorted.size());
-        // test to see if sorted work 
-        // for(int i = 0; i < sorted.size(); i++){
-        //     System.out.println(sorted.get(i).toString());
-        // }
+        System.out.println(sorted.size());
+        //test to see if sorted work 
+        for(int i = 0; i < sorted.size(); i++){
+            System.out.println(sorted.get(i).toString());
+        }
         ArrayList<ArrayList<ComicBook>> splitSeries = sfr.splitBySeries();
 
         // for(int i = 0; i < splitSeries.size(); i++){

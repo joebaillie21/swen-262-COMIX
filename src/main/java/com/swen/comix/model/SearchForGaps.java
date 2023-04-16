@@ -148,35 +148,14 @@ public class SearchForGaps implements SearchStrategy{
         ArrayList<ArrayList<ComicBook>> consecutiveNums = new ArrayList<>(); 
         ArrayList<ComicBook> issues = new ArrayList<>(); 
 
-        
-        for(int i = 0; i < sortedByVolNum.size(); i++){
-            int issueNum = sortedByVolNum.get(i).get(0).getIssueNum(); // get the first issue num
-            int count = 0; 
-            int missing = 0; 
-            for(int k = 0 ; k < sortedByVolNum.get(i).size(); k++){
+        for(int i = 0; i < sortedByVolNum.size(); i++){ // get one volume 
+            int issueNum = sortedByVolNum.get(i).get(0).getIssueNum();
+            for(int k = 0 ; k < sortedByVolNum.get(i).size(); k++){ // get the issue numbers from the volume 
                 ComicBook cb = sortedByVolNum.get(i).get(k);
-                if(issueNum ==cb.getIssueNum()){
-                    issues.add(cb);
-                    count++;
-                    issueNum++;
-                }else if(issueNum != cb.getIssueNum()){
-                    if(missing != MAX_MISSING){
-                        missing += cb.getIssueNum() - issueNum;
-                        count++;
-                        issues.add(cb);
-                        issueNum = cb.getIssueNum();
-                    }else if(missing == MAX_MISSING){
-                        issues = new ArrayList<>(); 
-                        break; 
-                    }
-                }
-                
+                if(cb.getIssueNum())
             }
-            if(count == MIN_CONSEC_ISSUES && missing <= MAX_MISSING){
-                consecutiveNums.add(issues);
-            }
-            issues = new ArrayList<>(); 
         }
+        
 
         return consecutiveNums; 
     }
@@ -251,23 +230,23 @@ public class SearchForGaps implements SearchStrategy{
 
         ArrayList<ArrayList<ComicBook>> splitVolNum = sfg.splitByVolNum(splitSeries);
         
-        // for(int i = 0; i < splitVolNum.size(); i++){
-        //     System.out.println("meo");
-        //     for(int k = 0; k < splitVolNum.get(i).size(); k++){
-        //         System.out.println(splitVolNum.get(i).get(k).toString()); 
-        //     }
-        // }
-
-
-        ArrayList<ArrayList<ComicBook>> splitIssueNum = sfg.splitByIssueNum(splitVolNum); 
-
-        System.out.println(splitIssueNum.size());
-        for(int i = 0; i < splitIssueNum.size(); i++){
+        for(int i = 0; i < splitVolNum.size(); i++){
             System.out.println("meo");
-            for(int k = 0; k < splitIssueNum.get(i).size(); k++){
-                System.out.println(splitIssueNum.get(i).get(k).toString()); 
+            for(int k = 0; k < splitVolNum.get(i).size(); k++){
+                System.out.println(splitVolNum.get(i).get(k).toString()); 
             }
         }
+
+
+        // ArrayList<ArrayList<ComicBook>> splitIssueNum = sfg.splitByIssueNum(splitVolNum); 
+
+        // System.out.println(splitIssueNum.size());
+        // for(int i = 0; i < splitIssueNum.size(); i++){
+        //     System.out.println("meo");
+        //     for(int k = 0; k < splitIssueNum.get(i).size(); k++){
+        //         System.out.println(splitIssueNum.get(i).get(k).toString()); 
+        //     }
+        // }
     
         
 
