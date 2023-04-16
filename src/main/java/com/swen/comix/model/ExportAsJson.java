@@ -15,8 +15,12 @@ public class ExportAsJson implements Exporter{
 
     @Override
     public String toFile() throws IOException{
-        //objectMapper.writeValue(new File(fileName),comics);
-        //return fileName;
-        return null; 
+        try{
+            objectMapper.writeValue(new File("src/data/output.json"),comics);
+            return "src/data/output.json";
+        }
+        catch(IOException fileException){
+            return "failed to write to file";
+        }
     }
 }
