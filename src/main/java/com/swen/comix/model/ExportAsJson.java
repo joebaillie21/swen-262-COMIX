@@ -9,8 +9,8 @@ public class ExportAsJson implements Exporter{
     private ArrayList<ComicBookComponent> comics;
     private ObjectMapper objectMapper;
     
-    public ExportAsJson(ArrayList<ComicBookComponent> comics){
-        this.comics = comics;
+    public ExportAsJson(ArrayList<ComicBookComponent> comics2){
+        this.comics = comics2;
     }
 
     @Override
