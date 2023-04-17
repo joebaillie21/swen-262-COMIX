@@ -23,7 +23,7 @@ public class ComicBookComponent implements ComicBook {
     final int DEFAULT_SIG_AMT = 0, DEFAULT_GRADE = 1, DEFAULT_VALUE = -1; 
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public ComicBookComponent(@JsonProperty("publisher")Publisher publisher, @JsonProperty("seriesTitle")String seriesTitle, @JsonProperty("volNum")String volNum, @JsonProperty("issueNumber")String issueNumber, @JsonProperty("publicationDate")String publicationDate, @JsonProperty("authors")ArrayList<Author> authors, @JsonProperty("principleCharacters")ArrayList<String> principleCharacters, @JsonProperty("description")String description){
+    public ComicBookComponent(Publisher publisher, String seriesTitle,String volNum, String issueNumber, String publicationDate, ArrayList<Author> authors,ArrayList<String> principleCharacters,String description){
         this.publisher = publisher; 
         this.authors = authors; 
         this.seriesTitle = seriesTitle; 
@@ -39,6 +39,7 @@ public class ComicBookComponent implements ComicBook {
         isSlabbed = false; 
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public ComicBookComponent(@JsonProperty("publisher") Publisher publisher, @JsonProperty("seriesTitle") String seriesTitle, @JsonProperty("volNum") String volNum, @JsonProperty("issueNumber") String issueNumber,
     @JsonProperty("publicationDate") String publicationDate ,@JsonProperty("authors")ArrayList<Author> authors, @JsonProperty("principleCharacters")ArrayList<String> principleCharacters, @JsonProperty("description")String description,
     @JsonProperty("isSlabbed")boolean isSlabbed, @JsonProperty("isAuthenticated") boolean isAuthenticated , @JsonProperty("value") double value, @JsonProperty("signatures") int signatures, @JsonProperty("grade") int grade){
@@ -83,25 +84,25 @@ public class ComicBookComponent implements ComicBook {
     public String getPublicationDate(){return publicationDate; }
 
     public boolean getSlabbed(){return isSlabbed;}
-    public void setAuthentication(boolean isAuthenticated){
+    public void setAuthentication(@JsonProperty("authenticated")boolean isAuthenticated){
         this.isAuthenticated = isAuthenticated; 
     }
 
     @Override
-    public void setGrade(int newGrade){
+    public void setGrade(@JsonProperty("grade") int newGrade){
         this.grade = newGrade; 
     }
 
     @Override
-    public void setValue(double value){
+    public void setValue(@JsonProperty("value") double value){
         this.value = value;
     }
 
-    public void setSlabbed(boolean isSlabbed){
+    public void setSlabbed(@JsonProperty("slabbed")boolean isSlabbed){
         this.isSlabbed = isSlabbed; 
     }
 
-    public void setSignatures(int signatures) {
+    public void setSignatures(@JsonProperty("signatures") int signatures) {
         this.signatures = signatures;
     }
     
