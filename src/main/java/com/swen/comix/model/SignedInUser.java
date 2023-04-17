@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class SignedInUser extends User{
     private String username, password;
     private Action selectedAction;
-    private ConversionAction selectedConversion;
+    //private ConversionAction selectedConversion;
     private PersonalCollection personalCollection; 
     private Stack<Action> completedActions;
     private Stack<Action> undoneActions;
@@ -21,7 +21,7 @@ public class SignedInUser extends User{
         this.password = password; 
         this.personalCollection = super.getPersonalCollection(); 
         selectedAction = null; 
-        selectedConversion = null; 
+        //selectedConversion = null; 
         this.completedActions = new Stack<>();
         this.undoneActions = new Stack<>();
     }
@@ -29,11 +29,11 @@ public class SignedInUser extends User{
     public void setCommand(Action command){
         this.selectedAction = command;
     }
-
+    /* 
     public void setConversion(ConversionAction conversionAction){
         this.selectedConversion = conversionAction; 
     }
-
+*/
     public void executeCommand(ComicBook comic) throws IOException{
         this.selectedAction.execute(comic);
         this.completedActions.add(selectedAction);

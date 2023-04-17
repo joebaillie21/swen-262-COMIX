@@ -319,7 +319,9 @@ public class App {
                 case ADDED:
                     this.view.setCommand(Command.SIGNEDINUSER);
                     break;
-
+                case REMOVED:
+                    this.view.setCommand(Command.SIGNEDINUSER);
+                    break;
                 case ADDFROMDB, REMOVEFROMCOLLECTION:
                     String comicSelection = input.nextLine();
                     String[] addRemove = comicSelection.split(";");
