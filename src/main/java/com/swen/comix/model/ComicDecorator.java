@@ -99,4 +99,9 @@ public class ComicDecorator implements com.swen.comix.model.ComicBook{
     public void setSignatures(int signatures) {
         comicBook.setSignatures(signatures);
     }
+
+    @Override
+    public void setSlabbed(boolean slabbed) {
+        comicBook.setSlabbed(slabbed);
+    }
 }

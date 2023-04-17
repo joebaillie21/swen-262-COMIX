@@ -1,1 +1,72 @@
-[{"name":"user","password":"pass","username":null,"personalCollection":{"personalCollection":[{"publisher":{"name":"pub"},"authors":[{"name":"au1"},{"name":"au2"}],"seriesTitle":"title","publicationDate":"au1,au2","description":"desc","issueNumber":"2","volNum":"1","grade":1,"signatures":0,"principleCharacters":["ch1","ch2"],"value":-1.0,"authenticated":false,"slabbed":false}],"username":"user"}}]
+[
+    {
+        "name": "meow",
+        "password": "meow",
+        "username": null,
+        "personalCollection": {
+            "personalCollection": [
+                {
+                    "publisher": {
+                        "name": "pub"
+                    },
+                    "seriesTitle": " meow",
+                    "volNum": " 2",
+                    "issueNumber": " 2",
+                    "publicationDate": " au",
+                    "authors": [
+                        {
+                            "name": " au"
+                        }
+                    ],
+                    "principleCharacters": [
+                        " char"
+                    ],
+                    "description": " desc",
+                    "value": -1.0,
+                    "signatures": 0,
+                    "grade": 1,
+                    "slabbed": false,
+                    "authenticated": false
+                }
+            ],
+            "username": "meow"
+        }
+    },
+    {
+        "name": "user",
+        "password": "pass",
+        "username": null,
+        "personalCollection": {
+            "personalCollection": [
+                {
+                    "publisher": {
+                        "name": "pub"
+                    },
+                    "seriesTitle": "title",
+                    "volNum": "1",
+                    "issueNumber": "2",
+                    "publicationDate": "au1,au2",
+                    "authors": [
+                        {
+                            "name": "au1"
+                        },
+                        {
+                            "name": "au2"
+                        }
+                    ],
+                    "principleCharacters": [
+                        "ch1",
+                        "ch2"
+                    ],
+                    "description": "desc",
+                    "value": -1.0,
+                    "signatures": 0,
+                    "grade": 1,
+                    "slabbed": false,
+                    "authenticated": false
+                }
+            ],
+            "username": "user"
+        }
+    }
+]

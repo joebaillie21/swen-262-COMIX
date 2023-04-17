@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swen.comix.model.ComicBook;
+import com.swen.comix.model.PersonalCollection;
 import com.swen.comix.model.SignedInUser;
 import java.util.ArrayList;
 import java.util.List;
@@ -148,6 +149,54 @@ public class UserFileDAO implements UserDAO{
             if (username == userInFile.getName()){
                 //remove comic book
                 userInFile.getPersonalCollection().remove(comic);
+            }
+        }
+        save();
+    }
+
+    public void updateSlab(ComicBook comic, String username, boolean updatedSlab) throws IOException{
+        List<SignedInUser> userList = getUsers();
+        for (SignedInUser userInFile: userList){
+            if (username == userInFile.getName()){
+                PersonalCollection pc = userInFile.getPersonalCollection();
+                comic.setSlabbed(updatedSlab);
+                pc.slab(comic);
+            }
+        }
+        save();
+    }
+
+    public void updateSigned(ComicBook comic, String username, int updatedSigned) throws IOException{
+        List<SignedInUser> userList = getUsers();
+        for (SignedInUser userInFile: userList){
+            if (username == userInFile.getName()){
+                PersonalCollection pc = userInFile.getPersonalCollection();
+                comic.setSignatures(updatedSigned);
+                pc.slab(comic);
+            }
+        }
+        save();
+    }
+
+    public void updateGrade(ComicBook comic, String username, int updatedGrade)throws IOException{
+        List<SignedInUser> userList = getUsers();
+        for (SignedInUser userInFile: userList){
+            if (username == userInFile.getName()){
+                PersonalCollection pc = userInFile.getPersonalCollection();
+                comic.setGrade(updatedGrade);
+                pc.slab(comic);
+            }
+        }
+        save();
+    }
+
+    public void updateValue(ComicBook comic, String username, double updatedValue)throws IOException{
+        List<SignedInUser> userList = getUsers();
+        for (SignedInUser userInFile: userList){
+            if (username == userInFile.getName()){
+                PersonalCollection pc = userInFile.getPersonalCollection();
+                comic.setValue(updatedValue);
+                pc.slab(comic);
             }
         }
         save();

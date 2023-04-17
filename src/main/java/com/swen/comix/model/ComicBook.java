@@ -20,4 +20,5 @@ public interface ComicBook {
     public ArrayList<String> getPrincipleCharacters();
     public boolean isAuthenticated();
     public double getValue();
+    public void setSlabbed(boolean isSlabbed); 
 }

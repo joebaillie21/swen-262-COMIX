@@ -2,11 +2,7 @@ package com.swen.comix.model;
 
 import java.util.ArrayList; 
 
-/**
- * TODO
- * needs password in contructor
- * This is basically a signed in user. Not sure if we need both classes
- */
+
 public class User {
     private String name;
     private PersonalCollection collection; 
