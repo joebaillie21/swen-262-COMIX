@@ -74,6 +74,9 @@ public class PTUI {
             case REMOVED:
                 System.out.println("--Comic Removed--");
                 break;
+            case EDITMARKSELECTION:
+                System.out.println("What would you like to change?\n1.)Grade Comic\n2.)Slab Comic\n3.)Sign Comic\n4.)Authenticate Comic\n5.)Go Back");
+                break;
             case UNDO:
                 System.out.println("Undid Last Command\n");
                 break;

@@ -1,5 +1,7 @@
 package com.swen.comix.controller;
 
+import com.swen.comix.model.Authenticate;
+
 public enum Command {
     GUEST,
     SIGNIN,
@@ -20,6 +22,12 @@ public enum Command {
     RESULTS,
     SEARCHING,
     ADDTOCOLLECTION,
+    SLAB,
+    CHOOSEGRADE,
+    GRADE,
+    SIGN,
+    AUTHENTICATE,
+    EDITED,
     HOWTOADD,
     ADDFROMDB,
     ADDFROMINPUT,

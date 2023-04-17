@@ -13,11 +13,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.impl.ObjectIdValueProperty;
 import com.swen.comix.db.Database;
 import com.swen.comix.model.AddAction;
+import com.swen.comix.model.Authenticate;
+import com.swen.comix.model.AuthenticatedAction;
 import com.swen.comix.model.Author;
 import com.swen.comix.model.ComicBook;
 import com.swen.comix.model.ComicBookComponent;
 import com.swen.comix.model.ComixLogin;
 import com.swen.comix.model.ComixMediator;
+import com.swen.comix.model.GradeAction;
 import com.swen.comix.model.Guest;
 import com.swen.comix.model.PersonalCollection;
 import com.swen.comix.model.Publisher;
@@ -26,7 +29,9 @@ import com.swen.comix.model.SearchByAuthor;
 import com.swen.comix.model.SearchByDescription;
 import com.swen.comix.model.SearchByPrincipleCharacter;
 import com.swen.comix.model.SearchBySeriesTitle;
+import com.swen.comix.model.SignedAction;
 import com.swen.comix.model.SignedInUser;
+import com.swen.comix.model.SlabbedAction;
 import com.swen.comix.model.SortByDefault;
 import com.swen.comix.model.SortByIssueNumber;
 import com.swen.comix.model.SortByPublicationDate;
@@ -48,7 +53,8 @@ public class App {
     private PTUI view;
     private Scanner input;
     private Boolean running, isDatabase;
-    private String username, password, searchResult;
+    private String username, password;
+    int grade;
     private PersonalCollection collection;
     private Database database;
     private ArrayList<ComicBook> currentResult;
@@ -131,7 +137,7 @@ public class App {
                     String name = input.nextLine();
                     try {
                         this.guest.searchForPersonalCollection(name);
-                        this.searchResult = this.guest.getCurrentlySelectedPC().toString();
+                        //this.searchResult = this.guest.getCurrentlySelectedPC().toString();
                         //view.setCommand(Command.PCRESULT);
                     } catch (IOException|IllegalArgumentException|NullPointerException e) {
                         view.setCommand(Command.ERROR);
@@ -180,8 +186,6 @@ public class App {
                     break;
                 
             
-                case EDITMARKSELECTION:
-                    break;
                 case IMPORTEXPORT:
                     break;
                 case OTHERCOLLECTIONRESULT:
@@ -322,15 +326,20 @@ public class App {
                 case REMOVED:
                     this.view.setCommand(Command.SIGNEDINUSER);
                     break;
-                case ADDFROMDB, REMOVEFROMCOLLECTION:
+
+                
+                case ADDFROMDB, REMOVEFROMCOLLECTION, SLAB, GRADE, SIGN, AUTHENTICATE:
                     String comicSelection = input.nextLine();
                     String[] addRemove = comicSelection.split(";");
                     if(addRemove.length == 3){
-                        this.isDatabase = true;
-                        Command finalCommand = Command.ADDED;
+                        this.isDatabase = false;
+                        Command finalCommand = Command.EDITED;
                         if(this.view.getCommand().equals(Command.REMOVEFROMCOLLECTION)){
-                            this.isDatabase = false;
                             finalCommand = Command.REMOVED;
+                        }
+                        else if(this.view.getCommand().equals(Command.ADDFROMDB)){
+                            this.isDatabase = false;
+                            finalCommand = Command.ADDED;
                         }
                         user.setSearchStrategy(new SearchBySeriesTitle(collection, database));
 
@@ -346,6 +355,18 @@ public class App {
                         if(this.view.getCommand().equals(Command.REMOVEFROMCOLLECTION)){
                             this.signedInUser.setCommand(new RemoveAction(signedInUser, userDAO));
                         }
+                        else if(this.view.getCommand().equals(Command.SLAB)){
+                            this.signedInUser.setCommand(new SlabbedAction(signedInUser, userDAO));
+                        }
+                        else if(this.view.getCommand().equals(Command.GRADE)){
+                            this.signedInUser.setCommand(new GradeAction(signedInUser, userDAO, this.grade));
+                        }
+                        else if(this.view.getCommand().equals(Command.SIGN)){
+                            this.signedInUser.setCommand(new SignedAction(signedInUser, userDAO));
+                        }
+                        else if(this.view.getCommand().equals(Command.AUTHENTICATE)){
+                            this.signedInUser.setCommand(new AuthenticatedAction(signedInUser, userDAO));
+                        }
                         else{
                             this.signedInUser.setCommand(new AddAction(signedInUser, userDAO));
                         }
@@ -360,6 +381,29 @@ public class App {
                         this.view.setCommand(Command.HOWTOADD);
                     }
                     break;
+
+                case EDITMARKSELECTION:
+                    String chooseEdit = input.nextLine();
+                    if(chooseEdit.equals("1")){
+                        this.view.setCommand(Command.CHOOSEGRADE);
+                    }
+                    else if(chooseEdit.equals("2")){
+                        this.view.setCommand(Command.SLAB);
+                    }
+                    else if(chooseEdit.equals("3")){
+                        this.view.setCommand(Command.SIGN);
+                    }
+                    else if(chooseEdit.equals("4")){
+                        this.view.setCommand(Command.AUTHENTICATE);
+                    }
+                    else if(chooseEdit.equals("5")){
+                        this.view.setCommand(Command.SIGNEDINUSER);
+                    }
+
+                case CHOOSEGRADE:
+                    this.grade = Integer.parseInt(input.nextLine());
+                    this.view.setCommand(Command.GRADE);
+                
                 case REDO:
                     this.signedInUser.redoCommand();
                     view.setCommand(Command.SIGNEDINUSER);
