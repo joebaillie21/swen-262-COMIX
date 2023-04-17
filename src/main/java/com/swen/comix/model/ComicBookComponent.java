@@ -119,6 +119,13 @@ public class ComicBookComponent implements ComicBook {
 
         ComicBookComponent other = (ComicBookComponent) o;
 
+        ArrayList<Author> auth = other.getAuthors();
+        for(int i = 0; i < auth.size(); i++){
+            if(!auth.get(i).getName().equals(authors.get(i).getName())){
+                return false;
+            }
+        }
+
         return (other.getPublicationDate().equals(publicationDate) && other.getGrade() == grade
                 && other.getIssueNumber().equals(issueNumber) && other.getVolNum().equals(volNum)
                 && other.getPublisher().getName().equals(publisher.getName())
