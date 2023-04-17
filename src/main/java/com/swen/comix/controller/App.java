@@ -190,17 +190,7 @@ public class App {
                     break;
                 case OTHERCOLLECTIONRESULT:
                     break;
-                /*    
-                case SEARCHCOLLECTION, SEARCHDATABASE:
-                    boolean database = true;
-                    if(!view.getCommand().equals(Command.SEARCHDATABASE)){
-                        database = false;
-                    }
 
-                    String search = input.nextLine();
-                    this.currentResult = this.user.search(search, database);
-                    break;
-                    */
                 case SETSEARCHTYPE:
                     String searchNum = input.nextLine();
                     Command searchCommand = Command.SORTTYPE;
@@ -317,9 +307,10 @@ public class App {
                     else{
                         this.view.setCommand(Command.ERROR);
                         this.view.handleCommand();
-                        this.view.setCommand(Command.HOWTOADD);
+                        this.view.setCommand(Command.SIGNEDINUSER);
                     }
                     break;
+
                 case ADDED:
                     this.view.setCommand(Command.SIGNEDINUSER);
                     break;
@@ -338,13 +329,14 @@ public class App {
                             finalCommand = Command.REMOVED;
                         }
                         else if(this.view.getCommand().equals(Command.ADDFROMDB)){
-                            this.isDatabase = false;
+                            this.isDatabase = true;
                             finalCommand = Command.ADDED;
                         }
                         user.setSearchStrategy(new SearchBySeriesTitle(collection, database));
 
                         ArrayList<ComicBook> results = user.search(addRemove[0], this.isDatabase);
                         ComicBook realResult = null;
+
                         for(ComicBook book:results){
                             if(book.getVolNum().equals(addRemove[1])){
                                 if(book.getIssueNumber().equals(addRemove[2])){
@@ -370,15 +362,23 @@ public class App {
                         else{
                             this.signedInUser.setCommand(new AddAction(signedInUser, userDAO));
                         }
-                        this.signedInUser.executeCommand(realResult);
-                        this.view.setCommand(finalCommand);
+
+                        if(realResult != null){
+                            this.signedInUser.executeCommand(realResult);
+                            this.view.setCommand(finalCommand);
+                        }
+                        else{
+                            this.view.setCommand(Command.ERROR);
+                            this.view.handleCommand();
+                            this.view.setCommand(Command.SIGNEDINUSER);
+                        }
                         System.out.println(this.collection.toString());
                         System.out.println(this.database.toString());
                     }
                     else{
                         this.view.setCommand(Command.ERROR);
                         this.view.handleCommand();
-                        this.view.setCommand(Command.HOWTOADD);
+                        this.view.setCommand(Command.SIGNEDINUSER);
                     }
                     break;
 
@@ -399,10 +399,17 @@ public class App {
                     else if(chooseEdit.equals("5")){
                         this.view.setCommand(Command.SIGNEDINUSER);
                     }
+                    else{
+                        this.view.setCommand(Command.ERROR);
+                        this.view.handleCommand();
+                        this.view.setCommand(Command.EDITMARKSELECTION);
+                    }
+                    break;
 
                 case CHOOSEGRADE:
                     this.grade = Integer.parseInt(input.nextLine());
                     this.view.setCommand(Command.GRADE);
+                    break;
                 
                 case REDO:
                     this.signedInUser.redoCommand();
@@ -431,7 +438,6 @@ public class App {
         this.guest = new Guest(mediator);
         this.database = new Database();
         this.database.BuildSample();
-        System.out.println(database.getTable().toString());
         this.user = new User();
         this.view = new PTUI();
         run();

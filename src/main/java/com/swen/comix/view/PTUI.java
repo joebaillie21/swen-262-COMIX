@@ -71,11 +71,20 @@ public class PTUI {
             case REMOVEFROMCOLLECTION:
                 System.out.println("What Comic would you like to remove?\nFormat should be 'Series Title;Volume Number;Issue Number'");
                 break;
+            case GRADE, SLAB, AUTHENTICATE, SIGN:
+                System.out.println("What Comic would you like to edit?\nFormat should be 'Series Title;Volume Number;Issue Number'");
+                break;
             case REMOVED:
                 System.out.println("--Comic Removed--");
                 break;
             case EDITMARKSELECTION:
                 System.out.println("What would you like to change?\n1.)Grade Comic\n2.)Slab Comic\n3.)Sign Comic\n4.)Authenticate Comic\n5.)Go Back");
+                break;
+            case CHOOSEGRADE:
+                System.out.println("What grade would you like to add?");
+                break;
+            case EDITED:
+                System.out.println("--Comic Successfully Graded!--");
                 break;
             case UNDO:
                 System.out.println("Undid Last Command\n");
