@@ -1,5 +1,6 @@
 package com.swen.comix.db;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -48,7 +49,7 @@ public class Database implements iDatabase {
         String clean = "DROP TABLE IF EXISTS comics";
         PreparedStatement del = con.prepareStatement(clean);
         del.executeUpdate();
-        String comicsSQL = "CREATE TABLE comics(id SERIAL PRIMARY KEY,  series_title TEXT NOT NULL, volume_number TEXT NOT NULL, issue_number TEXT NOT NULL, publication_date DATE, author TEXT, publisher TEXT, principle_character TEXT,  description TEXT, value FLOAT, grade INT)";
+        String comicsSQL = "CREATE TABLE comics(id SERIAL PRIMARY KEY,  series_title TEXT NOT NULL, volume_number TEXT NOT NULL, issue_number TEXT NOT NULL, publication_date DATE, author TEXT, publisher TEXT, principle_character TEXT,  description TEXT, value FLOAT, grade INT, slab BOOL DEFAULT FALSE)";
         createTable(comicsSQL);
         String loadData = """
                         INSERT INTO comics (series_title, volume_number, issue_number, publication_date, author, publisher, principle_character)
@@ -66,6 +67,14 @@ public class Database implements iDatabase {
 
     }
 
+    /**
+     * @author Joe
+     *         Creates table based on sql statement provided
+     *         Statement is cleaned by preparing the statement
+     *         This is utilized by the build method for the db
+     *         This does not populate the table with data
+     * @param sql
+     */
     public void createTable(String sql) throws Exception {
 
         try {
@@ -78,6 +87,16 @@ public class Database implements iDatabase {
         }
     }
 
+    /**
+     * @author Joe
+     *         Loads data based on the sql string sent
+     *         String should contain full insert statement
+     *         For testing, this is utilized by loading the sample db
+     *         For actual system running, the loaded data is the returned statement
+     *         from ExportToSql
+     * @param sql
+     * @throws Exception
+     */
     public void loadData(String sql) throws Exception {
 
         try {
@@ -88,12 +107,25 @@ public class Database implements iDatabase {
         }
     }
 
+    /**
+     * @author Joe
+     *         Retrieves all data from the comics table
+     * @return ResultSet
+     */
     @Override
     public ResultSet getTable() throws Exception {
         String query = "SELECT * FROM comics";
         return getTable(query);
     }
 
+    /**
+     * @author Joe
+     *         Retrieves a query based on the passed sql string
+     *         String is cleansed using PreparedStatement to protect from sql
+     *         injection
+     * @param String
+     * @return ResultSet
+     */
     @Override
     public ResultSet getTable(String sql) throws Exception {
         PreparedStatement query = con.prepareStatement(sql);
@@ -102,10 +134,16 @@ public class Database implements iDatabase {
         return res;
     }
 
+    /**
+     * @author Joe
+     *         Turns a ResultSet into an ArrayList of comic book components
+     * @param ResultSet
+     * @return ArrayList<ComicBookComponent>
+     */
     @Override
-    public ArrayList<ComicBookComponent> resToArrayList(ResultSet res) throws Exception {
+    public ArrayList<ComicBook> resToArrayList(ResultSet res) throws Exception {
 
-        ArrayList<ComicBookComponent> comics = new ArrayList<>();
+        ArrayList<ComicBook> comics = new ArrayList<>();
 
         while (res.next()) {
 
@@ -165,7 +203,7 @@ public class Database implements iDatabase {
 
             String description = res.getString("description");
 
-            ComicBookComponent comic = new ComicBookComponent(publisher, seriesTitle, volNum, issueNum, publicationDate,
+            ComicBook comic = new ComicBookComponent(publisher, seriesTitle, volNum, issueNum, publicationDate,
                     authorsObjectArrayList, principleCharacters, description);
 
             comics.add(comic);

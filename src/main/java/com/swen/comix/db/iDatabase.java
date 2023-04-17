@@ -14,6 +14,6 @@ public interface iDatabase {
 
     public ResultSet getTable(String sql) throws Exception;
 
-    public ArrayList<com.swen.comix.model.ComicBookComponent> resToArrayList(ResultSet res) throws Exception;
+    public ArrayList<ComicBook> resToArrayList(ResultSet res) throws Exception;
 
 }

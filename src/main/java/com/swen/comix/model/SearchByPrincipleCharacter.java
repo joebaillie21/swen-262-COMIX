@@ -15,10 +15,11 @@ public class SearchByPrincipleCharacter implements SearchStrategy {
     private Database db;
     private PersonalCollection personalCollection;
 
-    public SearchByPrincipleCharacter(PersonalCollection personalCollection, Database db){
-        this.db = db; 
-        this.personalCollection = personalCollection; 
+    public SearchByPrincipleCharacter(PersonalCollection personalCollection, Database db) {
+        this.db = db;
+        this.personalCollection = personalCollection;
     }
+
     /* these constructors are for testing purposes only */
     public SearchByPrincipleCharacter(PersonalCollection personalCollection) {
         this.personalCollection = personalCollection;
