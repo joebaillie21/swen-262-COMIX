@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.core.JsonEncoding;
 import com.swen.comix.db.credentials.*;
 import com.swen.comix.model.*;
 
@@ -15,14 +16,34 @@ public class Database implements iDatabase {
 
     private Connection con;
 
-    public Database() {
+    /**
+     * @author Joe
+     *         Sets state con to the relevant connection to the database using
+     *         getConnection();
+     *         Prepares a String update to create the comics table with relevant
+     *         fields if it doesn't already exist at the connection
+     *         Calls the create table method which cleanses the string and executes
+     *         the update.
+     * @throws Exception
+     */
+    public Database() throws Exception {
         con = this.getConnection();
+        String comicsSQL = "CREATE TABLE IF NOT EXISTS comics(id SERIAL PRIMARY KEY,  series_title TEXT NOT NULL, volume_number TEXT NOT NULL, issue_number TEXT NOT NULL, publication_date DATE, author TEXT, publisher TEXT, principle_character TEXT,  description TEXT, value FLOAT, grade INT, slab BOOLEAN DEFAULT FALSE, signatures INT DEFAULT 0, authenticated BOOLEAN DEFAULT FALSE)";
+        createTable(comicsSQL);
     }
 
+    /**
+     * Provides the base connection for the database
+     * IF THIS METHOD FAILS, IT WILL RETURN AN ERROR MESSAGE
+     * THE ERROR MEANS THAT THE CONNECTION HAS NOT BEEN SUCCESSFULLY COMPLETED
+     * Returns the connection to the database
+     * Is called upon instantiation
+     * 
+     * @return connection
+     */
     public Connection getConnection() {
 
         Connection connection = null;
-        String callReference = "I have been called";
 
         try {
 
@@ -44,6 +65,13 @@ public class Database implements iDatabase {
         }
     }
 
+    /**
+     * This method is exclusively to be used for testing
+     * Loads sample data for testing.
+     * THIS METHOD SHOULD NEVER BE CALLED IN MAIN
+     * 
+     * @throws Exception
+     */
     public void BuildSample() throws Exception {
 
         String clean = "DROP TABLE IF EXISTS comics";
@@ -105,6 +133,24 @@ public class Database implements iDatabase {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    /**
+     * Loads data from a provided ArrayList of comics into the database
+     * 
+     * @param c
+     * @throws Exception
+     */
+    public void loadData(ArrayList<ComicBookComponent> c) throws Exception {
+        Converter conv = new Converter(FileType.SQL, FileType.JAVA);
+        String sql = conv.convertJavaToFile(c);
+        loadData(sql);
+    }
+
+    public void loadData(FileType fileType, String filePath) throws Exception {
+        Converter conv = new Converter(FileType.SQL, fileType, this);
+        String update = conv.convertFileToFile(filePath);
+        loadData(update);
     }
 
     /**

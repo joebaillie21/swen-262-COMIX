@@ -8,6 +8,7 @@ import com.swen.comix.model.ImportFromXML;
 import com.swen.comix.model.ImportFromCSV;
 import com.swen.comix.model.ImportFromJson;
 import com.swen.comix.model.Exporter;
+import com.swen.comix.db.Database;
 import com.swen.comix.model.ExportAsCSV;
 import com.swen.comix.model.ExportAsJson;
 import com.swen.comix.model.ExportAsSQL;
@@ -26,10 +27,17 @@ import com.swen.comix.model.ExportAsXML;
  */
 public class Converter {
     private FileType toType, fromType;
+    Database db = null;
 
-    public Converter(FileType toType, FileType fromType){
+    public Converter(FileType toType, FileType fromType) {
         this.toType = toType;
         this.fromType = fromType;
+    }
+
+    public Converter(FileType toType, FileType fromType, Database db) {
+        this.toType = toType;
+        this.fromType = fromType;
+        this.db = db;
     }
 
     /**
@@ -74,6 +82,14 @@ public class Converter {
             case JAVA: {
                 System.out.println("Cannot convert java to java.");
                 return null;
+            }
+            case SQL: {
+                if (db == null) {
+                    System.out.println("No database provided in constructor.");
+                    return null;
+                }
+                ImportFromSQL importer = new ImportFromSQL(db);
+                comics = importer.importToJava();
             }
             default:
                 break;
