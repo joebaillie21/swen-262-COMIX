@@ -60,10 +60,19 @@ public class PTUI {
                 System.out.println("How do you want to add?\n1.)Add from database\n2.)Add a new comic");
                 break;
             case ADDFROMINPUT:
-                System.out.println("Input Comic:\nFormat should be 'Publisher; Title; Volume Number; Issue Number; Publication Date; Authors; Characters; Description'\nCharacters and Authors should be separated by commas. Date format is MM/DD/YYYY");
+                System.out.println("Input Comic:\nFormat should be 'Publisher;Title;Volume Number;Issue Number;Publication Date;Authors;Characters;Description'\nCharacters and Authors should be separated by commas. Date format is MM/DD/YYYY");
                 break;
             case ADDED:
-                System.out.println("Comic Added to Collection");
+                System.out.println("--Comic Added to Collection--");
+                break;
+            case ADDFROMDB:
+                System.out.println("What Comic would you like to add?\nFormat should be 'Series Title;Volume Number;Issue Number'");
+                break;
+            case REMOVEFROMCOLLECTION:
+                System.out.println("What Comic would you like to remove?\nFormat should be 'Series Title;Volume Number;Issue Number'");
+                break;
+            case REMOVED:
+                System.out.println("--Comic Removed--");
                 break;
             case UNDO:
                 System.out.println("Undid Last Command\n");

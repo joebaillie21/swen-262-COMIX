@@ -25,6 +25,7 @@ public enum Command {
     ADDFROMINPUT,
     ADDED,
     REMOVEFROMCOLLECTION,
+    REMOVED,
     EDITMARKSELECTION,
     UNDO,
     REDO,

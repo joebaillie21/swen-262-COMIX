@@ -21,6 +21,7 @@ import com.swen.comix.model.ComixMediator;
 import com.swen.comix.model.Guest;
 import com.swen.comix.model.PersonalCollection;
 import com.swen.comix.model.Publisher;
+import com.swen.comix.model.RemoveAction;
 import com.swen.comix.model.SearchByAuthor;
 import com.swen.comix.model.SearchByDescription;
 import com.swen.comix.model.SearchByPrincipleCharacter;
@@ -196,7 +197,7 @@ public class App {
                     this.currentResult = this.user.search(search, database);
                     break;
                     */
-                case SETSEARCHTYPE, ADDFROMDB, REMOVEFROMCOLLECTION:
+                case SETSEARCHTYPE:
                     String searchNum = input.nextLine();
                     Command searchCommand = Command.SORTTYPE;
                     if(isDatabase){searchCommand = Command.SEARCHING;}
@@ -319,6 +320,44 @@ public class App {
                     this.view.setCommand(Command.SIGNEDINUSER);
                     break;
 
+                case ADDFROMDB, REMOVEFROMCOLLECTION:
+                    String comicSelection = input.nextLine();
+                    String[] addRemove = comicSelection.split(";");
+                    if(addRemove.length == 3){
+                        this.isDatabase = true;
+                        Command finalCommand = Command.ADDED;
+                        if(this.view.getCommand().equals(Command.REMOVEFROMCOLLECTION)){
+                            this.isDatabase = false;
+                            finalCommand = Command.REMOVED;
+                        }
+                        user.setSearchStrategy(new SearchBySeriesTitle(collection, database));
+
+                        ArrayList<ComicBook> results = user.search(addRemove[0], this.isDatabase);
+                        ComicBook realResult = null;
+                        for(ComicBook book:results){
+                            if(book.getVolNum().equals(addRemove[1])){
+                                if(book.getIssueNumber().equals(addRemove[2])){
+                                    realResult = book;
+                                }
+                            }
+                        }
+                        if(this.view.getCommand().equals(Command.REMOVEFROMCOLLECTION)){
+                            this.signedInUser.setCommand(new RemoveAction(signedInUser, userDAO));
+                        }
+                        else{
+                            this.signedInUser.setCommand(new AddAction(signedInUser, userDAO));
+                        }
+                        this.signedInUser.executeCommand(realResult);
+                        this.view.setCommand(finalCommand);
+                        System.out.println(this.collection.toString());
+                        System.out.println(this.database.toString());
+                    }
+                    else{
+                        this.view.setCommand(Command.ERROR);
+                        this.view.handleCommand();
+                        this.view.setCommand(Command.HOWTOADD);
+                    }
+                    break;
                 case REDO:
                     this.signedInUser.redoCommand();
                     view.setCommand(Command.SIGNEDINUSER);
