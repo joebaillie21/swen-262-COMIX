@@ -49,7 +49,7 @@ public class Database implements iDatabase {
         String clean = "DROP TABLE IF EXISTS comics";
         PreparedStatement del = con.prepareStatement(clean);
         del.executeUpdate();
-        String comicsSQL = "CREATE TABLE comics(id SERIAL PRIMARY KEY,  series_title TEXT NOT NULL, volume_number TEXT NOT NULL, issue_number TEXT NOT NULL, publication_date DATE, author TEXT, publisher TEXT, principle_character TEXT,  description TEXT, value FLOAT, grade INT, slab BOOL DEFAULT FALSE)";
+        String comicsSQL = "CREATE TABLE comics(id SERIAL PRIMARY KEY,  series_title TEXT NOT NULL, volume_number TEXT NOT NULL, issue_number TEXT NOT NULL, publication_date DATE, author TEXT, publisher TEXT, principle_character TEXT,  description TEXT, value FLOAT, grade INT, slab BOOLEAN DEFAULT FALSE, signatures INT DEFAULT 0, authenticated BOOLEAN DEFAULT FALSE)";
         createTable(comicsSQL);
         String loadData = """
                         INSERT INTO comics (series_title, volume_number, issue_number, publication_date, author, publisher, principle_character)
@@ -203,8 +203,14 @@ public class Database implements iDatabase {
 
             String description = res.getString("description");
 
-            ComicBook comic = new ComicBookComponent(publisher, seriesTitle, volNum, issueNum, publicationDate,
+            ComicBookComponent comic = new ComicBookComponent(publisher, seriesTitle, volNum, issueNum, publicationDate,
                     authorsObjectArrayList, principleCharacters, description);
+
+            comic.setSignatures(res.getInt("signatures"));
+            comic.setAuthentication(res.getBoolean("authenticated"));
+            comic.setGrade(res.getInt("grade"));
+            comic.setSlabbed(res.getBoolean("slab"));
+            comic.setValue(res.getFloat("value"));
 
             comics.add(comic);
         }
