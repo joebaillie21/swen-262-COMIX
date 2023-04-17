@@ -60,7 +60,7 @@ public class PTUI {
                 System.out.println("How do you want to add?\n1.)Add from database\n2.)Add a new comic");
                 break;
             case ADDFROMINPUT:
-                System.out.println("Input Comic:\nFormat should be 'Publisher; Title; Volume Number; Issue Number; Authors; Characters; Description' Characters and Authors should be separated by commas");
+                System.out.println("Input Comic:\nFormat should be 'Publisher; Title; Volume Number; Issue Number; Publication Date; Authors; Characters; Description'\nCharacters and Authors should be separated by commas. Date format is MM/DD/YYYY");
                 break;
             case ADDED:
                 System.out.println("Comic Added to Collection");

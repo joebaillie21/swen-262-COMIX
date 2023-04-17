@@ -245,19 +245,19 @@ public class App {
 
                 case SETSORTTYPE:
                     String chooseSort = input.nextLine();
-                    if(chooseSort == "1"){
+                    if(chooseSort.equals("1")){
                         this.user.setSortStrategy(new SortBySeriesTitle());
                         view.setCommand(Command.SEARCHING);
                     }
-                    else if(chooseSort == "2"){
+                    else if(chooseSort.equals("2")){
                         this.user.setSortStrategy(new SortByVolume());
                         view.setCommand(Command.SEARCHING);
                     }
-                    else if(chooseSort == "3"){
+                    else if(chooseSort.equals("3")){
                         this.user.setSortStrategy(new SortByIssueNumber());
                         view.setCommand(Command.SEARCHING);
                     }
-                    else if(chooseSort == "4"){
+                    else if(chooseSort.equals("4")){
                         this.user.setSortStrategy(new SortByPublicationDate());
                         view.setCommand(Command.SEARCHING);
                     }
@@ -297,14 +297,14 @@ public class App {
                 case ADDFROMINPUT:
                     String comicInput = input.nextLine();
                     String[] separatedComic = comicInput.split(";");
-                    if(separatedComic.length == 7){
+                    if(separatedComic.length == 8){
                         Publisher pub = new Publisher(separatedComic[0]);
                         ArrayList<Author> authors = new ArrayList<Author>();
-                        for(String a:separatedComic[4].split(",")){
+                        for(String a:separatedComic[5].split(",")){
                             authors.add(new Author(a));
                         }
-                        ArrayList<String> characters = new ArrayList<String>(Arrays.asList(separatedComic[5].split(",")));
-                        ComicBookComponent comicBook = new ComicBookComponent(pub, separatedComic[1], separatedComic[2], separatedComic[3], separatedComic[4], authors, characters, separatedComic[6]);
+                        ArrayList<String> characters = new ArrayList<String>(Arrays.asList(separatedComic[6].split(",")));
+                        ComicBookComponent comicBook = new ComicBookComponent(pub, separatedComic[1], separatedComic[2], separatedComic[3], separatedComic[4], authors, characters, separatedComic[7]);
                         this.signedInUser.setCommand(new AddAction(signedInUser, userDAO));
                         this.signedInUser.executeCommand(comicBook);
                         this.view.setCommand(Command.ADDED);
@@ -345,6 +345,8 @@ public class App {
         this.mediator = new ComixLogin(this.userDAO);
         this.guest = new Guest(mediator);
         this.database = new Database();
+        this.database.BuildSample();
+        System.out.println(database.getTable().toString());
         this.user = new User();
         this.view = new PTUI();
         run();
