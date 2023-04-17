@@ -30,7 +30,7 @@ public class PTUI {
                 System.out.println("Signin Complete\n");
                 break;
             case SETSEARCHTYPE:
-                System.out.println("\nHow Would You Like To Search:\n1.)Series Title\n2.)Principle Character\n3.)Author\n4.)Description\n5.)Go Back");
+                System.out.println("\nHow Would You Like To Search:\n1.)Series Title\n2.)Principle Character\n3.)Author\n4.)Description\n5.)Issue Number\n6.)Graded Comics\n7.)Slabbed Comics\n8.)Signed Comics\n9.)Runs\n10.)Gaps");
                 break;
             case SORTTYPE:
                 System.out.println("Do you want to sort the data (Default is Series Title, Volume, Issue Number)\n1.)Yes\n2.)No");
@@ -91,6 +91,9 @@ public class PTUI {
                 break;
             case REDO:
                 System.out.println("Redid Last Command\n");
+                break;
+            case NOTAPLICABLE:
+                System.out.println("--Search Not Aplicable for Database--");
                 break;
             case NEWACCOUNTERROR:
                 System.out.println("A User with this username and password already exists\nPlease Try Again:\n");

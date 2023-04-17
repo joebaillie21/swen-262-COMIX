@@ -27,8 +27,14 @@ import com.swen.comix.model.Publisher;
 import com.swen.comix.model.RemoveAction;
 import com.swen.comix.model.SearchByAuthor;
 import com.swen.comix.model.SearchByDescription;
+import com.swen.comix.model.SearchByIssueNumber;
 import com.swen.comix.model.SearchByPrincipleCharacter;
 import com.swen.comix.model.SearchBySeriesTitle;
+import com.swen.comix.model.SearchBySigned;
+import com.swen.comix.model.SearchForGaps;
+import com.swen.comix.model.SearchForGraded;
+import com.swen.comix.model.SearchForRuns;
+import com.swen.comix.model.SearchForSlabbed;
 import com.swen.comix.model.SignedAction;
 import com.swen.comix.model.SignedInUser;
 import com.swen.comix.model.SlabbedAction;
@@ -52,7 +58,7 @@ public class App {
     private ComixMediator mediator;
     private PTUI view;
     private Scanner input;
-    private Boolean running, isDatabase;
+    private Boolean running, isDatabase, skipInput;
     private String username, password;
     private int grade;
     private PersonalCollection collection;
@@ -90,8 +96,6 @@ public class App {
                             break;
                         default:
                             view.setCommand(Command.ERROR);
-                            view.handleCommand();
-                            view.setCommand(Command.GUEST);
                     }
                     break;
 
@@ -110,8 +114,6 @@ public class App {
                     }
                     catch(IllegalArgumentException exception){
                         view.setCommand(Command.ERROR);
-                        view.handleCommand();
-                        view.setCommand(Command.GUEST);
                     }
                     break;
 
@@ -128,8 +130,6 @@ public class App {
                         view.setCommand(Command.SIGNEDINUSER);
                     } catch (IOException e) {
                         view.setCommand(Command.NEWACCOUNTERROR);
-                        view.handleCommand();
-                        view.setCommand(Command.GUEST);
                     }
                     break;
 
@@ -142,9 +142,10 @@ public class App {
                         view.setCommand(Command.OTHERCOLLECTIONRESULT);
                     } catch (IOException|IllegalArgumentException|NullPointerException e) {
                         view.setCommand(Command.ERROR);
-                        view.handleCommand();
-                        view.setCommand(Command.GUEST);
                     }
+                    break;
+                case OTHERCOLLECTIONRESULT:
+                    this.view.setCommand(Command.GUEST);
                     break;
                 
                 case SIGNEDINUSER:
@@ -180,24 +181,16 @@ public class App {
                             view.setCommand(Command.CLOSING);
                             break;
                         default:
-                            view.setCommand(Command.ERROR);
-                            view.handleCommand();
-                            view.setCommand(Command.SIGNEDINUSER);                        
+                            view.setCommand(Command.ERROR);                        
                     }
                     break;
                 
-            
-                case IMPORTEXPORT:
-                    break;
-                case OTHERCOLLECTIONRESULT:
-                    this.view.setCommand(Command.GUEST);
-                    break;
-
                 case SETSEARCHTYPE:
                     String searchNum = input.nextLine();
                     Command searchCommand = Command.SORTTYPE;
+                    this.skipInput = false;
                     if(isDatabase){searchCommand = Command.SEARCHING;}
-                    
+                     
                     if(searchNum.equals("1")){
                         this.user.setSearchStrategy(new SearchBySeriesTitle(collection, this.database));
                         this.view.setCommand(searchCommand);
@@ -215,8 +208,68 @@ public class App {
                         this.view.setCommand(searchCommand);
                     }
                     else if(searchNum.equals("5")){
+                        if(!isDatabase){
+                            this.user.setSearchStrategy(new SearchByIssueNumber(this.collection));
+                            this.skipInput=true;
+                            this.view.setCommand(Command.SORTTYPE);
+                        }
+                        else{
+                            this.view.setCommand(Command.NOTAPLICABLE);
+                        }
+                    }
+                    else if(searchNum.equals("6")){
+                        if(!isDatabase){
+                            this.user.setSearchStrategy(new SearchForGraded(this.collection));
+                            this.skipInput=true;
+                            this.view.setCommand(Command.SORTTYPE);
+                        }
+                        else{
+                            this.view.setCommand(Command.NOTAPLICABLE);
+                        }
+                    }
+                    else if(searchNum.equals("7")){
+                        if(!isDatabase){
+                            this.user.setSearchStrategy(new SearchForSlabbed(this.collection));
+                            this.skipInput=true;
+                            this.view.setCommand(Command.SORTTYPE);
+                        }
+                        else{
+                            this.view.setCommand(Command.NOTAPLICABLE);
+                        }
+                    }
+                    else if(searchNum.equals("8")){
+                        if(!isDatabase){
+                            this.user.setSearchStrategy(new SearchBySigned(this.collection));
+                            this.skipInput=true;
+                            this.view.setCommand(Command.SORTTYPE);
+                        }
+                        else{
+                            this.view.setCommand(Command.NOTAPLICABLE);
+                        }
+                    }
+                    else if(searchNum.equals("9")){
+                        if(!isDatabase){
+                            this.user.setSearchStrategy(new SearchForRuns(this.collection));
+                            this.skipInput=true;
+                            this.view.setCommand(Command.SORTTYPE);
+                        }
+                        else{
+                            this.view.setCommand(Command.NOTAPLICABLE);
+                        }
+                    }
+                    else if(searchNum.equals("10")){
+                        if(!isDatabase){
+                            this.user.setSearchStrategy(new SearchForGaps(this.collection));
+                            this.skipInput=true;
+                            this.view.setCommand(Command.SORTTYPE);
+                        }
+                        else{
+                            this.view.setCommand(Command.NOTAPLICABLE);
+                        }
+                    }
+                    else if(searchNum.equals("11")){
                         if(this.signedInUser != null){
-                            view.setCommand(Command.SIGNEDINUSER);
+                            view.setCommand(Command.SORTTYPE);
                         }
                         else{
                             view.setCommand(Command.GUEST);
@@ -224,8 +277,6 @@ public class App {
                     }
                     else{
                         view.setCommand(Command.ERROR);
-                        view.handleCommand();
-                        view.setCommand(Command.SIGNEDINUSER);
                     }
                     break;
                 
@@ -236,12 +287,11 @@ public class App {
                     }
                     else if(ifSort.equals("2")){
                         this.user.setSortStrategy(new SortByDefault());
-                        view.setCommand(Command.SEARCHING);
+                        if(skipInput){this.view.setCommand(Command.COLLECTIONSEARCH);;}
+                        else{view.setCommand(Command.SEARCHING);}
                     }
                     else{
                         view.setCommand(Command.ERROR);
-                        view.handleCommand();
-                        view.setCommand(Command.SORTTYPE);
                     }
                     break;
 
@@ -249,20 +299,21 @@ public class App {
                     String chooseSort = input.nextLine();
                     if(chooseSort.equals("1")){
                         this.user.setSortStrategy(new SortBySeriesTitle());
-                        view.setCommand(Command.SEARCHING);
                     }
                     else if(chooseSort.equals("2")){
                         this.user.setSortStrategy(new SortByVolume());
-                        view.setCommand(Command.SEARCHING);
                     }
                     else if(chooseSort.equals("3")){
                         this.user.setSortStrategy(new SortByIssueNumber());
-                        view.setCommand(Command.SEARCHING);
+                        
                     }
                     else if(chooseSort.equals("4")){
                         this.user.setSortStrategy(new SortByPublicationDate());
-                        view.setCommand(Command.SEARCHING);
                     }
+
+                    if(skipInput){this.view.setCommand(Command.COLLECTIONSEARCH);;}
+                    else{view.setCommand(Command.SEARCHING);}
+
                     break;
                 
                 case SEARCHING:
@@ -272,7 +323,14 @@ public class App {
                     this.view.setResults(this.currentResult);
                     this.view.setCommand(Command.RESULTS);
                     break;
-                
+
+                case COLLECTIONSEARCH:
+                    this.currentResult = this.user.search(null, isDatabase);
+                    this.currentResult = this.user.sort(this.currentResult);
+                    this.view.setResults(this.currentResult);
+                    this.view.setCommand(Command.RESULTS);
+                    break;
+
                 case RESULTS:
                     if(this.signedInUser == null){this.view.setCommand(Command.GUEST);}
                     else{this.view.setCommand(Command.SIGNEDINUSER);}
@@ -292,8 +350,6 @@ public class App {
                             break;
                         default:
                             view.setCommand(Command.ERROR);
-                            view.handleCommand();
-                            view.setCommand(Command.SIGNEDINUSER);
                     }
                     break;
                 case ADDFROMINPUT:
@@ -313,8 +369,6 @@ public class App {
                     }
                     else{
                         this.view.setCommand(Command.ERROR);
-                        this.view.handleCommand();
-                        this.view.setCommand(Command.SIGNEDINUSER);
                     }
                     break;
 
@@ -376,16 +430,12 @@ public class App {
                         }
                         else{
                             this.view.setCommand(Command.ERROR);
-                            this.view.handleCommand();
-                            this.view.setCommand(Command.SIGNEDINUSER);
                         }
                         System.out.println(this.collection.toString());
                         System.out.println(this.database.toString());
                     }
                     else{
                         this.view.setCommand(Command.ERROR);
-                        this.view.handleCommand();
-                        this.view.setCommand(Command.SIGNEDINUSER);
                     }
                     break;
 
@@ -408,8 +458,6 @@ public class App {
                     }
                     else{
                         this.view.setCommand(Command.ERROR);
-                        this.view.handleCommand();
-                        this.view.setCommand(Command.EDITMARKSELECTION);
                     }
                     break;
 
@@ -425,6 +473,11 @@ public class App {
                 case UNDO:
                     this.signedInUser.unexecuteCommand();
                     view.setCommand(Command.SIGNEDINUSER);
+                    break;
+
+                case NOTAPLICABLE, ERROR, NEWACCOUNTERROR:
+                    if(this.signedInUser == null){view.setCommand(Command.GUEST);}
+                    else{view.setCommand(Command.SIGNEDINUSER);}
                     break;
                     
                 case CLOSING:
