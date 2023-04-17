@@ -54,7 +54,7 @@ public class App {
     private Scanner input;
     private Boolean running, isDatabase;
     private String username, password;
-    int grade;
+    private int grade;
     private PersonalCollection collection;
     private Database database;
     private ArrayList<ComicBook> currentResult;
@@ -137,8 +137,9 @@ public class App {
                     String name = input.nextLine();
                     try {
                         this.guest.searchForPersonalCollection(name);
-                        //this.searchResult = this.guest.getCurrentlySelectedPC().toString();
-                        //view.setCommand(Command.PCRESULT);
+                        String collectionResult = this.guest.getCurrentlySelectedPC().toString();
+                        view.setCollectionResults(collectionResult);
+                        view.setCommand(Command.OTHERCOLLECTIONRESULT);
                     } catch (IOException|IllegalArgumentException|NullPointerException e) {
                         view.setCommand(Command.ERROR);
                         view.handleCommand();
@@ -189,6 +190,7 @@ public class App {
                 case IMPORTEXPORT:
                     break;
                 case OTHERCOLLECTIONRESULT:
+                    this.view.setCommand(Command.GUEST);
                     break;
 
                 case SETSEARCHTYPE:
@@ -213,7 +215,12 @@ public class App {
                         this.view.setCommand(searchCommand);
                     }
                     else if(searchNum.equals("5")){
-                        view.setCommand(Command.SIGNEDINUSER);
+                        if(this.signedInUser != null){
+                            view.setCommand(Command.SIGNEDINUSER);
+                        }
+                        else{
+                            view.setCommand(Command.GUEST);
+                        }
                     }
                     else{
                         view.setCommand(Command.ERROR);

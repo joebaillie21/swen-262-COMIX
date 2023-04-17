@@ -51,7 +51,7 @@ public class PTUI {
                 System.out.println("Who's collection would you like to view?");
                 break;
             case OTHERCOLLECTIONRESULT:
-                System.out.println("Their pc:\n");
+                System.out.println("Their pc:\n" + this.results);
                 break;
             case SIGNEDINUSER:
                 System.out.println("Enter the number next to the command you want to select it:\n1.) Browse/Search Database\n2.) Search Personal Collection\n3.) Add to Personal Collection\n4.) Remove from Personal Collection\n5.) Edit/Mark Comic In Personal Collection\n6.) Undo Command\n7.) Redo Command\n8.) Import/Export Database\n9.) Close");
@@ -112,6 +112,9 @@ public class PTUI {
         for (ComicBook comic : Results) {
             this.results += comic.toString()+"\n";
         }
+    }
+    public void setCollectionResults(String results){
+        this.results = results;
     }
 
     public void init(){
