@@ -11,6 +11,7 @@ public class ExportAsJson implements Exporter{
     
     public ExportAsJson(ArrayList<ComicBookComponent> comics2){
         this.comics = comics2;
+        this.objectMapper = new ObjectMapper();
     }
 
     @Override

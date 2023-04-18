@@ -111,21 +111,25 @@ public class Converter {
             case XML: {
                 ExportAsXML exporter = new ExportAsXML(comics);
                 filePath = exporter.toFile();
+                break;
             }
 
             case JSON: {
                 ExportAsJson exporter = new ExportAsJson(comics);
                 filePath = exporter.toFile();
+                break;
             }
 
             case CSV: {
                 ExportAsCSV exporter = new ExportAsCSV(comics);
                 filePath = exporter.toFile();
+                break;
             }
 
             case SQL: {
                 ExportAsSQL exporter = new ExportAsSQL(comics);
                 filePath = exporter.toFile();
+                break;
             }
             default:
                 break;
