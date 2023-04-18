@@ -172,6 +172,6 @@ public class ComicBookComponent implements ComicBook {
 
     public String toString() {
         return String.format(STRING_FORMAT, publisher.getName(), authors.toString(), seriesTitle, description, volNum,
-                issueNumber, principleCharacters);
+                issueNumber, principleCharacters.toString());
     }
 }
