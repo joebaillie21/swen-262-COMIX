@@ -14,8 +14,8 @@ import org.junit.Test;
 
 import com.swen.comix.db.*; 
 public class SearchSortDBTest {
-/* 
-    Database database = new Database();
+
+    Database database = new Database(true);
 
     @Before
     public void loadData() throws Exception {
