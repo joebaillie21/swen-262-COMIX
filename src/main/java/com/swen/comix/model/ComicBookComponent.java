@@ -49,7 +49,7 @@ public class ComicBookComponent implements ComicBook {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public ComicBookComponent(@JsonProperty("publisher") Publisher publisher, @JsonProperty("seriesTitle") String seriesTitle, @JsonProperty("volNum") String volNum, @JsonProperty("issueNumber") String issueNumber,
     @JsonProperty("publicationDate") String publicationDate ,@JsonProperty("authors")ArrayList<Author> authors, @JsonProperty("principleCharacters")ArrayList<String> principleCharacters, @JsonProperty("description")String description,
-    @JsonProperty("isSlabbed")boolean isSlabbed, @JsonProperty("isAuthenticated") boolean isAuthenticated , @JsonProperty("value") double value, @JsonProperty("signatures") int signatures, @JsonProperty("grade") int grade){
+    @JsonProperty("slabbed")boolean isSlabbed, @JsonProperty("authenticated") boolean isAuthenticated , @JsonProperty("value") double value, @JsonProperty("signatures") int signatures, @JsonProperty("grade") int grade){
         this.publisher = publisher; 
         this.authors = authors; 
         this.seriesTitle = seriesTitle; 

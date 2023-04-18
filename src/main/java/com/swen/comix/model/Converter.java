@@ -67,16 +67,19 @@ public class Converter {
             case XML: {
                 ImportFromXML importer = new ImportFromXML(fileName);
                 comics = importer.importToJava();
+                break;
             }
 
             case JSON: {
                 ImportFromJson importer = new ImportFromJson(fileName);
                 comics = importer.importToJava();
+                break;
             }
 
             case CSV: {
                 ImportFromCSV importer = new ImportFromCSV(fileName);
                 comics = importer.importToJava();
+                break;
             }
 
             case JAVA: {
@@ -90,6 +93,7 @@ public class Converter {
                 }
                 ImportFromSQL importer = new ImportFromSQL(db);
                 comics = importer.importToJava();
+                break;
             }
             default:
                 break;

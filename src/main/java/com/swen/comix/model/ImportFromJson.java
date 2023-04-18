@@ -16,6 +16,7 @@ public class ImportFromJson implements Importer{
 
     public ImportFromJson(String fileName){
         this.fileName = fileName;
+        this.objectMapper = new ObjectMapper();
     }
 
     @Override
