@@ -24,6 +24,10 @@ public class ExportAsSQL implements Exporter {
                 """;
         for (ComicBook c : comicBooks) {
             String holder = "(";
+            if (!(c.equals(comicBooks.get(0)))) {
+                holder = ",(";
+            }
+
             String hold = "";
 
             hold = c.getSeriesTitle();
@@ -38,15 +42,12 @@ public class ExportAsSQL implements Exporter {
             // hold.replaceAll("'", " ");
             String issueNumber = "'" + c.getIssueNumber() + "'";
 
-            String publicationDate = "TO_DATE('" + c.getPublicationDate() + "', 'YYYY-MM-DD)";
+            String publicationDate = "'" + c.getPublicationDate() + "'";
 
             ArrayList<Author> authorsArray = c.getAuthors();
             String authorsString = "'";
             for (int i = 0; i < authorsArray.size(); i++) {
                 authorsString += authorsArray.get(i).getName();
-                if (i != authorsArray.size() - 1) {
-                    authorsString += ", ";
-                }
             }
             authorsString += "'";
 
@@ -60,17 +61,20 @@ public class ExportAsSQL implements Exporter {
                 hold = pcArray.get(i);
                 // hold.replaceAll("'", " ");
                 principleCharacterString += hold;
-                if (i != pcArray.size() - 1) {
+                if (i != pcArray.size() - 2) {
                     principleCharacterString += ", ";
                 }
             }
+            if (principleCharacterString.length() > 2)
+                principleCharacterString = principleCharacterString.substring(0, principleCharacterString.length() - 2);
             principleCharacterString += "'";
             holder += seriesTitle + ", " + volumeNumber + ", " + issueNumber + ", " + publicationDate + ", "
-                    + authorsString + ", " + publisher + ", " + principleCharacterString + ") ,";
-            psuedoPath += holder + ",";
+                    + authorsString + ", " + publisher + ", " + principleCharacterString + ")";
+            psuedoPath += holder;
         }
 
         psuedoPath = psuedoPath.substring(0, psuedoPath.length() - 1);
+        psuedoPath += ")";
 
         return psuedoPath;
 
