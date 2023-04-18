@@ -20,8 +20,16 @@ import com.swen.comix.model.ComicBook;
 import com.swen.comix.model.ComicBookComponent;
 import com.swen.comix.model.ComixLogin;
 import com.swen.comix.model.ComixMediator;
+import com.swen.comix.model.Converter;
+import com.swen.comix.model.ExportAsCSV;
+import com.swen.comix.model.FileType;
 import com.swen.comix.model.GradeAction;
 import com.swen.comix.model.Guest;
+import com.swen.comix.model.ImportFromCSV;
+import com.swen.comix.model.ImportFromJson;
+import com.swen.comix.model.ImportFromSQL;
+import com.swen.comix.model.ImportFromXML;
+import com.swen.comix.model.Importer;
 import com.swen.comix.model.PersonalCollection;
 import com.swen.comix.model.Publisher;
 import com.swen.comix.model.RemoveAction;
@@ -64,6 +72,7 @@ public class App {
     private PersonalCollection collection;
     private Database database;
     private ArrayList<ComicBook> currentResult;
+    private FileType fileType;
 
     public App() throws Exception{
         init();
@@ -174,10 +183,13 @@ public class App {
                         case "7":
                             view.setCommand(Command.REDO);
                             break;
-                        case"8":
-                            view.setCommand(Command.IMPORTEXPORT);
+                        case "8":
+                            view.setCommand(Command.CHOOSEIMPORT);
                             break;
                         case "9":
+                            view.setCommand(Command.CHOOSEEXPORT);
+                            break;
+                        case "10":
                             view.setCommand(Command.CLOSING);
                             break;
                         default:
@@ -378,8 +390,7 @@ public class App {
                 case REMOVED:
                     this.view.setCommand(Command.SIGNEDINUSER);
                     break;
-
-                
+             
                 case ADDFROMDB, REMOVEFROMCOLLECTION, SLAB, GRADE, SIGN, AUTHENTICATE:
                     String comicSelection = input.nextLine();
                     String[] addRemove = comicSelection.split(";");
@@ -466,6 +477,69 @@ public class App {
                     this.view.setCommand(Command.GRADE);
                     break;
                 
+                case CHOOSEIMPORT:
+                    String chooseImport = input.nextLine();
+                    if(chooseImport.equals("1")){
+                        this.fileType = FileType.CSV;
+                        this.view.setCommand(Command.IMPORT);
+                    }
+                    else if(chooseImport.equals("2")){
+                        this.fileType = FileType.JSON;
+                        this.view.setCommand(Command.IMPORT);
+                    }
+                    else if(chooseImport.equals("3")){
+                        this.fileType = FileType.XML;
+                        this.view.setCommand(Command.IMPORT);
+                    }
+                    else if(chooseImport.equals("4")){
+                        this.view.setCommand(Command.SIGNEDINUSER);
+                    }
+                    else{
+                        this.view.setCommand(Command.ERROR);
+                    }
+                    break;
+                
+                case CHOOSEEXPORT:
+                    String chooseExport = input.nextLine();
+                    if(chooseExport.equals("1")){
+                        this.fileType = FileType.CSV;
+                        this.view.setCommand(Command.EXPORT);
+                    }
+                    else if(chooseExport.equals("2")){
+                        this.fileType = FileType.JSON;
+                        this.view.setCommand(Command.EXPORT);
+                    }
+                    else if(chooseExport.equals("3")){
+                        this.fileType = FileType.XML;
+                        this.view.setCommand(Command.EXPORT);
+                    }
+                    else if(chooseExport.equals("4")){
+                        this.view.setCommand(Command.SIGNEDINUSER);
+                    }
+                    else{
+                        this.view.setCommand(Command.ERROR);
+                    }
+                    break;
+
+                case IMPORT:
+                    String fileNameIn = input.nextLine();
+                    Converter converterIN = new Converter(FileType.SQL, fileType, database);
+                    this.database.loadData(converterIN.convertFileToJava(fileNameIn));
+                    this.view.setCommand(Command.IMPORTED);
+                    break;
+                    
+                case EXPORT:
+                    //String fileNameOut = input.nextLine();
+                    Converter converterOUT = new Converter(fileType, FileType.SQL, database);
+                    ArrayList<ComicBookComponent> comicsOUT = converterOUT.convertFileToJava(null);
+                    converterOUT.convertJavaToFile(comicsOUT);
+                    this.view.setCommand(Command.EXPORTED);
+                    break;
+                
+                case IMPORTED, EXPORTED:
+                    this.view.setCommand(Command.SIGNEDINUSER);
+                    break;
+
                 case REDO:
                     this.signedInUser.redoCommand();
                     view.setCommand(Command.SIGNEDINUSER);
@@ -497,7 +571,8 @@ public class App {
         this.mediator = new ComixLogin(this.userDAO);
         this.guest = new Guest(mediator);
         this.database = new Database();
-        this.database.BuildSample();
+        //this.database.loadData(FileType.CSV, "src/data/comics(1).csv");
+        //this.database.BuildSample();
         this.user = new User();
         this.view = new PTUI();
         run();

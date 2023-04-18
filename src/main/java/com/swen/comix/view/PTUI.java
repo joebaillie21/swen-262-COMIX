@@ -54,7 +54,7 @@ public class PTUI {
                 System.out.println("Their pc:\n" + this.results);
                 break;
             case SIGNEDINUSER:
-                System.out.println("Enter the number next to the command you want to select it:\n1.) Browse/Search Database\n2.) Search Personal Collection\n3.) Add to Personal Collection\n4.) Remove from Personal Collection\n5.) Edit/Mark Comic In Personal Collection\n6.) Undo Command\n7.) Redo Command\n8.) Import/Export Database\n9.) Close");
+                System.out.println("Enter the number next to the command you want to select it:\n1.) Browse/Search Database\n2.) Search Personal Collection\n3.) Add to Personal Collection\n4.) Remove from Personal Collection\n5.) Edit/Mark Comic In Personal Collection\n6.) Undo Command\n7.) Redo Command\n8.) Import to Database\n9.) Export from Database\n10.) Close Program");
                 break;
             case HOWTOADD:
                 System.out.println("How do you want to add?\n1.)Add from database\n2.)Add a new comic");
@@ -86,6 +86,19 @@ public class PTUI {
             case EDITED:
                 System.out.println("--Comic Successfully Graded!--");
                 break;
+            case CHOOSEIMPORT:
+                System.out.println("What file type are you importing?\n1.)CSV\n2.)JSON\n3.)XML\n4.)Go Back");
+                break;
+            case CHOOSEEXPORT:
+                System.out.println("What file type do you want to export in?\n1.)CSV\n2.)JSON\n3.)XML\n4.)Go Back");
+                break;
+            case IMPORT:
+                System.out.println("What is the name of the file that you wnt to import?");
+                break;
+            case EXPORT:
+                break;
+            case IMPORTED, EXPORTED:
+                System.out.println("--Completed Succesfully!--");
             case UNDO:
                 System.out.println("Undid Last Command\n");
                 break;
