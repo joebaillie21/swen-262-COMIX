@@ -6,6 +6,7 @@ import java.util.TreeMap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swen.comix.model.ComicBook;
+import com.swen.comix.model.ComicBookComponent;
 import com.swen.comix.model.SignedInUser;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +95,7 @@ public class UserFileDAO implements UserDAO{
      * @return the updated user object
      * @throws IOException
      */
+    @Override
     public SignedInUser updateUser(SignedInUser user) throws IOException {
         if (users.containsKey(user.getName()) == false)
             return null;  // user does not exist
@@ -127,7 +129,7 @@ public class UserFileDAO implements UserDAO{
         for (SignedInUser userInFile: userList){
             if (username == userInFile.getName()){
                 //add comic book
-                userInFile.getPersonalCollection().add(comic);
+                userInFile.getPersonalCollection().add((ComicBookComponent) comic);
             }
         }
         save();

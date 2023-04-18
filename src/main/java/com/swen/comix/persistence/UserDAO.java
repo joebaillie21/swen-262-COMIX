@@ -46,4 +46,6 @@ public interface UserDAO {
      * @throws IOException
      */
     public void removeComic(ComicBook comic, String username) throws IOException;
+
+    public SignedInUser updateUser(SignedInUser user) throws IOException;
 }
