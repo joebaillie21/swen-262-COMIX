@@ -24,10 +24,22 @@ public class ExportAsSQL implements Exporter {
                 """;
         for (ComicBook c : comicBooks) {
             String holder = "(";
-            String seriesTitle = "'" + c.getSeriesTitle() + "'";
-            String volumeNumber = "'" + c.getVolNum() + "'";
+            String hold = "";
+
+            hold = c.getSeriesTitle();
+            // hold.replaceAll("\'", "\\'");
+            String seriesTitle = "'" + hold + "'";
+
+            hold = c.getVolNum();
+            // hold.replaceAll("\'", " ");
+            String volumeNumber = "'" + hold + "'";
+
+            hold = c.getIssueNumber();
+            // hold.replaceAll("'", " ");
             String issueNumber = "'" + c.getIssueNumber() + "'";
+
             String publicationDate = "TO_DATE('" + c.getPublicationDate() + "', 'YYYY-MM-DD)";
+
             ArrayList<Author> authorsArray = c.getAuthors();
             String authorsString = "'";
             for (int i = 0; i < authorsArray.size(); i++) {
@@ -37,18 +49,23 @@ public class ExportAsSQL implements Exporter {
                 }
             }
             authorsString += "'";
-            String publisher = "'" + c.getPublisher().getName() + "'";
+
+            hold = c.getPublisher().getName();
+            // hold.replaceAll("'", " ");
+            String publisher = "'" + hold + "'";
+
             ArrayList<String> pcArray = c.getPrincipleCharacters();
             String principleCharacterString = "'";
             for (int i = 0; i < pcArray.size(); i++) {
-                principleCharacterString += pcArray.get(i);
+                hold = pcArray.get(i);
+                // hold.replaceAll("'", " ");
+                principleCharacterString += hold;
                 if (i != pcArray.size() - 1) {
                     principleCharacterString += ", ";
                 }
             }
             principleCharacterString += "'";
             holder += seriesTitle + ", " + volumeNumber + ", " + issueNumber + ", " + publicationDate + ", "
-                    + authorsString
                     + authorsString + ", " + publisher + ", " + principleCharacterString + ") ,";
             psuedoPath += holder + ",";
         }

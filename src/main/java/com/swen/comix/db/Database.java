@@ -29,13 +29,11 @@ public class Database implements iDatabase {
 
     public Database() throws Exception {
         con = this.getConnection();
-        ArrayList<ComicBook> check = resToArrayList(getTable("SELECT * FROM comics WHERE publisher = 262 Publishing"));
-        if (check.size() != 0) {
-            loadData("DROP TABLE IF EXISTS comics");
-            String comicsSQL = "CREATE TABLE IF NOT EXISTS comics(id SERIAL PRIMARY KEY,  series_title TEXT NOT NULL, volume_number TEXT NOT NULL, issue_number TEXT NOT NULL, publication_date DATE, author TEXT, publisher TEXT, principle_character TEXT,  description TEXT, value FLOAT, grade INT, slab BOOLEAN DEFAULT FALSE, signatures INT DEFAULT 0, authenticated BOOLEAN DEFAULT FALSE)";
-            createTable(comicsSQL);
-            loadData(FileType.CSV, "src\\data\\comics(1).csv");
-        }
+
+        loadData("DROP TABLE IF EXISTS comics");
+        String comicsSQL = "CREATE TABLE IF NOT EXISTS comics(id SERIAL PRIMARY KEY,  series_title TEXT , volume_number TEXT , issue_number TEXT , publication_date DATE, author TEXT, publisher TEXT, principle_character TEXT,  description TEXT, value FLOAT, grade INT, slab BOOLEAN DEFAULT FALSE, signatures INT DEFAULT 0, authenticated BOOLEAN DEFAULT FALSE)";
+        createTable(comicsSQL);
+        loadData(FileType.CSV, "src\\data\\comics(1).csv");
     }
 
     public Database(boolean testLoad) {
