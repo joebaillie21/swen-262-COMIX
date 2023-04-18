@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PersonalCollection {   
-    private List<ComicBook> personalCollection;
+    private List<ComicBookComponent> personalCollection;
 
     private String username;
 
@@ -15,14 +15,14 @@ public class PersonalCollection {
 
     public PersonalCollection(@JsonProperty("name") String username){
         this.username = username;
-        this.personalCollection = new ArrayList<ComicBook>();
+        this.personalCollection = new ArrayList<ComicBookComponent>();
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void add(ComicBook comic){
+    public void add(ComicBookComponent comic){
         this.personalCollection.add(comic);
     }
 
@@ -59,12 +59,12 @@ public class PersonalCollection {
         }
     }
     
-    public List<ComicBook> getPersonalCollection() {
+    public List<ComicBookComponent> getPersonalCollection() {
         return personalCollection;
     }
 
-    public void setPersonalCollection(List<ComicBook> personalCollection) {
-        this.personalCollection = personalCollection;
+    public void setPersonalCollection(ArrayList<ComicBookComponent> newPc) {
+        this.personalCollection = newPc;
     }
 
     @Override

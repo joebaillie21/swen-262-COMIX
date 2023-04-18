@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swen.comix.model.ComicBook;
 import com.swen.comix.model.PersonalCollection;
+import com.swen.comix.model.ComicBookComponent;
 import com.swen.comix.model.SignedInUser;
 import java.util.ArrayList;
 import java.util.List;
@@ -131,7 +132,7 @@ public class UserFileDAO implements UserDAO{
         for (SignedInUser userInFile: userList){
             if (username == userInFile.getName()){
                 //add comic book
-                userInFile.getPersonalCollection().add(comic);
+                userInFile.getPersonalCollection().add((ComicBookComponent) comic);
             }
         }
         save();

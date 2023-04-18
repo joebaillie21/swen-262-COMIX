@@ -30,7 +30,7 @@ public class RemoveAction implements Action {
 
     @Override
     public void unexecute() throws IOException {
-        pc.add(comic); 
+        pc.add((ComicBookComponent)comic); 
         dao.updateUser(user);
     }
 

@@ -36,7 +36,7 @@ public class SearchForSlabbed implements SearchStrategy{
      * @return ArrayList<ComicBook> - this will
      */
     private ArrayList<ComicBook> searchOnPC(){
-        ArrayList<ComicBook> pc = (ArrayList<ComicBook>) personalCollection.getPersonalCollection();
+        ArrayList<ComicBookComponent> pc = (ArrayList<ComicBookComponent>) personalCollection.getPersonalCollection();
         ArrayList<ComicBook> comics = new ArrayList<>(); 
 
         for(int i = 0; i < pc.size(); i++){

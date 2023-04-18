@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-    /**
-     * @Author Angela Ngo
-     */
+/**
+ * @Author Angela Ngo
+ */
 public class ComicBookComponent implements ComicBook {
     static final String STRING_FORMAT = "[Publisher=%s, Author=%s, Title=%s, Description=%s, VolNum=%s, IssueNum=%s, Characters=%s]";
 
@@ -37,6 +37,13 @@ public class ComicBookComponent implements ComicBook {
         this.value = DEFAULT_VALUE;
         isAuthenticated = false; 
         isSlabbed = false; 
+
+    }
+
+    // need to do something about the grading stuff since it has to directly impact
+    // the comicbook components
+    public boolean isAuthenticated() {
+        return isAuthenticated;
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -58,30 +65,53 @@ public class ComicBookComponent implements ComicBook {
         this.isSlabbed = isSlabbed; 
     }
 
-    // need to do something about the grading stuff since it has to directly impact the comicbook components
-    public boolean isAuthenticated(){return isAuthenticated;}
 
-    public String getDescription(){ return description;}
 
-    public ArrayList<String> getPrincipleCharacters(){ return principleCharacters;}
+    public String getDescription() {
+        return description;
+    }
 
-    public int getSignatures(){return signatures;}
+    public ArrayList<String> getPrincipleCharacters() {
+        return principleCharacters;
+    }
 
-    public String getSeriesTitle(){return seriesTitle;}
-    
-    public Publisher getPublisher(){return publisher;}
+    public int getSignatures() {
+        return signatures;
+    }
 
-    public String getVolNum(){return volNum;}
+    public String getSeriesTitle() {
+        return seriesTitle;
+    }
 
-    public String getIssueNumber(){return issueNumber;}
-    
-    public int getGrade(){return grade;}
+    public Publisher getPublisher() {
+        return publisher;
+    }
 
-    public double getValue(){return value;}
+    public String getVolNum() {
+        return volNum;
+    }
 
-    public ArrayList<Author> getAuthors(){return authors;}
+    public String getIssueNumber() {
+        return issueNumber;
+    }
 
-    public String getPublicationDate(){return publicationDate; }
+    public int getGrade() {
+        return grade;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public ArrayList<Author> getAuthors() {
+        return authors;
+    }
+
+    public String getPublicationDate() {
+        return publicationDate;
+    }
+
+
 
     public boolean getSlabbed(){return isSlabbed;}
     public void setAuthentication(@JsonProperty("authenticated")boolean isAuthenticated){
@@ -105,9 +135,9 @@ public class ComicBookComponent implements ComicBook {
     public void setSignatures(@JsonProperty("signatures") int signatures) {
         this.signatures = signatures;
     }
-    
-    public boolean equals(Object o){ 
-        if(!(o instanceof ComicBookComponent)){
+
+    public boolean equals(Object o) {
+        if (!(o instanceof ComicBookComponent)) {
             return false;
         }
 
@@ -124,15 +154,24 @@ public class ComicBookComponent implements ComicBook {
             }
         }
 
-        return (
-            other.getPublicationDate().equals(publicationDate) && other.getGrade() == grade
-            && other.getIssueNumber().equals(issueNumber) && other.getVolNum().equals(volNum) && other.getPublisher().getName().equals(publisher.getName())
-            && other.isAuthenticated() == isAuthenticated && other.getSeriesTitle().equals(seriesTitle) && other.getSlabbed() == isSlabbed
-        );
+        ArrayList<Author> auth = other.getAuthors();
+        for(int i = 0; i < auth.size(); i++){
+            if(!auth.get(i).getName().equals(authors.get(i).getName())){
+                return false;
+            }
+        }
+
+        return (other.getPublicationDate().equals(publicationDate) && other.getGrade() == grade
+                && other.getIssueNumber().equals(issueNumber) && other.getVolNum().equals(volNum)
+                && other.getPublisher().getName().equals(publisher.getName())
+                && other.isAuthenticated() == isAuthenticated
+                && other.getSeriesTitle().equals(seriesTitle)
+                && other.getSlabbed() == isSlabbed);
 
     }
 
-    public String toString(){
-        return String.format(STRING_FORMAT, publisher.getName(), authors.toString(), seriesTitle, description, volNum, issueNumber, principleCharacters);
+    public String toString() {
+        return String.format(STRING_FORMAT, publisher.getName(), authors.toString(), seriesTitle, description, volNum,
+                issueNumber, principleCharacters);
     }
 }

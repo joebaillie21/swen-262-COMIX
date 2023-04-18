@@ -30,7 +30,7 @@ public class SearchByIssueNumber implements SearchStrategy {
 
     private ArrayList<ComicBook> searchOnPC(int toBeSearched){
         ArrayList<ComicBook> comics = new ArrayList<>();
-        ArrayList<ComicBook> pc = (ArrayList<ComicBook>)personalCollection.getPersonalCollection();
+        ArrayList<ComicBookComponent> pc = (ArrayList<ComicBookComponent> )personalCollection.getPersonalCollection();
         
 
         for (int i = 0; i < pc.size(); i++) {

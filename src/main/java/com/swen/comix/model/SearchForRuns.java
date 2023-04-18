@@ -175,24 +175,24 @@ public class SearchForRuns implements SearchStrategy {
         author.add(new Author("lalo"));
         author.add(new Author("papa"));  
 
-        ComicBook cb1 = new ComicBookComponent(p1, title1, "1", "2", pubdate, author, null,  "example"  );
-        ComicBook cb2 = new ComicBookComponent(p2, title2, "1", "1", pubdate, author, null,  "example"  );
-        ComicBook cb3 = new ComicBookComponent(p1, title1, "4", "2", pubdate, author, null,  "example"  );
-        ComicBook cb4 = new ComicBookComponent(p2, title2, "3", "1", pubdate, author, null,  "example"  );
-        ComicBook cb5 = new ComicBookComponent(p1, title1, "1", "3", pubdate, author, null,  "example"  );
-        ComicBook cb6 = new ComicBookComponent(p2, title2, "3", "3", pubdate, author, null,  "example"  );
+        ComicBookComponent cb1 = new ComicBookComponent(p1, title1, "1", "2", pubdate, author, null,  "example"  );
+        ComicBookComponent cb2 = new ComicBookComponent(p2, title2, "1", "1", pubdate, author, null,  "example"  );
+        ComicBookComponent cb3 = new ComicBookComponent(p1, title1, "4", "2", pubdate, author, null,  "example"  );
+        ComicBookComponent cb4 = new ComicBookComponent(p2, title2, "3", "1", pubdate, author, null,  "example"  );
+        ComicBookComponent cb5 = new ComicBookComponent(p1, title1, "1", "3", pubdate, author, null,  "example"  );
+        ComicBookComponent cb6 = new ComicBookComponent(p2, title2, "3", "3", pubdate, author, null,  "example"  );
         // the run 
-        ComicBook cb7 = new ComicBookComponent(p1, title1, "1", "1", pubdate, author, null,  "example"  );
-        ComicBook cb8 = new ComicBookComponent(p1, title1, "1", "4", pubdate, author, null,  "example"  );
-        ComicBook cb9 = new ComicBookComponent(p1, title1, "1", "5", pubdate, author, null,  "example"  );
-        ComicBook cb10 = new ComicBookComponent(p1, title1, "1", "6", pubdate, author, null,  "example"  );
-        ComicBook cb11 = new ComicBookComponent(p1, title1, "1", "7", pubdate, author, null,  "example"  );
-        ComicBook cb12 = new ComicBookComponent(p1, title1, "1", "8", pubdate, author, null,  "example"  );
-        ComicBook cb13 = new ComicBookComponent(p1, title1, "1", "9", pubdate, author, null,  "example"  );
-        ComicBook cb14 = new ComicBookComponent(p1, title1, "1", "10", pubdate, author, null,  "example"  );
-        ComicBook cb15 = new ComicBookComponent(p1, title1, "1", "11", pubdate, author, null,  "example"  );
-        ComicBook cb16 = new ComicBookComponent(p1, title1, "1", "12", pubdate, author, null,  "example"  );
-        ComicBook cb17 = new ComicBookComponent(p1, title1, "2", "12", pubdate, author, null,  "example"  );
+        ComicBookComponent cb7 = new ComicBookComponent(p1, title1, "1", "1", pubdate, author, null,  "example"  );
+        ComicBookComponent cb8 = new ComicBookComponent(p1, title1, "1", "4", pubdate, author, null,  "example"  );
+        ComicBookComponent cb9 = new ComicBookComponent(p1, title1, "1", "5", pubdate, author, null,  "example"  );
+        ComicBookComponent cb10 = new ComicBookComponent(p1, title1, "1", "6", pubdate, author, null,  "example"  );
+        ComicBookComponent cb11 = new ComicBookComponent(p1, title1, "1", "7", pubdate, author, null,  "example"  );
+        ComicBookComponent cb12 = new ComicBookComponent(p1, title1, "1", "8", pubdate, author, null,  "example"  );
+        ComicBookComponent cb13 = new ComicBookComponent(p1, title1, "1", "9", pubdate, author, null,  "example"  );
+        ComicBookComponent cb14 = new ComicBookComponent(p1, title1, "1", "10", pubdate, author, null,  "example"  );
+        ComicBookComponent cb15 = new ComicBookComponent(p1, title1, "1", "11", pubdate, author, null,  "example"  );
+        ComicBookComponent cb16 = new ComicBookComponent(p1, title1, "1", "12", pubdate, author, null,  "example"  );
+        ComicBookComponent cb17 = new ComicBookComponent(p1, title1, "2", "12", pubdate, author, null,  "example"  );
         
         pc.add(cb16);
         pc.add(cb1);

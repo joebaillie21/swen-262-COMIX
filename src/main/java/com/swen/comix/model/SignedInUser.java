@@ -1,20 +1,29 @@
 package com.swen.comix.model;
 
 import java.io.IOException;
+
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Stack;
+
+import com.swen.comix.db.Database;
+import com.swen.comix.persistence.UserDAO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @Author Angela Ngo
  */
-public class SignedInUser extends User{
+public class SignedInUser extends User {
     private String username, password;
     private Action selectedAction;
     //private ConversionAction selectedConversion;
-    private PersonalCollection personalCollection; 
+    private PersonalCollection personalCollection;
     private Stack<Action> completedActions;
     private Stack<Action> undoneActions;
+    private Converter converter;
 
     public SignedInUser(@JsonProperty("name") String username, @JsonProperty("password")String password){
         super(username);
@@ -42,7 +51,7 @@ public class SignedInUser extends User{
     public void unexecuteCommand() throws IOException{
         Action actionToUnexecute = this.completedActions.pop();
         this.undoneActions.add(actionToUnexecute);
-        if (actionToUnexecute.isReversible()){
+        if (actionToUnexecute.isReversible()) {
             actionToUnexecute.unexecute();
         }
     }
@@ -52,37 +61,80 @@ public class SignedInUser extends User{
         actionToRedo.redo();
     }
 
-    public String getUsername(){
+    public String getUsername() {
         return username;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return password;
     }
 
-    public PersonalCollection getPersonalCollection(){
+    public PersonalCollection getPersonalCollection() {
         return personalCollection;
     }
 
     /**
-     * this takes in the filename and then 
+     * this takes in the filename and then
      * the user has to decide if this replaces the DB (the immutable)
-     * or does it replace the personal collection 
-     * @param filename - name of the new file to be imported in 
-     * @param toBeReplaced - the name of the source that is being 
-     * replaced 
+     * or does it replace the personal collection
+     * 
+     * @param filename - name of the new file to be imported from
+     * @param toType   determines whether the user wants to import to the db or the
+     *                 pc
+     * @param fromType derived from the filename. Tells the type of the file the
+     *                 user wants to import from
+     * @param dao      the user file dao used when replacing the collection
+     *                 replaced
+     * @throws Exception
      */
-    public void importFile(String filename, String toBeReplaced ){
-
+    public void importFile(String filename, FileType toType, FileType fromType, UserDAO dao) throws Exception {
+        // switch on the format (this is the incomming format of the file)
+        // instantiate converter based on this format (ie: new Converter(ToType:(either
+        // java or xml for this function), FromType:(derived from filename by ptui)))
+        // if the switch lands in the to database, call the
+        // converter.convertFileToFile()
+        // if other call converter.convertFileToJava() which will return the file in
+        // java
+        // Replace the user's personal collection with this output and update the local
+        // json with the file dao
+        switch (toType) {
+            case SQL:
+                this.converter = new Converter(toType, fromType);
+                converter.convertFileToFile(filename);
+                break;
+            default:
+                this.converter = new Converter(FileType.JAVA, fromType);
+                ArrayList<ComicBookComponent> newPc = converter.convertFileToJava(filename);
+                this.personalCollection.setPersonalCollection(newPc);
+                dao.updateUser(this);
+                break;
+        }
     }
 
     /**
-     * This create a new file in the data folder that is in the given specified format
+     * This create a new file in the data folder that is in the given specified
+     * format
      * This should print to the PTUI console the location of the file
-     * @param filepath - name of the original file 
-     * @param format - the format of what you want to convert the file to 
+     * 
+     * @param toType   - the type of the new exported file will be
+     * @param fromType - determines whether the user wants to export the database or
+     *                 personal collection
+     * @throws Exception
      */
-    public void exportFile(String filename, String format){
-
+    public void exportFile(FileType toType, FileType fromType, Database db) throws Exception {
+        this.converter = new Converter(toType, fromType);
+        switch (fromType) {
+            case SQL:
+                ResultSet res = db.getTable();
+                ArrayList<ComicBook> data = db.resToArrayList(res);
+                ArrayList<ComicBookComponent> dataToConv = new ArrayList<>();
+                for (ComicBook c : data) {
+                    ComicBookComponent cc = (ComicBookComponent) c;
+                    dataToConv.add(cc);
+                }
+                converter.convertJavaToFile(dataToConv);
+            default:
+                converter.convertJavaToFile((ArrayList<ComicBookComponent>) personalCollection.getPersonalCollection());
+        }
     }
 }

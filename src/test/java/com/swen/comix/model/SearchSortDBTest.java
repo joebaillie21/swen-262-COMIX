@@ -48,6 +48,9 @@ public class SearchSortDBTest {
 
         // Analyze
 
+        String author = actualAL.get(0).getAuthors().get(0).getName();
+        String expectedAuthor = expectedAL.get(0).getAuthors().get(0).getName();
+
         assertArrayEquals(expected, actual);
 
     }
