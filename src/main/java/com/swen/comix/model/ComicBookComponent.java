@@ -9,31 +9,32 @@ import java.util.ArrayList;
 public class ComicBookComponent implements ComicBook {
     static final String STRING_FORMAT = "[Publisher=%s, Author=%s, Title=%s, Description=%s, VolNum=%s, IssueNum=%s, Characters=%s]";
 
-    private Publisher publisher;
-    private ArrayList<Author> authors;
-    private String seriesTitle, publicationDate, description, issueNumber, volNum;
-    private int grade, signatures;
+    private Publisher publisher; 
+    private ArrayList<Author> authors; 
+    private String seriesTitle, publicationDate, description, issueNumber, volNum; 
+    private int grade, signatures; 
 
-    private ArrayList<String> principleCharacters;
-    private boolean isAuthenticated, isSlabbed;
-    private double value;
+    private ArrayList<String> principleCharacters; 
+    private boolean isAuthenticated, isSlabbed; 
+    private double value; 
+    final int DEFAULT_SIG_AMT = 0, DEFAULT_GRADE = 1, DEFAULT_VALUE = -1; 
 
-    public ComicBookComponent(Publisher publisher, String seriesTitle, String volNum, String issueNumber,
-            String publicationDate, ArrayList<Author> authors, ArrayList<String> principleCharacters,
-            String description) {
-        this.publisher = publisher;
-        this.authors = authors;
-        this.seriesTitle = seriesTitle;
+
+    public ComicBookComponent(Publisher publisher, String seriesTitle, String volNum, String issueNumber, String publicationDate, ArrayList<Author> authors, ArrayList<String> principleCharacters, String description){
+        this.publisher = publisher; 
+        this.authors = authors; 
+        this.seriesTitle = seriesTitle; 
         this.volNum = volNum;
-        this.issueNumber = issueNumber;
-        this.publicationDate = publicationDate;
-        this.principleCharacters = principleCharacters;
-        this.description = description;
-        this.signatures = 0;
-        this.grade = 1;
-        this.value = -1;
-        isAuthenticated = false;
-        isSlabbed = false;
+        this.issueNumber = issueNumber;  
+        this.publicationDate = publicationDate; 
+        this.principleCharacters = principleCharacters; 
+        this.description = description; 
+        this.signatures = DEFAULT_SIG_AMT;
+        this.grade = DEFAULT_GRADE;
+        this.value = DEFAULT_VALUE;
+        isAuthenticated = false; 
+        isSlabbed = false; 
+
     }
 
     // need to do something about the grading stuff since it has to directly impact
