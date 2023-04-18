@@ -24,7 +24,10 @@ public class PersonalCollection {
     }
 
     public void remove(ComicBook comic){
-        this.personalCollection.remove(comic);
+        boolean output = this.personalCollection.remove(comic);
+        if(output!= true){
+            System.out.println("Comic doesn't exist in personal collection."); 
+        }
     }
 
     public void grade(ComicBookComponent comic){

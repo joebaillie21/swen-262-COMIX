@@ -45,7 +45,7 @@ public class PersonalCollectionTest {
         collection = new PersonalCollection("user");
         authors = new ArrayList<Author>();
         authors.add(new Author("Stan Lee"));
-        comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, "15", authors, null, null);
+        comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", "0", "0", "15", authors, null, null);
         user.setCollection(collection);
     }
 
@@ -66,8 +66,8 @@ public class PersonalCollectionTest {
     public void testAddComicUndo() throws IOException{
         ArrayList<Author> authors2 = new ArrayList<Author>();
         authors2.add(new Author("Man Bat"));
-        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, "15", authors, null, null);
-        ComicBook comic2 = new ComicBookComponent(new Publisher("DC"), "BatMan", 0, 0, "12", authors2, null, null);
+        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", "0", "0", "15", authors, null, null);
+        ComicBook comic2 = new ComicBookComponent(new Publisher("DC"), "BatMan", "0", "0", "12", authors2, null, null);
         user.setCommand(new AddAction(user.getPersonalCollection()));
         user.executeCommand(comic);
         user.setCommand(new AddAction(user.getPersonalCollection()));
@@ -88,7 +88,7 @@ public class PersonalCollectionTest {
     @Test
     public void testRemoveComic() throws IOException{
         authors.add(new Author("Stan Lee"));
-        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", 0, 0, "15", authors, null, null);
+        ComicBook comic = new ComicBookComponent(new Publisher("Marvel"), "Spiderman", "0", "0", "15", authors, null, null);
         user.setCommand(new AddAction(user.getPersonalCollection()));
         user.executeCommand(comic);
         user.setCommand(new RemoveAction(user.getPersonalCollection()));

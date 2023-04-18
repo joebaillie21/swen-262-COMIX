@@ -11,11 +11,13 @@ public class ComicBookComponent implements ComicBook {
 
     private Publisher publisher; 
     private ArrayList<Author> authors; 
-    private String seriesTitle, publicationDate, description ,volNum, issueNumber; 
-    private int  grade, signatures; 
+    private String seriesTitle, publicationDate, description, issueNumber, volNum; 
+    private int grade, signatures; 
+
     private ArrayList<String> principleCharacters; 
     private boolean isAuthenticated, isSlabbed; 
     private double value; 
+    final int DEFAULT_SIG_AMT = 0, DEFAULT_GRADE = 1, DEFAULT_VALUE = -1; 
 
 
     public ComicBookComponent(Publisher publisher, String seriesTitle, String volNum, String issueNumber, String publicationDate, ArrayList<Author> authors, ArrayList<String> principleCharacters, String description){
@@ -27,9 +29,9 @@ public class ComicBookComponent implements ComicBook {
         this.publicationDate = publicationDate; 
         this.principleCharacters = principleCharacters; 
         this.description = description; 
-        this.signatures = 0;
-        this.grade = 1;
-        this.value = -1;
+        this.signatures = DEFAULT_SIG_AMT;
+        this.grade = DEFAULT_GRADE;
+        this.value = DEFAULT_VALUE;
         isAuthenticated = false; 
         isSlabbed = false; 
     }
