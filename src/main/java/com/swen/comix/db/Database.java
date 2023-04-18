@@ -233,8 +233,7 @@ public class Database implements iDatabase {
 
             String issueNum = res.getString("issue_number");
 
-            java.sql.Date publicationDateSQL = res.getDate("publication_date");
-            String publicationDate = publicationDateSQL.toString();
+            String publicationDate = res.getString("publication_date");
 
             ArrayList<String> principleCharacters = new ArrayList<>();
 
