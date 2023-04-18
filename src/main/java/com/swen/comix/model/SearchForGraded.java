@@ -35,7 +35,7 @@ public class SearchForGraded implements SearchStrategy{
      * @return
      */
     private ArrayList<ComicBook> searchOnPC(){
-        ArrayList<ComicBook> pc = (ArrayList<ComicBook>) personalCollection.getPersonalCollection();
+        ArrayList<ComicBookComponent> pc = (ArrayList<ComicBookComponent>) personalCollection.getPersonalCollection();
 
         ArrayList<ComicBook> comics = new ArrayList<>(); 
     
